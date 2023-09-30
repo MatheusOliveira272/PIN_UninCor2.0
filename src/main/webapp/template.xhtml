@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>EducAtiv <ui:insert name="titulo" /></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <!-- coloco o meu css aqui  ex:  <link rel="stylesheet" href="url"/>-->
+
+    </h:head>
+    <h:body style="background-color: lightslategrey; margin-top: 30px">
+        <div>
+            <h:form>
+                <p:menubar>
+                    <p:menuitem value="Início" icon="pi pifw pi-home" outcome="/Pages/inicio_professor.jsf"/>
+                    <p:menuitem value="Disciplinas" icon="pi pifw pi-th-large" outcome="/index.jsf"/>
+                    <p:menuitem value="Atividades" icon="pi pifw pi-book" outcome="/index.jsf"/>
+                    <p:menuitem value="Questões" icon="pi pifw pi-database" outcome="/index.jsf"/>
+                    <p:menuitem value="Quit" icon="pi pifw pi-power-off" />
+                </p:menubar>
+            </h:form>
+        </div>
+        <div>
+            <ui:insert name="conteudo"/> <!-- Local onde coloco o conteúdo -->
+        </div>
+    </h:body>
+</html>

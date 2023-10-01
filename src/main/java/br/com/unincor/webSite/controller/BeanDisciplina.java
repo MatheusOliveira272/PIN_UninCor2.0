@@ -21,6 +21,7 @@ public class BeanDisciplina implements Serializable {
 
     private List<Disciplina> disciplinas = new ArrayList<>();
     private Disciplina disciplina;
+    private boolean editando = false;
 
     public BeanDisciplina() {
         disciplina = new Disciplina();
@@ -28,13 +29,23 @@ public class BeanDisciplina implements Serializable {
     }
 
     public void salvar() {
-        /*  if(!professor.getSenha().equals(confirmarSenha)) {
-            Mensagens.erro(FacesContext.getCurrentInstance(), "As senhas informadas não conferem!");
-            return;
-        }*/
         new DisciplinaDao().save(disciplina);
         cancelar();
         buscar();
+        editando = false;
+    }
+
+  
+    public void limparTabela() {
+        disciplinas.clear();
+    }
+
+    public void editar(Disciplina disciplina) {
+        this.disciplina = disciplina;
+    }
+
+    public void novo() {
+        this.disciplina = new Disciplina();
 
     }
 
@@ -42,16 +53,15 @@ public class BeanDisciplina implements Serializable {
         this.disciplina = null;
     }
 
-    public void limparTabela() {
-        disciplinas.clear();
+    public void remover(Disciplina disciplina) {
+
+        new DisciplinaDao().delete(disciplina.getId());
+        buscar();
+
     }
 
     public void buscar() {
         this.disciplinas = new DisciplinaDao().findAll();
 
-    }
-
-    public void editar(Disciplina disciplina) {
-        this.disciplina = disciplina;
     }
 }

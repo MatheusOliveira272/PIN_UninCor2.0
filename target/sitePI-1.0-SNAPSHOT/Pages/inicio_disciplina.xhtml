@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<ui:composition template="../template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:define name="titulo"> - Cadastro Disciplina</ui:define> 
+
+    <ui:define name="conteudo" >
+        <p:panel id="painel" header="Cadastro Disciplina">
+
+            <p:outputPanel rendered="#{beanDisciplina.disciplina!= null}">
+                <h:form id="form-cadastro"> 
+                    <p:growl /> <!-- mensagem de erro -->
+                    <p:panel>
+
+                        <p:outputLabel value="Nome da Disciplina: "/>
+                        <p:inputText value="#{beanDisciplina.disciplina.nome}"
+                                     required="true" requiredMessage="Informe o nome!"/>
+
+                        <div>
+
+                            <p:panel>
+                                <p:outputLabel value="Lista de alunos da disciplina: " />
+                            <p:outputPanel>
+                                <h:form id="tabela-aluno">
+                                  
+                                    <p:dataTable  value="#{beanDisciplina.disciplinas}" var="dis" reflow="true">
+
+                                        <p:column headerText="Nome do aluno:  ">
+                                            <p:outputLabel value="#{dis.alunos}"/>
+                                        </p:column>
+
+
+                                        <p:column headerText="Opções" >
+                                           
+                                            <p:commandButton value="Remover" actionListener="#{beanDisciplina.remover(dis.alunos)}"
+                                                             update="tabela-aluno painel"/>
+                                        </p:column>
+
+                                    </p:dataTable>
+                                </h:form>
+                            </p:outputPanel>
+
+                            </p:panel>
+                        </div>
+
+                        <div>
+                            <p:panel>
+                                <div style="">
+                                    <p:outputLabel value="Cadastro de alunos da disciplina: "/>
+                                </div>
+
+                                <h:form id="form-cadastro-aluno"> 
+                                    <p:growl /> <!-- mensagem de erro -->
+                                    <p:panelGrid columns="4" columnClasses="ui-g-2, ui-g-4, ui-g-3">
+
+                                        <p:outputLabel value="Nome do aluno: "/>
+                                        <p:inputText value="#{beanDisciplina.disciplina.alunos}"
+                                                     required="true" requiredMessage="Informe o nome!"/>
+                                        <p:column>
+                                        <p:commandButton value="Salvar" style="margin-right: 5px" 
+                                                         actionListener="#{beanDisciplina.salvar()}" 
+                                                         update="@form tabela painel"/> 
+
+                                        <p:commandButton value="Cancelar" actionListener="#{beanDisciplina.cancelar()}" 
+                                                         update="painel" immediate="true"/>
+</p:column>
+                                    </p:panelGrid>
+
+                                </h:form>
+                            </p:panel>
+
+                        </div>
+
+
+                    </p:panel>
+                    <p:commandButton value="Salvar" style="margin-right: 5px" actionListener="#{beanDisciplina.salvar()}"
+                                     update="@form tabela painel"/> 
+
+                    <p:commandButton value="Cancelar" actionListener="#{beanDisciplina.cancelar()}" 
+                                     update="painel" immediate="true"/>
+                </h:form>
+            </p:outputPanel>
+            <p:outputPanel rendered="#{beanDisciplina.disciplina == null}">
+                <h:form id="tabela">
+                    <p:commandButton value="Nova Disciplina" actionListener="#{beanDisciplina.novo()}" update="painel"                                     />
+                    <p:dataTable  value="#{beanDisciplina.disciplinas}" var="dis" reflow="true">
+
+                        <p:column headerText="Nome:  ">
+                            <p:outputLabel value="#{dis.nome}"/>
+                        </p:column>
+
+
+                        <p:column headerText="Opções" >
+                            <p:commandButton value="Editar" style="margin-right: 15px" actionListener="#{beanDisciplina.editar(dis)}"
+                                             update="form-cadastro painel"/>
+                            <p:commandButton value="Remover" actionListener="#{beanDisciplina.remover(dis)}"
+                                             update="form-cadastro painel"/>
+                        </p:column>
+
+                    </p:dataTable>
+                </h:form>
+            </p:outputPanel>
+        </p:panel>
+    </ui:define>
+</ui:composition>

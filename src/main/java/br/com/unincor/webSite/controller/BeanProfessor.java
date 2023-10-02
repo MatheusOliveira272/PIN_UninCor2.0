@@ -67,7 +67,7 @@ public class BeanProfessor implements Serializable {
     }
     
     
-    public void verificaSenha(String senha){
+    public void verificaSenha(String nome, String senha){
          if(!professor.getSenha().equals(senhaLogin) && professor.getName().equals(nomeLogin) ){
             Mensagens.erro(FacesContext.getCurrentInstance(), "os dados informadas não conferem!");
             return;

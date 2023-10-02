@@ -24,7 +24,7 @@
                        
                         <h:panelGroup> 
                             <p:outputLabel value="Nome: " style="font-weight:bold;"/>
-                            <p:inputText style=" width:250px" value="#{beanProfessor.nomeLogin}" 
+                            <p:inputText style=" width:250px" id="nome" value="#{beanProfessor.nomeLogin}" 
                                          required="true" requiredMessage="Informe o nome!"   />
                         </h:panelGroup>
                         <h:panelGroup>
@@ -34,7 +34,7 @@
                                         requiredMessage="Informe a senha!"/>
                         </h:panelGroup>
                         <p:messages/>
-                        <p:commandButton value="Entrar" action="#{loginBean.login}" update="@form" styleClass="ui-button-secondary" />
+                        <p:commandButton value="Entrar" action="#{beanProfessor.verificaSenha(nome, senha)}" update="@form" styleClass="ui-button-secondary" />
                         <p:commandLink value="Cadastrar" type="button" onclick="PF('dlg3').show();" immediate="true"  />      
                     </p:panelGrid>
                 </div>  

@@ -10,87 +10,107 @@
     <ui:define name="titulo"> - Cadastro Disciplina</ui:define> 
 
     <ui:define name="conteudo" >
-      
-        
         <p:panel id="painel" header="Cadastro Disciplina">
 
             <p:outputPanel rendered="#{beanDisciplina.disciplina!= null}">
-                <h:form id="form"> 
+                <h:form id="form-cadastro"> 
                     <p:growl /> 
-                    <p:panel>
-                        <p:outputLabel value="Nome da Disciplina: "/>
-                        <p:inputText value="#{beanDisciplina.disciplina.nome}"
+                    
+                    <p:panelGrid columns="2" columnClasses="ui-g-3, ui-g-9">
+
+                        <p:outputLabel value="Nome da disciplina:" style="margin-left: 50%"/>
+                        <p:inputText value="#{beanDisciplina.disciplina.nome}" style="width: 80%"
                                      required="true" requiredMessage="Informe o nome!"/>
-                        <p:panel>
-                            <p:outputLabel value="Lista de alunos da disciplina: " />
+                    </p:panelGrid>
 
-                            <!--aqui!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-                            <div>
-                                <p:panel header="Cadastro Alunos-Disciplina">
-                             
-                                    <p:outputPanel  id="painel" rendered="#{beanAluno.aluno!= null}">
-                                        <h:form id="form-cadastro"> 
-                                            <p:growl /> 
-                                            <p:panel>
-                                                <p:outputLabel value="Nomes: "/>
-                                                <p:inputText value="#{beanAluno.aluno.nome}"
-                                                             required="false"/>
-                                            </p:panel>
-                                            <p:commandButton value="Salvar" style="margin-right: 5px" actionListener="#{beanAluno.salvar()}"
-                                                             update="@form tabela painel"/> 
-                                            <p:commandButton value="Cancelar" actionListener="#{beanAluno.cancelar()}" 
-                                                             update="painel" immediate="true"/>
-                                        </h:form>
-                                    </p:outputPanel>
-                               
+                    <!-- Aqui!!!!!!!!!!! -->
+                    <p:panel style="width: 90%; margin-left: 65px">
 
-                                    <p:outputPanel rendered="#{beanAluno.aluno == null}">
-                                        <h:form id="tabela">
-                                            <p:commandButton value="Novo Aluno" actionListener="#{beanAluno.novo()}" update="painel"                                     />
-                                            <p:dataTable  value="#{beanAluno.alunos}" var="alu"
-                                                          reflow="true">
+                        <div class="card">
+                            <h:form id="formulario">
+                                <p:growl id="mensagem" showDetail="true"/>
 
-                                                <p:column headerText="Nome:  ">
-                                                    <p:outputLabel value="#{alu.nome}"/>
-                                                </p:column>
+                                <p:dataTable id="alunos" widgetVar="alunos" var="aluno" value="#{beanDisciplina.disciplina.alunos}"
+                                             scrollable="true" scrollHeight="250" editable="true">
+                                    <f:facet name="header">
+                                        Alunos
+                                    </f:facet>
+                                    
+                                        <p:ajax event="rowEdit" listener="#{beanAluno.editar(aluno)}" update=""/>
+                                        <p:ajax event="rowEditCancel" listener="#{beanAluno.cancelar()}" update=""/>
+                                  
 
-                                                <p:column headerText="Opções" >
-                                                    <p:commandButton value="Editar" style="margin-right: 15px" actionListener="#{beanPrincipalAutor.editar(aut)}"
-                                                                     update="form-cadastro painel"/>
-                                                    <p:commandButton value="Remover" actionListener="#{beanPrincipalAutor.remover(aut)}"
-                                                                     update="form-cadastro painel"/>
-                                                </p:column>
 
-                                            </p:dataTable>
-                                        </h:form>
-                                    </p:outputPanel>
-                                </p:panel>
+                                    <p:column headerText="Name">
+                                        <p:cellEditor>
+                                            <f:facet name="output"><h:outputText value="#{beanDisciplina.disciplina.alunos}"/></f:facet>
+                                            <f:facet name="input"><p:inputText value="#{beanAluno.aluno}" style="width:100%"
+                                                                               label="Name"/></f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
 
-                            </div>
-                            <!-- aqui!!!!!!!!!!!!!!!! -->
+                                    <p:column headerText="Code">
+                                        <p:cellEditor>
+                                            <f:facet name="output"><h:outputText value="#{beanAluno.aluno.hashCode}"/></f:facet>
+                                            <f:facet name="input"><p:inputText id="modelInput" value="#{beanAluno.aluno.hashCode}"
+                                                                               style="width:100%"/></f:facet>
+                                        </p:cellEditor>
+                                    </p:column>
 
-                        </p:panel>
+
+                                    <p:column style="width:6rem">
+                                        <p:rowEditor/>
+                                    </p:column>
+                                </p:dataTable>
+
+                                <div class="grid mt-3">
+                                    <div class="col-12">
+
+                                        <p:commandButton value="Adicionar Aluno" process="@form" update="formulario mensagem"
+                                                         styleClass="ui-button-secondary" style="margin-top: 10px"
+                                                         action="#{beanAluno.novo()}" oncomplete="PF.addRo"/>
+
+                                    </div>
+                                </div>
+
+                            </h:form>
+                        </div>
 
                     </p:panel>
-                    <p:commandButton value="Salvar" style="margin-right: 5px" actionListener="#{beanDisciplina.salvar()}"
-                                     update="@form tabela painel"/> 
-                    <p:commandButton value="Cancelar" actionListener="#{beanDisciplina.cancelar()}" 
+
+                    <!-- Aqui!!!!!!!!!!!! -->
+
+
+                    <p:commandButton value="Salvar" style="margin-left: 80%; margin-right: 5px; margin-top: 10px"
+                                     styleClass="ui-button-secondary" actionListener="#{beanDisciplina.salvar()}"
+                                     update="@form tabela painel"/>
+
+
+
+                    <p:commandButton value="Cancelar" actionListener="#{beanDisciplina.cancelar()}" styleClass="ui-button-secondary"
                                      update="painel" immediate="true"/>
                 </h:form>
             </p:outputPanel>
             <p:outputPanel rendered="#{beanDisciplina.disciplina == null}">
                 <h:form id="tabela">
-                    <p:commandButton value="Nova Disciplina" actionListener="#{beanDisciplina.novo()}" update="painel"                                     />
-                    <p:dataTable  value="#{beanDisciplina.disciplinas}" var="dis" reflow="true">
+                    <p:commandButton value="Novo" actionListener="#{beanDisciplina.novo()}" 
+                                     styleClass="ui-button-secondary"
+                                     update="painel"/>
+                    <p:dataTable  value="#{beanDisciplina.disciplinas}" style="margin-top: 15px" var="dis"
+                                  reflow="true">
+
                         <p:column headerText="Nome:  ">
                             <p:outputLabel value="#{dis.nome}"/>
                         </p:column>
+
+
                         <p:column headerText="Opções" >
                             <p:commandButton value="Editar" style="margin-right: 15px" actionListener="#{beanDisciplina.editar(dis)}"
-                                             update="form painel"/>
+                                             update="form-cadastro painel"/>
                             <p:commandButton value="Remover" actionListener="#{beanDisciplina.remover(dis)}"
-                                             update="form painel"/>
+                                             update="form-cadastro painel"/>
                         </p:column>
+
                     </p:dataTable>
                 </h:form>
             </p:outputPanel>

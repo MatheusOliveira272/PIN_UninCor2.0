@@ -43,20 +43,20 @@
 
                                     <p:column headerText="Name">
                                         <p:cellEditor>
-                                            <f:facet name="output"><h:outputText value="#{beanDisciplina.disciplina.alunos}"/></f:facet>
+                                            <f:facet name="output"><h:outputText value="#{beanAluno.aluno.nome}"/></f:facet>
                                             <f:facet name="input"><p:inputText value="#{beanAluno.aluno.nome}" style="width:100%"
                                                                                label="Name"/></f:facet>
                                         </p:cellEditor>
                                     </p:column>
 
-                                    <!--  <p:column headerText="Code">
+                                      <p:column headerText="Code">
                                           <p:cellEditor>
                                               <f:facet name="output"><h:outputText value="#{beanAluno.aluno}"/></f:facet>
                                               <f:facet name="input"><p:inputText id="modelInput" value="#{beanAluno.aluno}"
                                                                                  style="width:100%"/></f:facet>
                                           </p:cellEditor>
                                       </p:column>
-                                    -->
+                                    
 
                                     <p:column style="width:6rem">
                                         <p:rowEditor/>

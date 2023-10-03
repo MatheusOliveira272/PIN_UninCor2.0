@@ -35,7 +35,7 @@ public class QuestaoAberta implements Serializable{
     @JoinColumn(name = "id_questao")
     private Questao questao;
 
-    @ManyToOne
-    @JoinColumn(name = "id_resposta_aluno")
-    private RespostaAluno respostaAluno;
+    @OneToMany(mappedBy = "questaoAberta")
+    private Set<RespostaAluno> respostaAluno = new HashSet<>();
 }
+

@@ -29,10 +29,10 @@ public class Professor implements Serializable, Principal {
     private String email;
     private String senha;
 
-    @OneToMany
-    private Set<Disciplina> disciplina = new HashSet<>();
+    @OneToMany(mappedBy = "professor")
+    private Set<Disciplina> disciplinas = new HashSet<>();
 
-    @OneToMany
+    @OneToMany(mappedBy = "professor")
     private Set<Anexo> anexos = new HashSet<>();
 
     @Override

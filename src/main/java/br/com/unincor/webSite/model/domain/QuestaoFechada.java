@@ -7,6 +7,8 @@ package br.com.unincor.webSite.model.domain;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -34,7 +36,6 @@ public class QuestaoFechada implements Serializable{
     @JoinColumn(name = "id_questoes")
     private Questao questao;
 
-    @ManyToOne
-    @JoinColumn(name = "id_resposta_aluno")
-    private RespostaAluno respostaAluno;
+    @OneToMany(mappedBy = "questaoFechada")
+    private Set<RespostaAluno> respostasAlunos = new HashSet<>();
 }

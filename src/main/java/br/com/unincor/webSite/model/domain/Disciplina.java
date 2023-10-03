@@ -42,6 +42,7 @@ public class Disciplina implements Serializable{
     private Set<Atividade> atividades = new HashSet<>();
 
     @ManyToOne
+    @JoinColumn(name = "id_professor")
     private Professor professor;
 //    private Set<Professor> professores = new HashSet<>();
  }

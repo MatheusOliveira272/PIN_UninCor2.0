@@ -54,15 +54,14 @@ public class Questao implements Serializable{
             )
     private Set<ClassificaQuestao> classificaQuestoes = new HashSet<>();
 
-    @OneToMany
+    @OneToMany(mappedBy = "questao")
     private Set<QuestaoAberta> questoesAbertas = new HashSet<>();
-    @OneToMany
+    @OneToMany(mappedBy = "questao")
     private Set<QuestaoFechada> questaoFechadas = new HashSet<>();
 
-    @ManyToOne
-    @JoinColumn(name = "id_resposta_alunos")
-    private RespostaAluno respostaAluno;
+    @OneToMany(mappedBy = "questao")
+    private Set<RespostaAluno> respostasAlunos = new HashSet<>();
 
-    @OneToMany
+    @OneToMany(mappedBy = "questao")
     private Set<Anexo> anexos = new HashSet<>();
 }

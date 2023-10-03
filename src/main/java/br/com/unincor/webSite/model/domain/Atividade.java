@@ -37,7 +37,7 @@ public class Atividade implements Serializable{
             )
     private List<Disciplina> disciplinas = new ArrayList<>();
 
-    @ManyToMany
+    @ManyToMany /* Ajustar este relacionamento */
     private Set<Questao> questoes = new HashSet<>();
 
     @OneToMany(mappedBy = "atividade")

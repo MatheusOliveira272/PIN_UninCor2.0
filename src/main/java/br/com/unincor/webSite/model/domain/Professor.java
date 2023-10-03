@@ -1,16 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package br.com.unincor.webSite.model.domain;
 
 import jakarta.persistence.*;
-
 import java.io.Serializable;
 import java.security.Principal;
 import java.util.HashSet;
 import java.util.Set;
-
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -25,7 +19,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@EqualsAndHashCode(of = "id") //identifica o objeto por meio de um atributo
+@EqualsAndHashCode(of = "id") 
 public class Professor implements Serializable, Principal {
 
     @Id

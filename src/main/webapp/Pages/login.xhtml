@@ -34,7 +34,7 @@
                                         requiredMessage="Informe a senha!"/>
                         </h:panelGroup>
                         <p:messages/>
-                        <p:commandButton value="Entrar" action="#{beanProfessor.verificaSenha(nome, senha)}" update="@form" styleClass="ui-button-secondary" />
+                        <p:commandButton value="Entrar" action="#{beanProfessor.verificaSenha()}" update="@form" styleClass="ui-button-secondary" />
                         <p:commandLink value="Cadastrar" type="button" onclick="PF('dlg3').show();" immediate="true"  />      
                     </p:panelGrid>
                 </div>  

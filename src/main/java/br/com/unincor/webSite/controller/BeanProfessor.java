@@ -10,6 +10,7 @@ import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 import lombok.Getter;
 import lombok.Setter;
 import org.primefaces.PrimeFaces;
@@ -23,7 +24,6 @@ public class BeanProfessor implements Serializable {
 
     private List<Professor> professores = new ArrayList<>();
     private Professor professor;
-    
     private String confirmarSenha;
     private String senhaLogin;
     private String nomeLogin;
@@ -67,13 +67,15 @@ public class BeanProfessor implements Serializable {
     }
     
     
-    public void verificaSenha(String nome, String senha){
-         if(!professor.getSenha().equals(senhaLogin) && professor.getName().equals(nomeLogin) ){
-            Mensagens.erro(FacesContext.getCurrentInstance(), "os dados informadas não conferem!");
+    public void verificaSenha() {
+        var professor = new ProfessorDao().buscarProfessorPorLogin(nomeLogin);
+        if (!professor.getSenha().equals(senhaLogin)) {
+            Mensagens.erro(FacesContext.getCurrentInstance(), "Login e/ou senha incorretos!");
             return;
         }
-      
-        buscar();
-        PrimeFaces.current().executeScript("PF('dlg3').hide()");//fechar o dialog 
+
+        HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance()
+                .getExternalContext().getRequest();
+        
     }
 }

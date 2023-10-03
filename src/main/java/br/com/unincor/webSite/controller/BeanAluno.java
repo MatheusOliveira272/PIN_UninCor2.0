@@ -51,6 +51,9 @@ public class BeanAluno implements Serializable {
 
     public void novo() {
         this.aluno = new Aluno();
+     //  Aluno aluno = new Aluno(null, null, null, null, null, null);
+      // AlunoDao alunoDao = new AlunoDao();
+      // aluno = alunoDao.save(aluno);
 
     }
 

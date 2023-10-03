@@ -26,7 +26,7 @@ public class AlunoAtividade implements Serializable{
     private Double nota;
 
     @ManyToOne
-    @JoinColumn(name = "id_aluno_atividade")
+    @JoinColumn(name = "id_atividade_aluno")
     private Aluno aluno;
         
     @ManyToOne

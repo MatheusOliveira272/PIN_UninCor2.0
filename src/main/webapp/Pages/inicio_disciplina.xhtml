@@ -15,7 +15,7 @@
             <p:outputPanel rendered="#{beanDisciplina.disciplina!= null}">
                 <h:form id="form-cadastro"> 
                     <p:growl /> 
-                    
+
                     <p:panelGrid columns="2" columnClasses="ui-g-3, ui-g-9">
 
                         <p:outputLabel value="Nome da disciplina:" style="margin-left: 50%"/>
@@ -35,28 +35,28 @@
                                     <f:facet name="header">
                                         Alunos
                                     </f:facet>
-                                    
-                                        <p:ajax event="rowEdit" listener="#{beanAluno.editar(aluno)}" update=""/>
-                                        <p:ajax event="rowEditCancel" listener="#{beanAluno.cancelar()}" update=""/>
-                                  
+
+                                    <p:ajax event="rowEdit" listener="#{beanAluno.editar(aluno)}" update=""/>
+                                    <p:ajax event="rowEditCancel" listener="#{beanAluno.cancelar()}" update=""/>
+
 
 
                                     <p:column headerText="Name">
                                         <p:cellEditor>
                                             <f:facet name="output"><h:outputText value="#{beanDisciplina.disciplina.alunos}"/></f:facet>
-                                            <f:facet name="input"><p:inputText value="#{beanAluno.aluno}" style="width:100%"
+                                            <f:facet name="input"><p:inputText value="#{beanAluno.aluno.nome}" style="width:100%"
                                                                                label="Name"/></f:facet>
                                         </p:cellEditor>
                                     </p:column>
 
-                                    <p:column headerText="Code">
-                                        <p:cellEditor>
-                                            <f:facet name="output"><h:outputText value="#{beanAluno.aluno.hashCode}"/></f:facet>
-                                            <f:facet name="input"><p:inputText id="modelInput" value="#{beanAluno.aluno.hashCode}"
-                                                                               style="width:100%"/></f:facet>
-                                        </p:cellEditor>
-                                    </p:column>
-
+                                    <!--  <p:column headerText="Code">
+                                          <p:cellEditor>
+                                              <f:facet name="output"><h:outputText value="#{beanAluno.aluno}"/></f:facet>
+                                              <f:facet name="input"><p:inputText id="modelInput" value="#{beanAluno.aluno}"
+                                                                                 style="width:100%"/></f:facet>
+                                          </p:cellEditor>
+                                      </p:column>
+                                    -->
 
                                     <p:column style="width:6rem">
                                         <p:rowEditor/>

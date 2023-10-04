@@ -35,7 +35,7 @@ public class Disciplina implements Serializable{
     private Long id;
     private String nome;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "disciplinas")
     private Set<Aluno> alunos = new HashSet<>();
 
     @ManyToMany

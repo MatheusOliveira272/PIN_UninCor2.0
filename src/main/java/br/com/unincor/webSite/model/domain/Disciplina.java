@@ -38,7 +38,7 @@ public class Disciplina implements Serializable{
     @ManyToMany(mappedBy = "disciplinas")
     private Set<Aluno> alunos = new HashSet<>();
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "disciplinas")
     private Set<Atividade> atividades = new HashSet<>();
 
     @ManyToOne

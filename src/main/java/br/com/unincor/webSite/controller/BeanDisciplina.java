@@ -2,37 +2,33 @@ package br.com.unincor.webSite.controller;
 
 import br.com.unincor.webSite.model.dao.DisciplinaDao;
 import br.com.unincor.webSite.model.domain.Disciplina;
-import br.com.unincor.webSite.view.utils.Mensagens;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
+import javax.faces.bean.ViewScoped;
 import lombok.Getter;
 import lombok.Setter;
-import org.primefaces.PrimeFaces;
 
 @ManagedBean
-@SessionScoped
+@ViewScoped
 @Getter
 @Setter
 public class BeanDisciplina implements Serializable {
 
     private List<Disciplina> disciplinas = new ArrayList<>();
     private Disciplina disciplina;
-    private boolean editando = false;
-
-    public BeanDisciplina() {
-        disciplina = new Disciplina();
-
+    
+    @PostConstruct
+    public void init() {
+        buscar();
     }
 
     public void salvar() {
         new DisciplinaDao().save(disciplina);
         cancelar();
         buscar();
-        editando = false;
     }
 
   

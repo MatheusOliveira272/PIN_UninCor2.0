@@ -21,7 +21,8 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 @EqualsAndHashCode(of = "id")
-public class Atividade implements Serializable{
+public class Atividade implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -29,21 +30,24 @@ public class Atividade implements Serializable{
     private Double valor;
 
     @ManyToMany
-    @JoinTable
-            (
-                    name = "atividades_disciplinas",
-                    joinColumns = @JoinColumn(name = "atividade_id"),
-                    inverseJoinColumns = @JoinColumn(name = "disciplina_id")
-            )
+    @JoinTable(
+            name = "atividades_disciplinas",
+            joinColumns = @JoinColumn(name = "atividade_id"),
+            inverseJoinColumns = @JoinColumn(name = "disciplina_id")
+    )
     private List<Disciplina> disciplinas = new ArrayList<>();
 
-    @ManyToMany /* Ajustar este relacionamento */
+    @ManyToMany
+    @JoinTable(
+            name = "questoes_atividades",
+            joinColumns = @JoinColumn(name = "atividade_id"),
+            inverseJoinColumns = @JoinColumn(name = "questoes_id")
+    )
     private Set<Questao> questoes = new HashSet<>();
 
     @OneToMany(mappedBy = "atividade")
     private Set<AlunoAtividade> alunoAtividade;
 
-    @ManyToOne
-    @JoinColumn(name = "id_resposta_alunos")
-    private RespostaAluno respostaAluno;
+    @OneToMany(mappedBy = "atividade")
+    private Set<RespostaAluno> respostasAlunos;
 }

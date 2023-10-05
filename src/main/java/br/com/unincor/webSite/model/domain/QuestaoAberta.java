@@ -19,8 +19,8 @@ import lombok.ToString;
 
 @Getter
 @Setter
-@Entity
-@Table(name = "questoes_aberta")
+//@Entity
+//@Table(name = "questoes_aberta")
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
@@ -31,11 +31,11 @@ public class QuestaoAberta implements Serializable{
     private Long id;
     private String resposta;
 
-    @ManyToOne
-    @JoinColumn(name = "id_questao")
-    private Questao questao;
+//    @ManyToOne
+//    @JoinColumn(name = "id_questao")
+//    private Questao questao;
 
-    @OneToMany(mappedBy = "questaoAberta")
-    private Set<RespostaAluno> respostaAluno = new HashSet<>();
+//    @OneToMany(mappedBy = "questaoAberta")
+//    private Set<RespostaAluno> respostaAluno = new HashSet<>();
 }
 

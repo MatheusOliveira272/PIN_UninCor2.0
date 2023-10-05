@@ -33,6 +33,6 @@ public class ClassificaQuestao implements Serializable{
     private Long id;
     private String nome;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "classificaQuestoes")
     private Set<Questao> questoes = new HashSet<>();
 }

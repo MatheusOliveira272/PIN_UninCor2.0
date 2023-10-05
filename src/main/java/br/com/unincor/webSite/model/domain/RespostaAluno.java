@@ -26,9 +26,10 @@ public class RespostaAluno implements Serializable{
     private Integer respQuestaoFechada;
     private String respQuestaoAberta;
 
-    @ManyToOne
-    @JoinColumn(name = "id_questao_aberta")
-    private QuestaoAberta questaoAberta;
+//    @ManyToOne
+//    @JoinColumn(name = "id_questao_aberta")
+//    private QuestaoAberta questaoAberta;
+    
     @ManyToOne
     @JoinColumn(name = "id_questao_fechada")
     private QuestaoFechada questaoFechada;
@@ -37,8 +38,11 @@ public class RespostaAluno implements Serializable{
     @ManyToOne
     @JoinColumn(name = "id_resposta_aluno")
     private Aluno aluno;
-    @OneToMany
-    private Set<Atividade> atividades = new HashSet<>();
+    
+    @ManyToOne
+    @JoinColumn(name = "id_resposta_alunos")
+    private Atividade atividade;
+    
     @ManyToOne
     @JoinColumn(name = "id_questao")
     private Questao questao;

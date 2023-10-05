@@ -23,7 +23,8 @@ public class Aluno implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
-    private String codigo;
+    private String email;
+    private String senha;
 
     @ManyToMany
     @JoinTable

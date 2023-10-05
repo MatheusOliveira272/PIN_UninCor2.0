@@ -28,12 +28,14 @@ public class Anexo implements Serializable{
     private Long id;
     private String nome;
     private String extensao;
+    
+    /* Não colocar anexo nenhum relacionamento aqui */
 
-    @ManyToOne
-    @JoinColumn(name = "id_professor")
-    private Professor professor;
-
-    @ManyToOne
-    @JoinColumn(name = "id_questao")
-    private Questao questao;
+//    @ManyToOne
+//    @JoinColumn(name = "id_professor")
+//    private Professor professor;
+//
+//    @ManyToOne
+//    @JoinColumn(name = "id_questao")
+//    private Questao questao;
 }

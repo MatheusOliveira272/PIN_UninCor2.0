@@ -64,11 +64,16 @@ public class BeanProfessor implements Serializable {
 
     }
 
+    public Long retornaProfessorId() {
+        return this.professor.getId();
+    }
+
     public void editar(Professor professor) {
         this.professor = professor;
     }
 
     public void verificaSenha() {
+        //Mudar nome do método para login
         var professorLogado = new ProfessorDao().buscarProfessorPorLogin(nomeLogin);
         if (!professorLogado.getSenha().equals(Criptografar.encryp(senhaLogin))) {
             Mensagens.erro(FacesContext.getCurrentInstance(), "Login e/ou senha incorretos!");
@@ -79,6 +84,10 @@ public class BeanProfessor implements Serializable {
                 .getExternalContext().getRequest();
         request.getSession(true).setAttribute("professorLogado",
                 professorLogado);
+
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
+        session.setAttribute("professorId", professorLogado.getId());
 
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         try {
@@ -94,7 +103,7 @@ public class BeanProfessor implements Serializable {
         HttpSession session = request.getSession(true);
         session.removeAttribute("professorLogado");
         session.invalidate();
-        
+
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         try {
             ec.redirect(ec.getRequestContextPath() + "/pages/login.jsf");

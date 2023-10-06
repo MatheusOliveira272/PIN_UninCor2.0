@@ -23,59 +23,7 @@
                                      required="true" requiredMessage="Informe o nome!"/>
                     </p:panelGrid>
 
-                    <!-- Aqui!!!!!!!!!!! -->
-                    <p:panel style="width: 90%; margin-left: 65px">
 
-                        <div class="card">
-
-                            <p:growl id="mensagem" showDetail="true"/>
-
-                            <p:dataTable id="alunos" widgetVar="alunos" var="aluno" value="#{beanDisciplina.disciplina.alunos}"
-                                         scrollable="true" scrollHeight="250" editable="true">
-                                <f:facet name="header">
-                                    Alunos
-                                </f:facet>
-
-                                <p:ajax event="rowEdit" listener="#{beanAluno.editar(aluno)}" update=""/>
-                                <p:ajax event="rowEditCancel" listener="#{beanAluno.cancelar()}" update=""/>
-
-                                <p:column headerText="Name">
-                                    <p:cellEditor>
-                                        <f:facet name="output"><h:outputText value="#{beanAluno.aluno.nome}"/></f:facet>
-                                        <f:facet name="input"><p:inputText value="#{beanAluno.aluno.nome}" style="width:100%"
-                                                                           label="Name"/></f:facet>
-                                    </p:cellEditor>
-                                </p:column>
-
-                                <p:column headerText="Code">
-                                    <p:cellEditor>
-                                        <f:facet name="output"><h:outputText value="#{beanAluno.aluno}"/></f:facet>
-                                        <f:facet name="input"><p:inputText id="modelInput" value="#{beanAluno.aluno}"
-                                                                           style="width:100%"/></f:facet>
-                                    </p:cellEditor>
-                                </p:column>
-
-
-                                <p:column style="width:6rem">
-                                    <p:rowEditor/>
-                                </p:column>
-                            </p:dataTable>
-
-                            <div class="grid mt-3">
-                                <div class="col-12">
-
-                                    <p:commandButton value="Adicionar Aluno" process="@this" update="alunos mensagem"
-                                                     styleClass="ui-button-secondary" style="margin-top: 10px"
-                                                     action="#{beanAluno.novo()}" partialSubmit="true" />
-
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </p:panel>
-
-                    <!-- Aqui!!!!!!!!!!!! -->
 
 
                     <p:commandButton value="Salvar" style="margin-left: 80%; margin-right: 5px; margin-top: 10px"

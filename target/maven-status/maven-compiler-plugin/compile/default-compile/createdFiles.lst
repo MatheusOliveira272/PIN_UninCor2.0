@@ -20,12 +20,13 @@ br\com\unincor\webSite\controller\BeanProfessor.class
 br\com\unincor\webSite\core\HibernateManager.class
 br\com\unincor\webSite\model\domain\QuestaoAberta.class
 br\com\unincor\webSite\controller\BeanAluno.class
-br\com\unincor\webSite\filter\FiltroRequisicao.class
 br\com\unincor\webSite\model\domain\Questao.class
+br\com\unincor\webSite\filter\FiltroRequisicaoProfessor.class
 br\com\unincor\webSite\model\domain\Professor.class
 br\com\unincor\webSite\model\dao\QuestaoFechadaDao.class
 br\com\unincor\webSite\model\dao\AtividadeDao.class
 br\com\unincor\webSite\model\domain\Anexo.class
 br\com\unincor\webSite\model\domain\QuestaoFechada.class
+br\com\unincor\webSite\filter\FiltroRequisicaoAluno.class
 br\com\unincor\webSite\model\domain\Aluno.class
 br\com\unincor\webSite\utils\Criptografar.class

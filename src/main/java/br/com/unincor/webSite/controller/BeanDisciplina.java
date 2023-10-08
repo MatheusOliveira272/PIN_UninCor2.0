@@ -33,7 +33,7 @@ public class BeanDisciplina extends BeanProfessor implements Serializable {
         HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
         //Long professorId = (Long) session.getAttribute("professorId");
         var professorLogado = new ProfessorDao().findById((Long) session.getAttribute("professorId"));
-        
+
         disciplina.setProfessor(professorLogado);
         new DisciplinaDao().save(disciplina);
         cancelar();
@@ -65,7 +65,11 @@ public class BeanDisciplina extends BeanProfessor implements Serializable {
     }
 
     public void buscar() {
-        this.disciplinas = new DisciplinaDao().findAll();
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
+        var professorLogado = new ProfessorDao().findById((Long) session.getAttribute("professorId"));
+        this.disciplinas = new DisciplinaDao().buscarDisciplinasProfessorPorLogin(professorLogado);
+        
 
     }
 

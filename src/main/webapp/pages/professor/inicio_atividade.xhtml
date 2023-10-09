@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<ui:composition template="../../template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:define name="titulo"> - Cadastro Atividade</ui:define> 
+
+    <ui:define name="conteudo" >
+        <p:panel id="painel" header="Cadastro Atividade">
+
+            <p:outputPanel rendered="#{beanAtividade.atividade != null}">
+                <h:form id="form-cadastro"> 
+                    <p:growl /> 
+
+                    <p:panelGrid columns="2" columnClasses="ui-g-4, ui-g-8">
+
+                        <p:outputLabel value="Nome da atividade:" style="margin-left: 50%"/>
+                        <p:inputText value="#{beanAtividade.atividade.nome}" style="width: 80%"
+                                     required="true" requiredMessage="Informe o nome!"/>
+
+                        <p:outputLabel value="Valor da atividade:" style="margin-left: 50%"/>
+                        <p:inputText value="#{beanAtividade.atividade.valor}" style="width: 80%"
+                                     required="true" requiredMessage="Informe o valor!"/>
+
+                        <!-- implementar uma caixa de seleção para adiconar a disciplinas na atividade -->
+                    </p:panelGrid>
+
+
+                    <!-- Aqui -->
+
+                    <p:outputPanel>
+                        <p:panelGrid>
+                            <p:commandButton value="Questões" style="margin-left:  15px"  styleClass="ui-button-secondary" actionListener="#{beanAtividade.remover(ati)}"
+                                             update="form-cadastro painel"/>
+                        </p:panelGrid>
+
+                    </p:outputPanel>
+
+
+
+
+                    <p:commandButton value="Salvar" style="margin-left: 80%; margin-right: 5px; margin-top: 10px"
+                                     styleClass="ui-button-secondary" actionListener="#{beanAtividade.salvar()}"
+                                     update="@form tabela painel"/>
+
+
+
+                    <p:commandButton value="Cancelar" actionListener="#{beanAtividade.cancelar()}" styleClass="ui-button-secondary"
+                                     update="painel" immediate="true"/>
+                </h:form>
+            </p:outputPanel>
+            <p:outputPanel rendered="#{beanAtividade.atividade == null}">
+                <h:form id="tabela">
+                    <p:commandButton value="Novo" actionListener="#{beanAtividade.novo()}" 
+                                     styleClass="ui-button-secondary"
+                                     update="painel"/>
+                    <p:dataTable  value="#{beanAtividade.atividades}" style="margin-top: 15px" var="ati"
+                                  reflow="true" scrollable="true" scrollHeight="280">
+
+                        <p:column headerText="Nome:  " sortBy="#{ati.nome}" filterBy="#{ati.nome}" style="width: 200px" >
+                            <p:outputLabel value="#{ati.nome}"  />
+                        </p:column>
+
+                        <p:column headerText="Valor:  ">
+                            <p:outputLabel value="#{ati.valor}"/>
+                        </p:column>
+
+
+                        <p:column headerText="Código:  " >
+                            <p:outputLabel value="#{ati.codigo}"/>
+                        </p:column>
+
+
+                        <p:column headerText="Opções" >
+                            <p:commandButton value="Editar" style="margin-right: 15px; "  
+                                             styleClass="ui-button-secondary" 
+                                             actionListener="#{beanAtividade.editar(ati)}"
+                                             update="form-cadastro painel"/>
+
+                            <p:commandButton value="Remover" styleClass="ui-button-secondary" icon="pi pi-trash"
+                                             process="@this" oncomplete="PF('deleteAtividadeDialog').show()"
+                                             action="#{beanAtividade.remover(ati)}" />
+                            <!--///
+                            
+                            Essa parte da confirmação de exclusão está apresentando bugs quando é selecionda
+                            a opção não.... Corrigir!!!!                           
+                            
+                            ///-->
+                            <p:confirmDialog widgetVar="deleteAtividadeDialog" showEffect="fade" width="300"
+                                             message="Deletar Atividade?" header="Confirmação" severity="warn">
+                                <p:commandButton value="Sim" icon="pi pi-check" action="#{beanAtividade.remover(ati)}"
+                                                 process="@this" update="form-cadastro painel"
+                                                 oncomplete="PF('deleteAtividadeDialog').hide()" />
+                                <p:commandButton value="Não" type="button" styleClass="ui-button-secondary" 
+                                                 icon="pi pi-times" action="#{beanAtividade.remover(ati)}"
+                                                 onclick="PF('deleteAtividadeDialog').hide()" />
+                            </p:confirmDialog>
+
+
+                        </p:column>
+
+                    </p:dataTable>
+                </h:form>
+            </p:outputPanel>
+        </p:panel>
+    </ui:define>
+</ui:composition>

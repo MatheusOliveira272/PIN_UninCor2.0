@@ -42,17 +42,17 @@
                                      styleClass="ui-button-secondary"
                                      update="painel"/>
                     <p:dataTable  value="#{beanDisciplina.disciplinas}" style="margin-top: 15px" var="dis"
-                                  reflow="true">
+                                  reflow="true" scrollable="true" scrollHeight="280">
 
-                        <p:column headerText="Nome:  ">
+                        <p:column headerText="Nome:"  sortBy="#{dis.nome}" >
                             <p:outputLabel value="#{dis.nome}"/>
                         </p:column>
 
 
-                        <p:column headerText="Opções" >
-                            <p:commandButton value="Editar" style="margin-right: 15px" actionListener="#{beanDisciplina.editar(dis)}"
+                        <p:column headerText="Opções">
+                            <p:commandButton value="Editar" style="margin-right: 15px; "  styleClass="ui-button-secondary" actionListener="#{beanDisciplina.editar(dis)}"
                                              update="form-cadastro painel"/>
-                            <p:commandButton value="Remover" actionListener="#{beanDisciplina.remover(dis)}"
+                            <p:commandButton value="Remover"  styleClass="ui-button-secondary" icon="pi pi-trash" actionListener="#{beanDisciplina.remover(dis)}"
                                              update="form-cadastro painel"/>
                         </p:column>
 

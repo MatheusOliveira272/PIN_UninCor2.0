@@ -28,5 +28,6 @@ br\com\unincor\webSite\model\dao\AtividadeDao.class
 br\com\unincor\webSite\model\domain\Anexo.class
 br\com\unincor\webSite\model\domain\QuestaoFechada.class
 br\com\unincor\webSite\filter\FiltroRequisicaoAluno.class
+br\com\unincor\webSite\controller\BeanAtividade.class
 br\com\unincor\webSite\model\domain\Aluno.class
 br\com\unincor\webSite\utils\Criptografar.class

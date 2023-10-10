@@ -25,7 +25,6 @@ import lombok.ToString;
 @Table(name = "classificacoes_questoes")
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 @EqualsAndHashCode(of = "id") //identifica o objeto por meio de um atributo
 public class ClassificaQuestao implements Serializable{
     @Id

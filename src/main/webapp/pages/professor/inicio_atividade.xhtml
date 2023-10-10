@@ -26,28 +26,21 @@
                         <p:inputText value="#{beanAtividade.atividade.valor}" style="width: 80%"
                                      required="true" requiredMessage="Informe o valor!"/>
 
-                        <!-- implementar uma caixa de seleção para adiconar a disciplinas na atividade -->
+                        <p:outputLabel value="Disciplina:" style="margin-left: 50%"/>
+
+                        <p:selectOneMenu value="#{beanAtividade.disciplinaSelecionada}" converter="disciplinaConverter">
+                            <f:selectItem itemLabel="(Selecione)" noSelectionOption="true" />
+                            <f:selectItems value="#{beanAtividade.disciplinas}" var="disciplina"
+                                           itemLabel="#{disciplina.nome}" itemValue="#{disciplina}"
+                                           />
+                        </p:selectOneMenu>
+
+
                     </p:panelGrid>
-
-
-                    <!-- Aqui -->
-
-                    <p:outputPanel>
-                        <p:panelGrid>
-                            <p:commandButton value="Questões" style="margin-left:  15px"  styleClass="ui-button-secondary" actionListener="#{beanAtividade.remover(ati)}"
-                                             update="form-cadastro painel"/>
-                        </p:panelGrid>
-
-                    </p:outputPanel>
-
-
-
 
                     <p:commandButton value="Salvar" style="margin-left: 80%; margin-right: 5px; margin-top: 10px"
                                      styleClass="ui-button-secondary" actionListener="#{beanAtividade.salvar()}"
                                      update="@form tabela painel"/>
-
-
 
                     <p:commandButton value="Cancelar" actionListener="#{beanAtividade.cancelar()}" styleClass="ui-button-secondary"
                                      update="painel" immediate="true"/>
@@ -65,15 +58,18 @@
                             <p:outputLabel value="#{ati.nome}"  />
                         </p:column>
 
+
+                        <p:column headerText="Disciplina" sortBy="#{ati.disciplinas[0].nome}" filterBy="#{ati.disciplinas[0].nome}" style="width: 200px">
+                            <p:outputLabel value="#{ati.disciplinas[0].nome}"/>
+                        </p:column>
+
                         <p:column headerText="Valor:  ">
                             <p:outputLabel value="#{ati.valor}"/>
                         </p:column>
 
-
                         <p:column headerText="Código:  " >
                             <p:outputLabel value="#{ati.codigo}"/>
                         </p:column>
-
 
                         <p:column headerText="Opções" >
                             <p:commandButton value="Editar" style="margin-right: 15px; "  
@@ -84,13 +80,12 @@
                             <p:commandButton value="Remover" styleClass="ui-button-secondary" icon="pi pi-trash"
                                              process="@this" actionListener="#{beanAtividade.remover(ati)}"  update="form-cadastro painel"
                                              >
-                                <p:confirm header="Confirmação" message="Deseja remover a atividade #{ati.nome}?" icon="pi pi-info-circle"/>
+                                <p:confirm header="Confirmação" message="Deseja remover a atividade: #{ati.nome}?" icon="pi pi-info-circle"/>
                             </p:commandButton>                            
                             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
                                 <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
                                 <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" />
                             </p:confirmDialog>
-
 
                         </p:column>
 

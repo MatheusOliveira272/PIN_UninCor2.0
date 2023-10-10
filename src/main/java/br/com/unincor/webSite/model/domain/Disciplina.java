@@ -26,7 +26,6 @@ import lombok.ToString;
 @Table(name = "disciplinas")
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 @EqualsAndHashCode(of = "id") //identifica o objeto por meio de um atributo
 public class Disciplina implements Serializable{
     @Id
@@ -45,4 +44,11 @@ public class Disciplina implements Serializable{
     @JoinColumn(name = "id_professor")
     private Professor professor;
 //    private Set<Professor> professores = new HashSet<>();
+
+    @Override
+    public String toString() {
+        return nome;
+    }
+    
+    
  }

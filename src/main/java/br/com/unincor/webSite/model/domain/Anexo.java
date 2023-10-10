@@ -20,7 +20,6 @@ import lombok.ToString;
 @Table(name = "anexos")
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 @EqualsAndHashCode(of = "id") //identifica o objeto por meio de um atributo
 public class Anexo implements Serializable{
     @Id

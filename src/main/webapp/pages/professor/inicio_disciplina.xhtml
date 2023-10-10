@@ -24,13 +24,9 @@
                     </p:panelGrid>
 
 
-
-
                     <p:commandButton value="Salvar" style="margin-left: 80%; margin-right: 5px; margin-top: 10px"
                                      styleClass="ui-button-secondary" actionListener="#{beanDisciplina.salvar()}"
                                      update="@form tabela painel"/>
-
-
 
                     <p:commandButton value="Cancelar" actionListener="#{beanDisciplina.cancelar()}" styleClass="ui-button-secondary"
                                      update="painel" immediate="true"/>
@@ -53,8 +49,21 @@
                             <p:commandButton value="Editar" style="margin-right: 15px; "  styleClass="ui-button-secondary" actionListener="#{beanDisciplina.editar(dis)}"
                                              update="form-cadastro painel"/>
                             <p:commandButton value="Remover"  styleClass="ui-button-secondary" icon="pi pi-trash" actionListener="#{beanDisciplina.remover(dis)}"
-                                             update="form-cadastro painel"/>
+                                             update="form-cadastro painel">
+                            
+                            <p:confirm header="Confirmação" message="Deseja remover a disciplina: #{dis.nome}?" icon="pi pi-info-circle"/>
+                            </p:commandButton>
+                       
+                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+                            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" />
+                        </p:confirmDialog>
+                        
+                        
                         </p:column>
+
+                        
+
 
                     </p:dataTable>
                 </h:form>

@@ -20,7 +20,6 @@ import lombok.ToString;
 @Table(name = "professores")
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 @EqualsAndHashCode(of = "id")
 public class Professor implements Serializable, Principal {
 

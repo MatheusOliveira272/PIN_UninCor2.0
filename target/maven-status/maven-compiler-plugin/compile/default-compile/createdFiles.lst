@@ -20,6 +20,7 @@ br\com\unincor\webSite\controller\BeanProfessor.class
 br\com\unincor\webSite\core\HibernateManager.class
 br\com\unincor\webSite\model\domain\QuestaoAberta.class
 br\com\unincor\webSite\controller\BeanAluno.class
+br\com\unincor\webSite\view\utils\DisciplinaConverter.class
 br\com\unincor\webSite\model\domain\Questao.class
 br\com\unincor\webSite\filter\FiltroRequisicaoProfessor.class
 br\com\unincor\webSite\model\domain\Professor.class

@@ -16,7 +16,6 @@ import lombok.ToString;
 @Table(name = "alunos")
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 @EqualsAndHashCode(of = "id") 
 public class Aluno implements Serializable{
     @Id

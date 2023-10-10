@@ -82,22 +82,13 @@
                                              update="form-cadastro painel"/>
 
                             <p:commandButton value="Remover" styleClass="ui-button-secondary" icon="pi pi-trash"
-                                             process="@this" oncomplete="PF('deleteAtividadeDialog').show()"
-                                             action="#{beanAtividade.remover(ati)}" />
-                            <!--///
-                            
-                            Essa parte da confirmação de exclusão está apresentando bugs quando é selecionda
-                            a opção não.... Corrigir!!!!                           
-                            
-                            ///-->
-                            <p:confirmDialog widgetVar="deleteAtividadeDialog" showEffect="fade" width="300"
-                                             message="Deletar Atividade?" header="Confirmação" severity="warn">
-                                <p:commandButton value="Sim" icon="pi pi-check" action="#{beanAtividade.remover(ati)}"
-                                                 process="@this" update="form-cadastro painel"
-                                                 oncomplete="PF('deleteAtividadeDialog').hide()" />
-                                <p:commandButton value="Não" type="button" styleClass="ui-button-secondary" 
-                                                 icon="pi pi-times" action="#{beanAtividade.remover(ati)}"
-                                                 onclick="PF('deleteAtividadeDialog').hide()" />
+                                             process="@this" actionListener="#{beanAtividade.remover(ati)}"  update="form-cadastro painel"
+                                             >
+                                <p:confirm header="Confirmação" message="Deseja remover a atividade #{ati.nome}?" icon="pi pi-info-circle"/>
+                            </p:commandButton>                            
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+                                <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                                <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" />
                             </p:confirmDialog>
 
 

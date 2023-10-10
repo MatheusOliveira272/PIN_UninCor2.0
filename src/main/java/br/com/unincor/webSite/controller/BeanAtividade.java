@@ -56,8 +56,9 @@ public class BeanAtividade implements Serializable{
     }
 
     public void remover(Atividade atividade) {
-       
+        System.out.println(atividade.getNome());
         new AtividadeDao().delete(atividade.getId());
+        
         buscar();
       
 

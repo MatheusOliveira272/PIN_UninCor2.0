@@ -22,7 +22,7 @@ import lombok.Setter;
 @Setter
 public class BeanAlunoAtividade implements Serializable{
     
-    String codigo;
+    private String codigo;
     public void adicionaAlunoAtividade(){
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);

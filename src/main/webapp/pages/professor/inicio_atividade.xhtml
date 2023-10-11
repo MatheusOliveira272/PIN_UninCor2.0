@@ -71,21 +71,38 @@
                             <p:outputLabel value="#{ati.codigo}"/>
                         </p:column>
 
-                        <p:column headerText="Opções" >
-                            <p:commandButton value="Editar" style="margin-right: 15px; "  
+                        <p:column headerText="Opções" style="margin-left: 50px" >
+
+                            <p:commandButton icon="pi pi-file-edit" style="margin-right: 15px; width: 40px"  
                                              styleClass="ui-button-secondary" 
                                              actionListener="#{beanAtividade.editar(ati)}"
                                              update="form-cadastro painel"/>
 
-                            <p:commandButton value="Remover" styleClass="ui-button-secondary" icon="pi pi-trash"
-                                             process="@this" actionListener="#{beanAtividade.remover(ati)}"  update="form-cadastro painel"
-                                             >
+                            <p:commandButton  styleClass="ui-button-secondary" icon="pi pi-trash" style="width: 40px"
+                                              process="@this" actionListener="#{beanAtividade.remover(ati)}"  update="form-cadastro painel"
+                                              >
                                 <p:confirm header="Confirmação" message="Deseja remover a atividade: #{ati.nome}?" icon="pi pi-info-circle"/>
                             </p:commandButton>                            
                             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
                                 <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
                                 <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" />
                             </p:confirmDialog>
+
+                            <p:splitButton icon="pi pi-cog" update="" style="margin-left: 15px" styleClass="ui-button-secondary">
+                                <p:menuitem value="Questões"  update="" icon="pi pi-list"/>
+                                <p:menuitem value="Alunos" icon="pi pi-users" onclick="PF('alunosDialogVar').show();" />
+                            </p:splitButton>
+
+                            <p:dialog id="alunosDialog" header="Lista de Alunos" widgetVar="alunosDialogVar" modal="true" resizable="false" dynamic="true">
+                                <p:dataTable style="width: 800px" value="#{beanAlunoAtividade.alunos}" var="aluno">
+                                    <p:column headerText="Nome">
+                                        <p:outputLabel value="#{aluno.nome}"/>
+                                    </p:column>
+                                </p:dataTable>
+                            </p:dialog>
+
+
+
 
                         </p:column>
 

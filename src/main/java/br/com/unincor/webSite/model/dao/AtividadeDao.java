@@ -17,6 +17,7 @@ public class AtividadeDao extends GenericDao<Atividade, Long> {
         return resultado;
     }
      
+      
      public Atividade buscarAtividadeCodigo(String codigo) {
         String sql = "from Atividade a where a.codigo = :codigo";
         

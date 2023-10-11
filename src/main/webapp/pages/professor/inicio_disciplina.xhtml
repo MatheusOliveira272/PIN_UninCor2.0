@@ -46,9 +46,9 @@
 
 
                         <p:column headerText="Opções">
-                            <p:commandButton value="Editar" style="margin-right: 15px; "  styleClass="ui-button-secondary" actionListener="#{beanDisciplina.editar(dis)}"
+                            <p:commandButton icon="pi pi-file-edit" style="margin-right: 15px; width: 40px"   styleClass="ui-button-secondary" actionListener="#{beanDisciplina.editar(dis)}"
                                              update="form-cadastro painel"/>
-                            <p:commandButton value="Remover"  styleClass="ui-button-secondary" icon="pi pi-trash" actionListener="#{beanDisciplina.remover(dis)}"
+                            <p:commandButton icon="pi pi-trash" style="width: 40px" styleClass="ui-button-secondary"  actionListener="#{beanDisciplina.remover(dis)}"
                                              update="form-cadastro painel">
                             
                             <p:confirm header="Confirmação" message="Deseja remover a disciplina: #{dis.nome}?" icon="pi pi-info-circle"/>

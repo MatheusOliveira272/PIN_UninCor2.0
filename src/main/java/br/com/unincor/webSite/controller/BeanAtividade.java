@@ -19,18 +19,19 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import lombok.Getter;
 import lombok.Setter;
+import org.primefaces.PrimeFaces;
+import org.primefaces.model.DialogFrameworkOptions;
 
 @ManagedBean
 @ViewScoped
 @Getter
 @Setter
-public class BeanAtividade implements Serializable{
-    
+public class BeanAtividade implements Serializable {
+
     private List<Atividade> atividades = new ArrayList<>();
     private Atividade atividade;
     Random rand = new Random();
     private Disciplina disciplinaSelecionada;
-
 
     @PostConstruct
     public void init() {
@@ -40,13 +41,14 @@ public class BeanAtividade implements Serializable{
     public void salvar() {
         // Verifica se uma disciplina foi selecionada
         if (disciplinaSelecionada != null) {
-        atividade.getDisciplinas().clear(); // Remove todas as disciplinas associadas
-        atividade.getDisciplinas().add(disciplinaSelecionada); // Adiciona a nova disciplina selecionada
-    }
- 
-       atividade.setCodigo(gerarCodigoAleatorio(5));
-         new AtividadeDao().save(atividade);
-          cancelar();
+            atividade.getDisciplinas().clear(); // Remove todas as disciplinas associadas
+            atividade.getDisciplinas().add(disciplinaSelecionada); // Adiciona a nova disciplina selecionada
+        }
+       
+            atividade.setCodigo(gerarCodigoAleatorio(5));
+        
+        new AtividadeDao().save(atividade);
+        cancelar();
         buscar();
     }
 
@@ -56,7 +58,7 @@ public class BeanAtividade implements Serializable{
 
     public void editar(Atividade atividade) {
         this.atividade = atividade;
-         // Obtem a primeira disciplina associada à atividade
+        // Obtem a primeira disciplina associada à atividade
         this.disciplinaSelecionada = atividade.getDisciplinas().get(0);
     }
 
@@ -72,48 +74,39 @@ public class BeanAtividade implements Serializable{
     public void remover(Atividade atividade) {
         System.out.println(atividade.getNome());
         new AtividadeDao().delete(atividade.getId());
-        
+
         buscar();
-      
 
     }
-       
- public String gerarCodigoAleatorio(int tamanho) {
-    Random rand = new Random();
-    StringBuilder codigo = new StringBuilder();
-    String caracteres = "123456789abcdef"; // Caracteres hexadecimais
 
-    for (int i = 0; i < tamanho; i++) {
-        int indice = rand.nextInt(caracteres.length());
-        codigo.append(caracteres.charAt(indice));
+    public String gerarCodigoAleatorio(int tamanho) {
+        Random rand = new Random();
+        StringBuilder codigo = new StringBuilder();
+        String caracteres = "123456789abcdef"; // Caracteres hexadecimais
+
+        for (int i = 0; i < tamanho; i++) {
+            int indice = rand.nextInt(caracteres.length());
+            codigo.append(caracteres.charAt(indice));
+        }
+
+        return codigo.toString();
     }
 
-    return codigo.toString();
-}
- 
-   private List<Disciplina> disciplinas = new ArrayList<>();
+    private List<Disciplina> disciplinas = new ArrayList<>();
 
-  public List<Disciplina> getDisciplinas(){
+    public List<Disciplina> getDisciplinas() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
         var professorLogado = new ProfessorDao().findById((Long) session.getAttribute("professorId"));
         return this.disciplinas = new DisciplinaDao().buscarDisciplinasProfessorPorLogin(professorLogado);
-            
-    
-       }
- 
-   public void buscar() {
+
+    }
+
+    public void buscar() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
         var professorLogado = new ProfessorDao().findById((Long) session.getAttribute("professorId"));
         this.atividades = new AtividadeDao().buscarAtividadesProfessorPorLogin(professorLogado);
-        
-
     }
- 
-   
-   
 
- 
-    }
-  
+}

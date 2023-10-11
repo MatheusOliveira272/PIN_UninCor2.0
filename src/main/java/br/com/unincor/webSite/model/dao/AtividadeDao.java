@@ -16,4 +16,13 @@ public class AtividadeDao extends GenericDao<Atividade, Long> {
         var resultado = query.getResultList();
         return resultado;
     }
+     
+     public Atividade buscarAtividadeCodigo(String codigo) {
+        String sql = "from Atividade a where a.codigo = :codigo";
+        
+        Query query = getEntityManager().createQuery(sql, Atividade.class)
+                .setParameter("codigo", codigo);
+        var resultado = query.getResultList();
+        return resultado.isEmpty() ? null : (Atividade) resultado.get(0);
+    }
 }

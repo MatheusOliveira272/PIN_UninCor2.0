@@ -15,4 +15,6 @@ public class DisciplinaDao extends GenericDao<Disciplina, Long>{
         var resultado = query.getResultList();
         return resultado;
     }
+    
+    
 }

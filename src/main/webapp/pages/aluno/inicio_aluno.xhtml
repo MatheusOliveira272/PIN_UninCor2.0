@@ -17,11 +17,11 @@
                     <h:form id="codigo">
 
                         <p:outputLabel value="Código: " style="font-weight:bold;"/>
-                        <p:inputText style=" width:250px" value="#{beanProfessor.professor.nome}" 
+                        <p:inputText style=" width:250px" value="#{beanAlunoAtividade.codigo}"
                                      required="true" requiredMessage="Informe o Código da atividade!"/>
                         <p:messages  />
                         <p:commandButton value="Entrar" style="margin-left: 15px; margin-top: 15px; " 
-                                         actionListener="#{beanProfessor}" update="@form codigo"
+                                         actionListener="#{beanAlunoAtividade.adicionaAlunoAtividade()}" update="@form codigo"
                                          styleClass="ui-button-secondary"/> 
 
                     </h:form>

@@ -1,8 +1,11 @@
 package br.com.unincor.webSite.controller;
 
+import br.com.unincor.webSite.model.dao.AlunoAtividadeDao;
+import br.com.unincor.webSite.model.dao.AlunoDao;
 import br.com.unincor.webSite.model.dao.AtividadeDao;
 import br.com.unincor.webSite.model.dao.DisciplinaDao;
 import br.com.unincor.webSite.model.dao.ProfessorDao;
+import br.com.unincor.webSite.model.domain.AlunoAtividade;
 import br.com.unincor.webSite.model.domain.Atividade;
 import br.com.unincor.webSite.model.domain.Disciplina;
 import java.io.Serializable;
@@ -108,6 +111,9 @@ public class BeanAtividade implements Serializable{
 
     }
  
+   
+   
+
  
     }
   

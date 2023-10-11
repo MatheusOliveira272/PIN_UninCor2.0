@@ -10,6 +10,7 @@ br\com\unincor\webSite\model\dao\ProfessorDao.class
 br\com\unincor\webSite\model\dao\GenericDao.class
 br\com\unincor\webSite\model\dao\AlunoAtividadeDao.class
 br\com\unincor\webSite\model\dao\RespostaAlunoDao.class
+br\com\unincor\webSite\controller\BeanAlunoAtividade.class
 br\com\unincor\webSite\model\domain\RespostaAluno.class
 br\com\unincor\webSite\model\main.class
 br\com\unincor\webSite\model\dao\AlunoDao.class

@@ -22,7 +22,10 @@
                         <p:inputText value="#{beanDisciplina.disciplina.nome}" style="width: 80%"
                                      required="true" requiredMessage="Informe o nome!"/>
                     </p:panelGrid>
-
+                    <!-- <p:tooltip id="uploaderChooseFileBeforeUploadToolTip"
+                       widgetVar="chooseWV" position="top"
+                       for="@(#formId\:uploader1 > .ui-fileupload-buttonbar > .ui-fileupload-choose)"
+                       value="Choose button tooltip"/> -->
 
                     <p:commandButton value="Salvar" style="margin-left: 80%; margin-right: 5px; margin-top: 10px"
                                      styleClass="ui-button-secondary" actionListener="#{beanDisciplina.salvar()}"
@@ -46,23 +49,28 @@
 
 
                         <p:column headerText="Opções">
+
+                            <p:tooltip 
+                                       position="top"
+                                       for="@next"
+                                       value="Choose button tooltip"/>
                             <p:commandButton icon="pi pi-file-edit" style="margin-right: 15px; width: 40px"   styleClass="ui-button-secondary" actionListener="#{beanDisciplina.editar(dis)}"
                                              update="form-cadastro painel"/>
                             <p:commandButton icon="pi pi-trash" style="width: 40px" styleClass="ui-button-secondary"  actionListener="#{beanDisciplina.remover(dis)}"
                                              update="form-cadastro painel">
-                            
-                            <p:confirm header="Confirmação" message="Deseja remover a disciplina: #{dis.nome}?" icon="pi pi-info-circle"/>
+
+                                <p:confirm header="Confirmação" message="Deseja remover a disciplina: #{dis.nome}?" icon="pi pi-info-circle"/>
                             </p:commandButton>
-                       
-                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
-                            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
-                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" />
-                        </p:confirmDialog>
-                        
-                        
+
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+                                <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                                <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" />
+                            </p:confirmDialog>
+
+
                         </p:column>
 
-                        
+
 
 
                     </p:dataTable>

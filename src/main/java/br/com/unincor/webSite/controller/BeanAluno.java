@@ -79,6 +79,10 @@ public class BeanAluno implements Serializable {
                 .getExternalContext().getRequest();
         request.getSession(true).setAttribute("alunoLogado",
                 alunoLogado);
+        
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
+        session.setAttribute("alunoId", alunoLogado.getId());
 
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         try {

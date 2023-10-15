@@ -106,7 +106,7 @@ public class BeanProfessor implements Serializable {
 
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         try {
-            ec.redirect(ec.getRequestContextPath() + "/pages/login.jsf");
+            ec.redirect(ec.getRequestContextPath() + "/index.jsf");
         } catch (IOException ex) {
             Logger.getLogger(BeanProfessor.class.getName()).log(Level.SEVERE, null, ex);
         }

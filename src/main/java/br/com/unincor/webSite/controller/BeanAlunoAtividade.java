@@ -28,13 +28,12 @@ import lombok.Setter;
 public class BeanAlunoAtividade implements Serializable {
 
     private String codigo;
-     private List<Aluno> alunos;
 
 
     public void adicionaAlunoAtividade() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
-        var alunoLogado = new AlunoDao().buscarAlunoPorLogin((String) session.getAttribute("email"));
+        var alunoLogado = new AlunoDao().findById((Long) session.getAttribute("alunoId"));
         var atividadeCodigo = new AtividadeDao().buscarAtividadeCodigo(codigo);
         var alunoAtividade = new AlunoAtividade(null, null, alunoLogado, atividadeCodigo);
         AlunoAtividadeDao alunoAtividadeDao = new AlunoAtividadeDao();
@@ -43,25 +42,15 @@ public class BeanAlunoAtividade implements Serializable {
 
      
 
-    public void buscarAlunoAtividade() {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
-        var professorLogado = new ProfessorDao().findById((Long) session.getAttribute("professorId"));
+    public List<AlunoAtividade> getAluno() {
         var atividadeCodigo = new AtividadeDao().buscarAtividadeCodigo(codigo);
-
         if (atividadeCodigo != null) {
-            Set<AlunoAtividade> alunoAtividades = atividadeCodigo.getAlunoAtividade();
-            List<Aluno> alunos = new ArrayList<>();
-
-            for (AlunoAtividade alunoAtividade : alunoAtividades) {
-                alunos.add(alunoAtividade.getAluno());
-            }
+            
+             var alunos = new AlunoAtividadeDao().retornaAlunosPorAtividade(atividadeCodigo);
+             return alunos;
         }
-        this.alunos = alunos;
+        return null;
     }
 
-    public List<Aluno> getAlunos() {
-        return alunos;
-    }
 
 }

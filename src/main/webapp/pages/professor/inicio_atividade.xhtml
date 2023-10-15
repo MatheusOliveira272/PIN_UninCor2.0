@@ -94,9 +94,9 @@
                             </p:splitButton>
 
                             <p:dialog id="alunosDialog" header="Lista de Alunos" widgetVar="alunosDialogVar" modal="true" resizable="false" dynamic="true">
-                                <p:dataTable style="width: 800px" value="#{beanAlunoAtividade.alunos}" var="aluno">
+                                <p:dataTable style="width: 800px" value="#{beanAlunoAtividade.aluno}" var="aluno">
                                     <p:column headerText="Nome">
-                                        <p:outputLabel value="#{aluno.nome}"/>
+                                        <p:outputLabel value="#{aluno.aluno.nome}"/>
                                     </p:column>
                                 </p:dataTable>
                             </p:dialog>

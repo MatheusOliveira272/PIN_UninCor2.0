@@ -7,10 +7,10 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
-    <ui:define name="titulo"> - Cadastro Questão</ui:define> 
+    <ui:define name="titulo"> - Cadastro Disciplina</ui:define> 
 
     <ui:define name="conteudo" >
-        <p:panel id="painel" header="Cadastro Questão">
+        <p:panel id="painel" header="Cadastro Disciplina">
 
             <p:outputPanel rendered="#{beanQuestao.questao != null}">
                 <h:form id="form-cadastro"> 
@@ -19,10 +19,25 @@
                     <p:panelGrid columns="2" columnClasses="ui-g-4, ui-g-8">
 
                         <p:outputLabel value="Enunciado:" style="margin-left: 50%"/>
-                        <p:inputText value="#{beanQuestao.questao.nome}" style="width: 80%"
-                                     required="true" requiredMessage="Informe o nome!"/>
+                        <p:inputText value="#{beanQuestao.questao.enunciado}" style="width: 80%"
+                                     required="true" requiredMessage="Informe o enunciado!"/>
+
+                        <p:outputLabel value="Tipo de questão: " style="margin-left: 50%"/>
+                        <p:selectOneMenu value="#{beanQuestao.tipoQuestao}">
+                            <f:selectItem itemLabel="(Selecione)" noSelectionOption="true"/>
+                            <f:selectItems value="#{beanQuestao.tipoQuestao}" var="ec"/>                          
+                        </p:selectOneMenu>
+
+                        <p:dialog id="dialog1" header="Diálogo 1" widgetVar="dlg1" resizable="false" modal="true" responsive="true">
+                            <h:outputText value="Conteúdo do Diálogo 1" />
+                        </p:dialog>
+
+                        <p:dialog id="dialog2" header="Diálogo 2" widgetVar="dlg2" resizable="false" modal="true" responsive="true">
+                            <h:outputText value="Conteúdo do Diálogo 2" />
+                        </p:dialog>
 
                     </p:panelGrid>
+
 
                     <p:commandButton value="Salvar" style="margin-left: 80%; margin-right: 5px; margin-top: 10px"
                                      styleClass="ui-button-secondary" actionListener="#{beanQuestao.salvar()}"
@@ -37,32 +52,36 @@
                     <p:commandButton value="Novo" actionListener="#{beanQuestao.novo()}" 
                                      styleClass="ui-button-secondary"
                                      update="painel"/>
-                    <p:dataTable  value="#{beanQuestao.questao}" style="margin-top: 15px" var="ques"
+                    <p:dataTable  value="#{beanQuestao.questoes}" style="margin-top: 15px" var="dis"
                                   reflow="true" scrollable="true" scrollHeight="280">
 
-                       
-                        <p:column headerText="Opções" style="margin-left: 50px" >
+                        <p:column headerText="Nome:"  sortBy="#{dis.enunciado}" >
+                            <p:outputLabel value="#{dis.enunciado}"/>
+                        </p:column>
 
-                            <p:commandButton icon="pi pi-file-edit" style="margin-right: 15px; width: 40px"  
-                                             styleClass="ui-button-secondary" 
-                                             actionListener="#{beanQuestao.editar(ques)}"
+
+                        <p:column headerText="Opções">
+
+                            <p:tooltip position="top" for="@next" value="Editar"/>
+                            <p:commandButton icon="pi pi-file-edit" style="margin-right: 15px; width: 40px"   styleClass="ui-button-secondary" actionListener="#{beanQuestao.editar(dis)}"
                                              update="form-cadastro painel"/>
+                            <p:tooltip position="top" for="@next" value="Excluir"/>
+                            <p:commandButton icon="pi pi-trash" style="width: 40px" styleClass="ui-button-secondary"  actionListener="#{beanQuestao.remover(dis)}"
+                                             update="form-cadastro painel">
 
-                            <p:commandButton  styleClass="ui-button-secondary" icon="pi pi-trash" style="width: 40px"
-                                              process="@this" actionListener="#{beanQuestao.remover(ques)}"  update="form-cadastro painel"
-                                              >
-                                <p:confirm header="Confirmação" message="Deseja remover a questao: #{ques.nome}?" icon="pi pi-info-circle"/>
-                            </p:commandButton>                            
+                                <p:confirm header="Confirmação" message="Deseja remover a questao: #{dis.enunciado}?" icon="pi pi-info-circle"/>
+                            </p:commandButton>
+
                             <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
                                 <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
                                 <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" />
                             </p:confirmDialog>
-                            <p:splitButton icon="pi pi-cog" update="" style="margin-left: 15px" styleClass="ui-button-secondary">
-                                <p:menuitem value="Questões"  update="" icon="pi pi-list"/>
-                                <p:menuitem value="Alunos"  ajax="false" icon="pi pi-users"/>
-                            </p:splitButton>
+
 
                         </p:column>
+
+
+
 
                     </p:dataTable>
                 </h:form>

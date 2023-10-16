@@ -1,7 +1,6 @@
 package br.com.unincor.webSite.controller;
 
 import br.com.unincor.webSite.model.dao.AlunoAtividadeDao;
-import br.com.unincor.webSite.model.dao.AlunoDao;
 import br.com.unincor.webSite.model.dao.AtividadeDao;
 import br.com.unincor.webSite.model.dao.DisciplinaDao;
 import br.com.unincor.webSite.model.dao.ProfessorDao;
@@ -19,8 +18,6 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import lombok.Getter;
 import lombok.Setter;
-import org.primefaces.PrimeFaces;
-import org.primefaces.model.DialogFrameworkOptions;
 
 @ManagedBean
 @ViewScoped
@@ -44,9 +41,9 @@ public class BeanAtividade implements Serializable {
             atividade.getDisciplinas().clear(); // Remove todas as disciplinas associadas
             atividade.getDisciplinas().add(disciplinaSelecionada); // Adiciona a nova disciplina selecionada
         }
-       
-            atividade.setCodigo(gerarCodigoAleatorio(5));
-        
+
+        atividade.setCodigo(gerarCodigoAleatorio(5));
+
         new AtividadeDao().save(atividade);
         cancelar();
         buscar();
@@ -108,10 +105,10 @@ public class BeanAtividade implements Serializable {
         var professorLogado = new ProfessorDao().findById((Long) session.getAttribute("professorId"));
         this.atividades = new AtividadeDao().buscarAtividadesProfessorPorLogin(professorLogado);
     }
-    
-        private String codigo;
 
-     public List<AlunoAtividade> getAluno() {
+    private String codigo;
+
+    public List<AlunoAtividade> getAluno() {
         var atividadeCodigo = new AtividadeDao().buscarAtividadeCodigo(codigo);
         if (atividadeCodigo != null) {
             var alunos = new AlunoAtividadeDao().retornaAlunosPorAtividade(atividadeCodigo);

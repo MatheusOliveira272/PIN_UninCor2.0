@@ -22,10 +22,7 @@
                         <p:inputText value="#{beanDisciplina.disciplina.nome}" style="width: 80%"
                                      required="true" requiredMessage="Informe o nome!"/>
                     </p:panelGrid>
-                    <!-- <p:tooltip id="uploaderChooseFileBeforeUploadToolTip"
-                       widgetVar="chooseWV" position="top"
-                       for="@(#formId\:uploader1 > .ui-fileupload-buttonbar > .ui-fileupload-choose)"
-                       value="Choose button tooltip"/> -->
+                                       
 
                     <p:commandButton value="Salvar" style="margin-left: 80%; margin-right: 5px; margin-top: 10px"
                                      styleClass="ui-button-secondary" actionListener="#{beanDisciplina.salvar()}"
@@ -50,12 +47,10 @@
 
                         <p:column headerText="Opções">
 
-                            <p:tooltip 
-                                       position="top"
-                                       for="@next"
-                                       value="Choose button tooltip"/>
+                            <p:tooltip position="top" for="@next" value="Editar"/>
                             <p:commandButton icon="pi pi-file-edit" style="margin-right: 15px; width: 40px"   styleClass="ui-button-secondary" actionListener="#{beanDisciplina.editar(dis)}"
                                              update="form-cadastro painel"/>
+                            <p:tooltip position="top" for="@next" value="Excluir"/>
                             <p:commandButton icon="pi pi-trash" style="width: 40px" styleClass="ui-button-secondary"  actionListener="#{beanDisciplina.remover(dis)}"
                                              update="form-cadastro painel">
 

@@ -73,11 +73,13 @@
 
                         <p:column headerText="Opções" style="margin-left: 50px" >
 
+                            <p:tooltip position="top" for="@next" value="Editar"/>
                             <p:commandButton icon="pi pi-file-edit" style="margin-right: 15px; width: 40px"  
                                              styleClass="ui-button-secondary" 
                                              actionListener="#{beanAtividade.editar(ati)}"
                                              update="form-cadastro painel"/>
 
+                            <p:tooltip position="top" for="@next" value="Excluir"/>
                             <p:commandButton  styleClass="ui-button-secondary" icon="pi pi-trash" style="width: 40px"
                                               process="@this" actionListener="#{beanAtividade.remover(ati)}"  update="form-cadastro painel"
                                               >
@@ -88,15 +90,21 @@
                                 <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" />
                             </p:confirmDialog>
 
+                            <p:tooltip position="top" for="@next" value="Configurações"/>
                             <p:splitButton icon="pi pi-cog" update="" style="margin-left: 15px" styleClass="ui-button-secondary">
                                 <p:menuitem value="Questões"  update="" icon="pi pi-list"/>
                                 <p:menuitem value="Alunos" icon="pi pi-users" onclick="PF('alunosDialogVar').show();" />
                             </p:splitButton>
 
-                            <p:dialog id="alunosDialog" header="Lista de Alunos" widgetVar="alunosDialogVar" modal="true" resizable="false" dynamic="true">
-                                <p:dataTable style="width: 800px" value="#{beanAlunoAtividade.aluno}" var="aluno">
+                            <p:dialog id="alunosDialog" header="Lista de Alunos" widgetVar="alunosDialogVar" modal="true"
+                                      resizable="false" dynamic="true">
+                                <p:dataTable style="width: 800px" value="#{beanAlunoAtividade.buscarAlunoAtividade(ati)}"
+                                             var="aluno"   reflow="true" scrollable="true" scrollHeight="280">
                                     <p:column headerText="Nome">
-                                        <p:outputLabel value="#{aluno.aluno.nome}"/>
+                                        <p:outputLabel value="#{aluno.nome}"/>
+                                    </p:column>
+                                    <p:column headerText="Email">
+                                        <p:outputLabel value="#{aluno.email}"/>
                                     </p:column>
                                 </p:dataTable>
                             </p:dialog>

@@ -108,5 +108,15 @@ public class BeanAtividade implements Serializable {
         var professorLogado = new ProfessorDao().findById((Long) session.getAttribute("professorId"));
         this.atividades = new AtividadeDao().buscarAtividadesProfessorPorLogin(professorLogado);
     }
+    
+        private String codigo;
 
+     public List<AlunoAtividade> getAluno() {
+        var atividadeCodigo = new AtividadeDao().buscarAtividadeCodigo(codigo);
+        if (atividadeCodigo != null) {
+            var alunos = new AlunoAtividadeDao().retornaAlunosPorAtividade(atividadeCodigo);
+            return alunos;
+        }
+        return null;
+    }
 }

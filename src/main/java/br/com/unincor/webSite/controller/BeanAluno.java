@@ -101,7 +101,7 @@ public class BeanAluno implements Serializable {
         
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
         try {
-            ec.redirect(ec.getRequestContextPath() + "/pages/login_aluno.jsf");
+            ec.redirect(ec.getRequestContextPath() + "/index.jsf");
         } catch (IOException ex) {
             Logger.getLogger(BeanAluno.class.getName()).log(Level.SEVERE, null, ex);
         }

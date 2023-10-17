@@ -111,8 +111,8 @@ public class BeanAtividade implements Serializable {
     public List<AlunoAtividade> getAluno() {
         var atividadeCodigo = new AtividadeDao().buscarAtividadeCodigo(codigo);
         if (atividadeCodigo != null) {
-            var alunos = new AlunoAtividadeDao().retornaAlunosPorAtividade(atividadeCodigo);
-            return alunos;
+            var alunos = new AlunoAtividadeDao().retornaAlunoAtividadePorAtividade(atividadeCodigo);
+            return (List<AlunoAtividade>) alunos;
         }
         return null;
     }

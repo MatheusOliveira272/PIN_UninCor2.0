@@ -48,8 +48,6 @@ public class BeanAlunoAtividade implements Serializable {
     }
 
     public List<Aluno> buscarAlunoAtividade(Atividade atividade) {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
         var atividadeCodigo = new AtividadeDao().buscarAlunoPorAtividade(atividade.getCodigo());
         return atividadeCodigo;
     }

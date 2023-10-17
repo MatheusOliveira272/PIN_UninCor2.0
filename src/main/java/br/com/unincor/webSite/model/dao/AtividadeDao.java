@@ -27,10 +27,11 @@ public class AtividadeDao extends GenericDao<Atividade, Long> {
     }
 
     public List<Aluno> buscarAlunoPorAtividade(String codigo) {
-        String sql = "select aa.aluno from AlunoAtividade aa where aa.atividade.codigo = :codigo";
+        var atividade = buscarAtividadeCodigo(codigo);
+        String sql = "select aa.aluno from AlunoAtividade aa where aa.atividade = :atividade";
 
         Query query = getEntityManager().createQuery(sql, Aluno.class)
-                .setParameter("codigo", codigo);
+                .setParameter("atividade", atividade);
         return query.getResultList();
     }
 

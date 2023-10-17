@@ -16,7 +16,7 @@ br\com\unincor\webSite\model\main.class
 br\com\unincor\webSite\model\dao\AlunoDao.class
 br\com\unincor\webSite\model\domain\ClassificaQuestao.class
 br\com\unincor\webSite\model\dao\ClassificaQuestaoDao.class
-br\com\unincor\webSite\model\domain\TipoQuest√£o.class
+br\com\unincor\webSite\model\domain\TipoQuest„o.class
 br\com\unincor\webSite\model\dao\QuestaoAbertaDao.class
 br\com\unincor\webSite\controller\BeanProfessor.class
 br\com\unincor\webSite\core\HibernateManager.class
@@ -26,6 +26,7 @@ br\com\unincor\webSite\view\utils\DisciplinaConverter.class
 br\com\unincor\webSite\model\domain\Questao.class
 br\com\unincor\webSite\filter\FiltroRequisicaoProfessor.class
 br\com\unincor\webSite\model\domain\Professor.class
+br\com\unincor\webSite\controller\BeanQuestao.class
 br\com\unincor\webSite\model\dao\QuestaoFechadaDao.class
 br\com\unincor\webSite\model\dao\AtividadeDao.class
 br\com\unincor\webSite\model\domain\Anexo.class

@@ -7,12 +7,12 @@ import jakarta.persistence.Query;
 import java.util.List;
 
 public class AlunoAtividadeDao extends GenericDao<AlunoAtividade, Long> {
-    public List<AlunoAtividade> retornaAlunosPorAtividade(Atividade atividade){
+    public AlunoAtividade retornaAlunoAtividadePorAtividade(Atividade atividade){
         String sql = "FROM AlunoAtividade av WHERE av.atividade = :atividade";
         
         Query query = getEntityManager().createQuery(sql, Atividade.class)
                 .setParameter("atividade", atividade);
         var resultado = query.getResultList();
-        return resultado;
+        return resultado.isEmpty() ? null : (AlunoAtividade) resultado.get(0);
     }
 }

@@ -93,12 +93,14 @@
                             <p:tooltip position="top" for="@next" value="Configurações"/>
                             <p:splitButton icon="pi pi-cog" update="" style="margin-left: 15px" styleClass="ui-button-secondary">
                                 <p:menuitem value="Questões"  update="" icon="pi pi-list"/>
-                                <p:menuitem value="Alunos" icon="pi pi-users" onclick="PF('alunosDialogVar').show();" />
+                                <p:menuitem value="Alunos" icon="pi pi-users" 
+                                            actionListener="#{beanAlunoAtividade.buscarAlunoAtividade(ati.codigo)}" update="alunosDialog"
+                                            oncomplete="PF('alunosDialogVar').show();" />
                             </p:splitButton>
 
                             <p:dialog id="alunosDialog" header="Lista de Alunos" widgetVar="alunosDialogVar" modal="true"
                                       resizable="false" dynamic="true">
-                                <p:dataTable style="width: 800px" value="#{beanAlunoAtividade.buscarAlunoAtividade(ati)}"
+                                <p:dataTable style="width: 800px" value="#{beanAlunoAtividade.alunos}"
                                              var="aluno"   reflow="true" scrollable="true" scrollHeight="280">
                                     <p:column headerText="Nome">
                                         <p:outputLabel value="#{aluno.nome}"/>

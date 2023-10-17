@@ -19,7 +19,7 @@ import lombok.Setter;
 public class Aluno implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     private String nome;
     private String email;
     private String senha;

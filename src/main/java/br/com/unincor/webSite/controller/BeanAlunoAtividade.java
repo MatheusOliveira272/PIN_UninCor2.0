@@ -39,7 +39,7 @@ public class BeanAlunoAtividade implements Serializable {
     public void adicionaAlunoAtividade() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
-        var alunoLogado = new AlunoDao().findById((Long) session.getAttribute("alunoId"));
+        var alunoLogado = new AlunoDao().findById((Integer) session.getAttribute("alunoId"));
         var atividadeCodigo = new AtividadeDao().buscarAtividadeCodigo(codigo);
         var alunoAtividade = new AlunoAtividade(null, null, alunoLogado, atividadeCodigo);
         AlunoAtividadeDao alunoAtividadeDao = new AlunoAtividadeDao();
@@ -47,9 +47,8 @@ public class BeanAlunoAtividade implements Serializable {
 
     }
 
-    public List<Aluno> buscarAlunoAtividade(Atividade atividade) {
-        var atividadeCodigo = new AtividadeDao().buscarAlunoPorAtividade(atividade.getCodigo());
-        return atividadeCodigo;
+    public void buscarAlunoAtividade(String codigo) {
+        this.alunos = new AtividadeDao().buscarAlunoPorAtividade(codigo);
     }
 
 }

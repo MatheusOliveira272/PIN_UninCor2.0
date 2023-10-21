@@ -101,7 +101,8 @@
                             <p:dialog id="alunosDialog" header="Lista de Alunos" widgetVar="alunosDialogVar" modal="true"
                                       resizable="false" dynamic="true">
                                 <p:dataTable style="width: 800px" value="#{beanAlunoAtividade.alunos}"
-                                             var="aluno"   reflow="true" scrollable="true" scrollHeight="280">
+                                             var="aluno" reflow="true" scrollable="true" scrollHeight="280">
+                                  
                                     <p:column headerText="Nome">
                                         <p:outputLabel value="#{aluno.nome}"/>
                                     </p:column>

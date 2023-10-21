@@ -10,7 +10,7 @@
     <ui:define name="titulo"> - Cadastro Disciplina</ui:define> 
 
     <ui:define name="conteudo" >
-        <p:panel id="painel" header="Cadastro Disciplina">
+        <p:panel id="painel" header="Cadastro Questão">
 
             <p:outputPanel rendered="#{beanQuestao.questao != null}">
                 <h:form id="form-cadastro"> 
@@ -23,22 +23,15 @@
                                      required="true" requiredMessage="Informe o enunciado!"/>
 
                         <p:outputLabel value="Tipo de questão: " style="margin-left: 50%"/>
-                        <p:selectOneMenu value="#{beanQuestao.tipoQuestao}">
+                        <p:selectOneMenu value="#{beanQuestao.questao.tipoQuestao}">
                             <f:selectItem itemLabel="(Selecione)" noSelectionOption="true"/>
-                            <f:selectItems value="#{beanQuestao.tipoQuestao}" var="ec"/>                          
+                            <f:selectItem itemValue="true" itemLabel="Fechada" />
+                            <f:selectItem itemValue="false" itemLabel="Aberta" />
+                            <p:ajax update="painelFormulario" />
                         </p:selectOneMenu>
 
-                        <p:dialog id="dialog1" header="Diálogo 1" widgetVar="dlg1" resizable="false" modal="true" responsive="true">
-                            <h:outputText value="Conteúdo do Diálogo 1" />
-                        </p:dialog>
-
-                        <p:dialog id="dialog2" header="Diálogo 2" widgetVar="dlg2" resizable="false" modal="true" responsive="true">
-                            <h:outputText value="Conteúdo do Diálogo 2" />
-                        </p:dialog>
 
                     </p:panelGrid>
-
-
                     <p:commandButton value="Salvar" style="margin-left: 80%; margin-right: 5px; margin-top: 10px"
                                      styleClass="ui-button-secondary" actionListener="#{beanQuestao.salvar()}"
                                      update="@form tabela painel"/>
@@ -46,6 +39,51 @@
                     <p:commandButton value="Cancelar" actionListener="#{beanQuestao.cancelar()}" styleClass="ui-button-secondary"
                                      update="painel" immediate="true"/>
                 </h:form>
+
+
+                <h:panelGroup id="painelFormulario">
+                    <p:panel rendered="#{beanQuestao.questao.tipoQuestao eq 'false'}"  style="margin-top: 10px">
+                        <!-- Formulário para questão Aberta salva no banco como 0 em tipo_questao -->
+                        <p:outputLabel value="Aberta: "/>
+                        <h:form>
+                            <p:inputTextarea style="margin-top: 30px; margin-left: 10px" rows="6" cols="155" />
+                        </h:form>
+
+                    </p:panel>
+
+                    <!-- ... -->
+
+                    <p:outputPanel rendered="#{beanQuestao.questao.tipoQuestao eq 'true'}">
+                        <!-- Formulário para questões fechadas -->
+                        <p:outputLabel value="Fechada" />
+                        <h:form>
+                            <p:panelGrid columns="2" columnClasses="ui-g-4, ui-g-8">
+                                <p:outputLabel value="Enunciado:" style="margin-left: 50%"/>
+                                <p:inputText value="#{beanQuestao.questaoFechada.descricao}" style="width: 80%"
+                                             required="true" requiredMessage="Informe a descrição!"/>
+                                <p:outputLabel value="Ordem:" style="margin-left: 50%"/>
+                                <p:inputText value="#{beanQuestao.questaoFechada.ordem}" style="width: 80%"
+                                             required="true" requiredMessage="Informe a ordem!"/>
+                                <p:outputLabel value="Correto:" style="margin-left: 50%"/>
+                                <p:selectBooleanCheckbox value="#{beanQuestao.questaoFechada.correto}" />
+
+                                <p:commandButton value="Adicionar Questão Fechada" action="#{beanQuestao.adicionarQuestaoFechada()}" />
+                                <p:commandButton value="Salvar Questões Fechadas" action="#{beanQuestao.salvarQuestoesFechadas()}"
+                                                 style="margin-left: 80%; margin-right: 5px; margin-top: 10px"
+                                                 styleClass="ui-button-secondary" update="@form tabela painel"/>
+                            </p:panelGrid>
+                            <p:commandButton value="Cancelar" action="#{beanQuestao.cancelar()}" styleClass="ui-button-secondary"
+                                             update="painel" immediate="true"/>
+                        </h:form>
+                    </p:outputPanel>
+
+                    <!-- ... -->
+
+
+
+                </h:panelGroup>
+
+
             </p:outputPanel>
             <p:outputPanel rendered="#{beanQuestao.questao == null}">
                 <h:form id="tabela">

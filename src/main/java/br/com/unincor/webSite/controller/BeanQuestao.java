@@ -1,6 +1,6 @@
 package br.com.unincor.webSite.controller;
 
-
+import br.com.unincor.webSite.model.dao.ProfessorDao;
 import br.com.unincor.webSite.model.dao.QuestaoDao;
 import br.com.unincor.webSite.model.dao.QuestaoFechadaDao;
 import br.com.unincor.webSite.model.domain.Questao;
@@ -18,12 +18,11 @@ import javax.servlet.http.HttpSession;
 import lombok.Getter;
 import lombok.Setter;
 
-
 @ManagedBean
 @ViewScoped
 @Getter
 @Setter
-public class BeanQuestao  implements Serializable {
+public class BeanQuestao implements Serializable {
 
     private List<Questao> questoes = new ArrayList<>();
     private Questao questao;
@@ -32,27 +31,22 @@ public class BeanQuestao  implements Serializable {
     private String tipoQuestao;
     private List<String> tiposQuestao;
 
-      private QuestaoFechada questaoFechada;
+    private QuestaoFechada questaoFechada;
     private List<QuestaoFechada> questoesFechadas;
-//    @PostConstruct
-//    public void init() {
-//        buscar();
-//    }
 
-     @PostConstruct
+    @PostConstruct
     public void init() {
         questaoFechada = new QuestaoFechada();
         questoesFechadas = new ArrayList<>();
-        buscar();
+       // buscar();
     }
-    
+
     public void salvar() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
-        //Long professorId = (Long) session.getAttribute("professorId");
-        // var professorLogado = new ProfessorDao().findById((Long) session.getAttribute("professorId"));
+        Long professorId = (Long) session.getAttribute("professorId");
+        var professorLogado = new ProfessorDao().findById((Long) session.getAttribute("professorId"));
 
-        // disciplina.setProfessor(professorLogado);
         new QuestaoDao().save(questao);
         cancelar();
         //buscar();
@@ -78,52 +72,22 @@ public class BeanQuestao  implements Serializable {
     public void remover(Questao questao) {
 
         new QuestaoDao().delete(questao.getId());
-        buscar();
+       // buscar();
 
     }
 
     public void buscar() {
 
-//        FacesContext facesContext = FacesContext.getCurrentInstance();
-//        HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
-//        var professorLogado = new ProfessorDao().findById((Long) session.getAttribute("professorId"));
-//        this.questoes = new QuestaoDao().buscarQuestaosProfessorPorLogin(professorLogado);
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
+        var professorLogado = new ProfessorDao().findById((Long) session.getAttribute("professorId"));
+        this.questoes = new QuestaoDao().buscarQuestaosProfessorPorLogin(professorLogado);
     }
 
     public List<TipoQuestão> getTipoQuestao() {
         return Arrays.asList(TipoQuestão.values());
     }
 
-    /*
-
-    public void abrirOuFecharDialogo() {
-        if ("opcao1".equals(tipoQuestao)) {
-            PrimeFaces.current().executeScript("PF('dlg1').show()");
-            PrimeFaces.current().executeScript("PF('dlg2').hide()");
-        } else if ("opcao2".equals(tipoQuestao)) {
-            PrimeFaces.current().executeScript("PF('dlg1').hide()");
-            PrimeFaces.current().executeScript("PF('dlg2').show()");
-        } else {
-            PrimeFaces.current().executeScript("PF('dlg1').hide()");
-            PrimeFaces.current().executeScript("PF('dlg2').hide()");
-        }
-    }*/
-    
-    
-    
-    
-    
-    
-    
-    ///////////////////////////////////////
-    
-    
-    
-    
-  
-
-    // ...
-   
     public void adicionarQuestaoFechada() {
         questoesFechadas.add(questaoFechada);
         questaoFechada = new QuestaoFechada(); // Cria uma nova instância para a próxima questão fechada
@@ -134,15 +98,10 @@ public class BeanQuestao  implements Serializable {
         for (QuestaoFechada qf : questoesFechadas) {
             questao.setTipoQuestao(true); // Define o tipo de questão como fechada
             qf.setDescricao(questao.getEnunciado());
-            //questao.set(questao.getProfessor());
-           // qf.setDisciplina(questao.getDisciplina());
             new QuestaoFechadaDao().save(qf);
         }
 
         cancelar();
     }
 
-    // ...
 }
-    
-    

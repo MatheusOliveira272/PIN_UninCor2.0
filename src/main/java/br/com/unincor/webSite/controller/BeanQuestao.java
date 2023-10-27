@@ -102,6 +102,7 @@ public class BeanQuestao implements Serializable {
         HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
         var professorLogado = new ProfessorDao().findById((Long) session.getAttribute("professorId"));
         this.questoes = new QuestaoDao().buscarQuestaosProfessorPorLogin(professorLogado);
+
     }
 
     public List<TipoQuestão> getTipoQuestao() {

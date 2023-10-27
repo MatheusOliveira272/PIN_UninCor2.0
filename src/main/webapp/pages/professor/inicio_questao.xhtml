@@ -21,6 +21,16 @@
                         <p:outputLabel value="Enunciado:" style="margin-left: 50%"/>
                         <p:inputText value="#{beanQuestao.questao.enunciado}" style="width: 80%"
                                      required="true" requiredMessage="Informe o enunciado!"/>
+                        
+                         <p:outputLabel value="Atividade: " style="margin-left: 50%"/>
+
+                         <p:selectOneMenu value="#{beanQuestao.atividade}" converter="atividadeConverter">
+                            <f:selectItem itemLabel="(Selecione)" noSelectionOption="true" />
+                            <f:selectItems value="#{beanQuestao.atividades}" var="atividade"
+                                           itemLabel="#{atividade.nome}" itemValue="#{atividade}"
+                                           />
+                        </p:selectOneMenu>
+
 
                         <p:outputLabel value="Tipo de questão: " style="margin-left: 50%"/>
                         <p:selectOneMenu value="#{beanQuestao.questao.tipoQuestao}">

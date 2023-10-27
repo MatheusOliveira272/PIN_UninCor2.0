@@ -1,8 +1,10 @@
 package br.com.unincor.webSite.controller;
 
+import br.com.unincor.webSite.model.dao.AtividadeDao;
 import br.com.unincor.webSite.model.dao.ProfessorDao;
 import br.com.unincor.webSite.model.dao.QuestaoDao;
 import br.com.unincor.webSite.model.dao.QuestaoFechadaDao;
+import br.com.unincor.webSite.model.domain.Atividade;
 import br.com.unincor.webSite.model.domain.Questao;
 import br.com.unincor.webSite.model.domain.QuestaoFechada;
 import br.com.unincor.webSite.model.domain.TipoQuestão;
@@ -26,6 +28,7 @@ public class BeanQuestao implements Serializable {
 
     private List<Questao> questoes = new ArrayList<>();
     private Questao questao;
+    private Atividade atividade;
 //    private Questao questao = new Questao(); // Inicialize a questão corretamente
 
     private String tipoQuestao;
@@ -46,8 +49,25 @@ public class BeanQuestao implements Serializable {
         HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
         Long professorId = (Long) session.getAttribute("professorId");
         var professorLogado = new ProfessorDao().findById((Long) session.getAttribute("professorId"));
-
+        
+          if (atividade != null) {
+              questao.getAtividades().clear();
+              questao.getAtividades().add(atividade);
+         }
         new QuestaoDao().save(questao);
+        
+        new QuestaoFechadaDao().salvaAlernativasQuestoaFechada(questoesFechadas);
+        
+        
+        //Não estamos conseguindo associar as alternativas  à questão fechada
+        /*
+        Pensamos em colocar aqui um método que acesse as lista de questõesFechadas
+        (lista de alternativas de uma questão de tipo fechada)  e adicione o ID da 
+        questão na questão fechada
+        */
+        
+      
+
         cancelar();
         //buscar();
     }
@@ -88,6 +108,19 @@ public class BeanQuestao implements Serializable {
         return Arrays.asList(TipoQuestão.values());
     }
 
+    // lista de atividade 
+        private List<Atividade> atividades = new ArrayList<>();
+
+    public List<Atividade> getAtividades() {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
+        var professorLogado = new ProfessorDao().findById((Long) session.getAttribute("professorId"));
+        return this.atividades = new AtividadeDao().buscarAtividadesProfessorPorLogin(professorLogado);
+
+    }
+    
+    
+    //Aqui para baixo estou adicionando as alternativas da questão fechada à questão 
     public void adicionarQuestaoFechada() {
         questoesFechadas.add(questaoFechada);
         questaoFechada = new QuestaoFechada(); // Cria uma nova instância para a próxima questão fechada
@@ -98,6 +131,7 @@ public class BeanQuestao implements Serializable {
         for (QuestaoFechada qf : questoesFechadas) {
             questao.setTipoQuestao(true); // Define o tipo de questão como fechada
             qf.setDescricao(questao.getEnunciado());
+           
             new QuestaoFechadaDao().save(qf);
         }
 

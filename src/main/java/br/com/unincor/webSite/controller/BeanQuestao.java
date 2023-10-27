@@ -70,11 +70,11 @@ public class BeanQuestao implements Serializable {
     }
 
     public void buscar() {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
+      /*  FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
         var professorLogado = new ProfessorDao().findById((Long) session.getAttribute("professorId"));
         this.questoes = new QuestaoDao().buscarQuestaosProfessorPorLogin(professorLogado);
-         
+         */
 
     }
     

@@ -41,35 +41,27 @@ public class BeanQuestao implements Serializable {
     public void init() {
         questaoFechada = new QuestaoFechada();
         questoesFechadas = new ArrayList<>();
-       // buscar();
+        buscar();
     }
 
     public void salvar() {
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
-        Long professorId = (Long) session.getAttribute("professorId");
-        var professorLogado = new ProfessorDao().findById((Long) session.getAttribute("professorId"));
-        
-          if (atividade != null) {
-              questao.getAtividades().clear();
-              questao.getAtividades().add(atividade);
-         }
-        new QuestaoDao().save(questao);
-        
+
+        if (atividade != null) {
+            questao.getAtividades().clear();
+            questao.getAtividades().add(atividade);
+        }
+
         new QuestaoFechadaDao().salvaAlernativasQuestoaFechada(questoesFechadas);
-        
-        
+        new QuestaoDao().save(questao);
+//        new QuestaoFechadaDao().setaIdQuestao(questao, questoesFechadas); -> Tentativa de associar questão a questão fechada
         //Não estamos conseguindo associar as alternativas  à questão fechada
         /*
         Pensamos em colocar aqui um método que acesse as lista de questõesFechadas
         (lista de alternativas de uma questão de tipo fechada)  e adicione o ID da 
         questão na questão fechada
-        */
-        
-      
-
+         */
         cancelar();
-        //buscar();
+        buscar();
     }
 
     public void limparTabela() {
@@ -92,7 +84,7 @@ public class BeanQuestao implements Serializable {
     public void remover(Questao questao) {
 
         new QuestaoDao().delete(questao.getId());
-       // buscar();
+        buscar();
 
     }
 
@@ -102,7 +94,6 @@ public class BeanQuestao implements Serializable {
         HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
         var professorLogado = new ProfessorDao().findById((Long) session.getAttribute("professorId"));
         this.questoes = new QuestaoDao().buscarQuestaosProfessorPorLogin(professorLogado);
-
     }
 
     public List<TipoQuestão> getTipoQuestao() {
@@ -110,7 +101,7 @@ public class BeanQuestao implements Serializable {
     }
 
     // lista de atividade 
-        private List<Atividade> atividades = new ArrayList<>();
+    private List<Atividade> atividades = new ArrayList<>();
 
     public List<Atividade> getAtividades() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -119,24 +110,22 @@ public class BeanQuestao implements Serializable {
         return this.atividades = new AtividadeDao().buscarAtividadesProfessorPorLogin(professorLogado);
 
     }
-    
-    
+
     //Aqui para baixo estou adicionando as alternativas da questão fechada à questão 
     public void adicionarQuestaoFechada() {
         questoesFechadas.add(questaoFechada);
         questaoFechada = new QuestaoFechada(); // Cria uma nova instância para a próxima questão fechada
     }
 
-    public void salvarQuestoesFechadas() {
-        // Salva as questões fechadas no banco de dados
-        for (QuestaoFechada qf : questoesFechadas) {
-            questao.setTipoQuestao(true); // Define o tipo de questão como fechada
-            qf.setDescricao(questao.getEnunciado());
-           
-            new QuestaoFechadaDao().save(qf);
-        }
-
-        cancelar();
-    }
-
+//    public void salvarQuestoesFechadas() {
+//        // Salva as questões fechadas no banco de dados
+//        for (QuestaoFechada qf : questoesFechadas) {
+//            questao.setTipoQuestao(true); // Define o tipo de questão como fechada
+//            qf.setDescricao(questao.getEnunciado());
+//           
+//            new QuestaoFechadaDao().save(qf);
+//        }
+//
+//        cancelar();
+//    }
 }

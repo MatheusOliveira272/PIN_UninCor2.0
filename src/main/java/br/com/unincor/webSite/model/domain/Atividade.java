@@ -11,7 +11,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 
 @Getter
 @Setter
@@ -37,12 +36,12 @@ public class Atividade implements Serializable {
     )
     private List<Disciplina> disciplinas = new ArrayList<>();
 
-    @ManyToMany
-    @JoinTable(
-            name = "questoes_atividades",
-            joinColumns = @JoinColumn(name = "atividade_id"),
-            inverseJoinColumns = @JoinColumn(name = "questoes_id")
-    )
+    @ManyToMany(mappedBy = "atividades")
+//    @JoinTable(
+//            name = "questoes_atividades",
+//            joinColumns = @JoinColumn(name = "atividade_id"),
+//            inverseJoinColumns = @JoinColumn(name = "questoes_id")
+//    )
     private Set<Questao> questoes = new HashSet<>();
 
     @OneToMany(mappedBy = "atividade")

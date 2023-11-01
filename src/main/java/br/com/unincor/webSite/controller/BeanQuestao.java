@@ -45,14 +45,31 @@ public class BeanQuestao implements Serializable {
     }
 
     public void salvar() {
+        
+        questao.getAtividades().add(atividade);        
+        var questaoSalva = new QuestaoDao().save(questao);
+        if(!questoesFechadas.isEmpty()) {
+            questoesFechadas.forEach(q -> q.setQuestao(questaoSalva));
+        }
+        new QuestaoFechadaDao().salvaAlernativasQuestoaFechada(questoesFechadas);
+        //atividade.getQuestoes().add(questao);
+        
+        //new AtividadeDao().save(atividade);
 
-        if (atividade != null) {
+        /*if (atividade != null) {
             questao.getAtividades().clear();
             questao.getAtividades().add(atividade);
-        }
+        }*/
 
-        new QuestaoFechadaDao().salvaAlernativasQuestoaFechada(questoesFechadas);
-        new QuestaoDao().save(questao);
+        //new QuestaoFechadaDao().salvaAlernativasQuestoaFechada(questoesFechadas);
+        //new QuestaoDao().save(questao);
+        
+        
+        /* Primeiro vincular a questão na atividade e salvar a atividade */
+        
+        /* Se não salvar as questões fechadas vcs vão precisar fazer um for na lista de questao,
+        fechadas e salvar vinculando a questão que está sendo criada,  */
+        
 //        new QuestaoFechadaDao().setaIdQuestao(questao, questoesFechadas); -> Tentativa de associar questão a questão fechada
         //Não estamos conseguindo associar as alternativas  à questão fechada
         /*
@@ -79,6 +96,10 @@ public class BeanQuestao implements Serializable {
 
     public void cancelar() {
         this.questao = null;
+    }
+    
+    public void cancelarAlternativa() {
+        
     }
 
     public void remover(Questao questao) {
@@ -107,7 +128,7 @@ public class BeanQuestao implements Serializable {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
         var professorLogado = new ProfessorDao().findById((Long) session.getAttribute("professorId"));
-        return this.atividades = new AtividadeDao().buscarAtividadesProfessorPorLogin(professorLogado);
+        return this.atividades = new AtividadeDao().buscarAtividadesProfessorPorLoginComQuestoes(professorLogado);
 
     }
 

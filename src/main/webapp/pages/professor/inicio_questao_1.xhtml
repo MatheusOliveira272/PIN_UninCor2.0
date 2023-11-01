@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<ui:composition template="../../template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:define name="titulo"> - Cadastro Questão</ui:define> 
+    
+    <!-- Todo o formulário deverá estar dentro de um só form 
+        Verificar sobre o partial submit caso necessário
+        Todos os componentes do formulário devem estar devidamente envolvidos em um form
+   
+        
+    -->
+
+    <ui:define name="conteudo" >
+        <p:panel id="painel" header="Cadastro Questão">
+
+            <p:outputPanel rendered="#{beanQuestao.questao != null}">
+                <h:form id="form-cadastro"> 
+                    <p:growl /> 
+
+                    <p:panelGrid columns="2" columnClasses="ui-g-4, ui-g-8">
+
+                        <p:outputLabel value="Enunciado:" style="margin-left: 50%"/>
+                        <p:inputText value="#{beanQuestao.questao.enunciado}" style="width: 80%"
+                                     required="true" requiredMessage="Informe o enunciado!"/>
+                        
+                         <p:outputLabel value="Atividade: " style="margin-left: 50%"/>
+
+                         <p:selectOneMenu value="#{beanQuestao.atividade}" converter="atividadeConverter">
+                            <f:selectItem itemLabel="(Selecione)" noSelectionOption="true" />
+                            <f:selectItems value="#{beanQuestao.atividades}" var="atividade"
+                                           itemLabel="#{atividade.nome}" itemValue="#{atividade}"
+                                           />
+                        </p:selectOneMenu>
+
+
+                        <p:outputLabel value="Tipo de questão: " style="margin-left: 50%"/>
+                        <p:selectOneMenu value="#{beanQuestao.questao.tipoQuestao}">
+                            <f:selectItem itemLabel="(Selecione)" noSelectionOption="true"/>
+                            <f:selectItem itemValue="true" itemLabel="Fechada" />
+                            <f:selectItem itemValue="false" itemLabel="Aberta" />
+                            <p:ajax update="painelFormulario" />
+                        </p:selectOneMenu>
+
+
+                    </p:panelGrid>
+                    <p:commandButton value="Salvar" style="margin-left: 80%; margin-right: 5px; margin-top: 10px"
+                                     styleClass="ui-button-secondary" actionListener="#{beanQuestao.salvar()}"
+                                     update="@form tabela painel" partialSubmit="true"/>
+
+                    <p:commandButton value="Cancelar" actionListener="#{beanQuestao.cancelar()}" styleClass="ui-button-secondary"
+                                     update="painel" immediate="true"/>
+                </h:form>
+
+
+
+                <!-- essa parte abre de acordo com o que o usuário escolher Questão Aberta ou fechada  -->
+                <h:panelGroup id="painelFormulario">
+                    <p:panel rendered="#{beanQuestao.questao.tipoQuestao eq 'false'}" 
+                             header="Questão Aberta:" style="margin-top: 10px">
+                        <!-- Formulário para questão Aberta salva no banco como 0 em tipo_questao -->
+                        <h:form>
+                            <p:inputTextarea style="margin-top: 30px; margin-left: 10px" rows="6" cols="155" />
+                        </h:form>
+
+                    </p:panel>
+
+
+                    <p:panel rendered="#{beanQuestao.questao.tipoQuestao eq 'true'}"
+                             header="Questão Fechada:" style="margin-top: 10px">
+                        <!-- Formulário para questão Fechada salva no banco como 1 em tipo_questao -->
+
+
+                        <p:commandButton value="Nova Alternativa" style="margin-left: 10px; margin-right: 5px; margin-top: 10px"
+                                         styleClass="ui-button-secondary" onclick="PF('questaoFechadaDialog').show();" 
+                                         process="@this" />
+
+                        <p:dataTable id="tabelaQuestao" value="#{beanQuestao.questoesFechadas}" style="margin-top: 15px" var="ques"
+                                     reflow="true" scrollable="true" scrollHeight="280">
+
+                            <p:column headerText="Ordem: "  >
+                                <p:outputLabel value="#{ques.ordem}"/>
+                            </p:column> 
+
+                            <p:column headerText="Descrição: "  >
+                                <p:outputLabel value="#{ques.descricao}"/>
+                            </p:column>
+
+
+                            <p:column headerText="Opções">
+
+                                <p:tooltip position="top" for="@next" value="Editar"/>
+                                <p:commandButton icon="pi pi-file-edit" style="margin-right: 15px; width: 40px"   styleClass="ui-button-secondary" 
+                                                 actionListener="#{beanQuestao.editar(ques)}"
+                                                 update="form-cadastro painel"/>
+                                <p:tooltip position="top" for="@next" value="Excluir"/>
+                                <p:commandButton icon="pi pi-trash" style="width: 40px" styleClass="ui-button-secondary"  
+                                                 actionListener="#{beanQuestao.remover(ques)}"
+                                                 update="form-cadastro painel">
+
+                                    <p:confirm header="Confirmação" message="Deseja remover a questao: #{ques.descricao}?" icon="pi pi-info-circle"/>
+                                </p:commandButton>
+
+                                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+                                    <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                                    <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" />
+                                </p:confirmDialog>
+                            </p:column>
+                        </p:dataTable>
+
+
+
+                        <p:dialog header="Nova Alternativa" widgetVar="questaoFechadaDialog"
+                                  resizable="false" modal="true"  dynamic="true">
+
+                            <h:form>
+                                <p:panelGrid style="width: 700px" columns="2" columnClasses="ui-g-4, ui-g-8">
+                                    <p:outputLabel value="Enunciado:" style="margin-left: 50%"/>
+                                    <p:inputText value="#{beanQuestao.questaoFechada.descricao}" style="width: 80%"
+                                                 required="true" requiredMessage="Informe a descrição!"/>
+                                    <p:outputLabel value="Ordem:" style="margin-left: 50%"/>
+                                    <p:inputText value="#{beanQuestao.questaoFechada.ordem}" style="width: 80%"
+                                                 required="true" requiredMessage="Informe a ordem!"/>
+                                    <p:outputLabel value="Correto:" style="margin-left: 50%"/>
+                                    <p:selectBooleanCheckbox value="#{beanQuestao.questaoFechada.correto}" />
+
+                                    <p:commandButton value="Adicionar" action="#{beanQuestao.adicionarQuestaoFechada()}" 
+                                                     styleClass="ui-button-secondary" update="@form tabelaQuestao"
+                                                     style="margin-left:  250px"
+                                                     oncomplete="PF('questaoFechadaDialog').hide();"/>
+
+                                    <p:commandButton value="Cancelar" action="#{beanQuestao.cancelar()}" styleClass="ui-button-secondary"
+                                                     style="margin-left:  150px" update="painel" immediate="true"/>
+                                </p:panelGrid>
+
+                            </h:form>
+
+                        </p:dialog>
+
+                    </p:panel>
+
+                </h:panelGroup>
+
+
+                <!-- Fim da seção relacionada ao tipo de questão-->
+
+
+
+            </p:outputPanel>
+            <p:outputPanel rendered="#{beanQuestao.questao == null}">
+                <h:form id="tabela">
+                    <p:commandButton value="Novo" actionListener="#{beanQuestao.novo()}" 
+                                     styleClass="ui-button-secondary"
+                                     update="painel"/>
+                    <p:dataTable  value="#{beanQuestao.questoes}" style="margin-top: 15px" var="que"
+                                  reflow="true" scrollable="true" scrollHeight="280">
+
+                        <p:column headerText="Nome:"  sortBy="#{que.enunciado}" >
+                            <p:outputLabel value="#{que.enunciado}"/>
+                        </p:column>
+
+
+                        <p:column headerText="Opções">
+
+                            <p:tooltip position="top" for="@next" value="Editar"/>
+                            <p:commandButton icon="pi pi-file-edit" style="margin-right: 15px; width: 40px"   styleClass="ui-button-secondary" actionListener="#{beanQuestao.editar(que)}"
+                                             update="form-cadastro painel"/>
+                            <p:tooltip position="top" for="@next" value="Excluir"/>
+                            <p:commandButton icon="pi pi-trash" style="width: 40px" styleClass="ui-button-secondary"  actionListener="#{beanQuestao.remover(que)}"
+                                             update="form-cadastro painel">
+
+                                <p:confirm header="Confirmação" message="Deseja remover a questao: #{que.enunciado}?" icon="pi pi-info-circle"/>
+                            </p:commandButton>
+
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+                                <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                                <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" />
+                            </p:confirmDialog>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </p:outputPanel>
+        </p:panel>
+    </ui:define>
+</ui:composition>

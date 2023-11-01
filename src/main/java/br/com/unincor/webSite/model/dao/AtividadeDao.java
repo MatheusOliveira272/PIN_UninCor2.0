@@ -16,6 +16,14 @@ public class AtividadeDao extends GenericDao<Atividade, Long> {
         var resultado = query.getResultList();
         return resultado;
     }
+    public List<Atividade> buscarAtividadesProfessorPorLoginComQuestoes(Professor prof) {
+        String sql = "SELECT a FROM Atividade a JOIN a.disciplinas d  left join fetch a.questoes WHERE d.professor = :professor";
+
+        Query query = getEntityManager().createQuery(sql, Atividade.class)
+                .setParameter("professor", prof);
+        var resultado = query.getResultList();
+        return resultado;
+    }
 
     public Atividade buscarAtividadeCodigo(String codigo) {
         String sql = "from Atividade a where a.codigo = :codigo";

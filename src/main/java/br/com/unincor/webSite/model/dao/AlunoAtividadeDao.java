@@ -15,4 +15,14 @@ public class AlunoAtividadeDao extends GenericDao<AlunoAtividade, Long> {
         var resultado = query.getResultList();
         return resultado.isEmpty() ? null : (AlunoAtividade) resultado.get(0);
     }
+
+    public AlunoAtividade buscaAlunoAtividadeNota(Aluno aluno, Atividade atividade) {
+        String sql = "FROM AlunoAtividade av WHERE av.atividade = :atividade AND av.aluno = :aluno";
+        
+        Query query = getEntityManager().createQuery(sql, Atividade.class)
+                .setParameter("atividade", atividade)
+                .setParameter("aluno", aluno);
+        var resultado = query.getResultList();
+        return resultado.isEmpty() ? null : (AlunoAtividade) resultado.get(0);
+    }
 }

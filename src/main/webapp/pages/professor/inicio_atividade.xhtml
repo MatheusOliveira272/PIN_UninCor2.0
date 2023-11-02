@@ -102,13 +102,35 @@
                                       resizable="false" dynamic="true">
                                 <p:dataTable style="width: 800px" value="#{beanAlunoAtividade.alunos}"
                                              var="aluno" reflow="true" scrollable="true" scrollHeight="280">
-                                  
+
                                     <p:column headerText="Nome">
                                         <p:outputLabel value="#{aluno.nome}"/>
                                     </p:column>
                                     <p:column headerText="Email">
                                         <p:outputLabel value="#{aluno.email}"/>
                                     </p:column>
+                                    <p:column headerText="Nota">
+                                        <p:outputLabel value="#{beanAlunoAtividade.buscaNotaAlunoAtividadePorAluno(aluno, ati)}"/>
+                                    </p:column>
+                                    <!--                                    <p:column headerText="Nota">
+                                                                            <p:outputLabel value="}"/>
+                                                                        </p:column>-->
+                                    <!--                                    <p:column headerText="Nota">
+                                                                            <p:commandButton type="button" value="Nota" styleClass="ui-button-flat" />
+                                                                      </p:column>-->
+<!--                                    <p:column headerText="Opções">
+                                    <p:tooltip position="top" for="@next" value="Configurações"/>
+                                    <p:splitButton icon="pi pi-paperclip" update="" style="margin-left: 15px" styleClass="ui-button-secondary">
+                                        <p:menuitem value="Atividade"  update="" icon="pi pi-file"/>
+                                        <p:menuitem value="Habilitar" icon="pi pi-lock-open" 
+                                                    actionListener="//Aqui vai o código para habilitar o acesso do aluno a atividade" update="alunosDialog"
+                                                     />
+                                        <p:menuitem value="Bloquear" icon="pi pi-lock" 
+                                                    actionListener="//Aqui vai o código para bloquear o acesso do aluno a atividade" update="alunosDialog"
+                                                     />
+                                    </p:splitButton>
+                                    </p:column>-->
+
                                 </p:dataTable>
                             </p:dialog>
 

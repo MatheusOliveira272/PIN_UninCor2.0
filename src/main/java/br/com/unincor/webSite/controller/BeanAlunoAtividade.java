@@ -31,6 +31,7 @@ public class BeanAlunoAtividade implements Serializable {
 
     private String codigo;
     private List<Aluno> alunos;
+    private Aluno aluno;
 
     public List<Aluno> getAlunos() {
         return alunos;
@@ -51,4 +52,8 @@ public class BeanAlunoAtividade implements Serializable {
         this.alunos = new AtividadeDao().buscarAlunoPorAtividade(codigo);
     }
 
+    public Double buscaNotaAlunoAtividadePorAluno(Aluno aluno, Atividade atividade){
+        var alunoAtividade = new AlunoAtividadeDao().buscaAlunoAtividadeNota(aluno, atividade);
+        return alunoAtividade.getNota();
+    }
 }

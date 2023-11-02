@@ -4,6 +4,7 @@ import br.com.unincor.webSite.model.dao.AlunoAtividadeDao;
 import br.com.unincor.webSite.model.dao.AtividadeDao;
 import br.com.unincor.webSite.model.dao.DisciplinaDao;
 import br.com.unincor.webSite.model.dao.ProfessorDao;
+import br.com.unincor.webSite.model.domain.Aluno;
 import br.com.unincor.webSite.model.domain.AlunoAtividade;
 import br.com.unincor.webSite.model.domain.Atividade;
 import br.com.unincor.webSite.model.domain.Disciplina;

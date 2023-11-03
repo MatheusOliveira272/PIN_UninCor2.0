@@ -30,6 +30,8 @@ public class BeanQuestaoFechada {
     
     @PostConstruct
     public void init(){
+        questaoFechada = new QuestaoFechada();
+        questoesFechadas = new ArrayList<>();
         buscar();
     }
     
@@ -46,9 +48,11 @@ public class BeanQuestaoFechada {
     
     //Aqui para baixo estou adicionando as alternativas da questão fechada à questão 
     public void adicionarQuestaoFechada() {
-        System.out.println(questaoFechada.getDescricao());
-        questoesFechadas.add(questaoFechada);
-        questaoFechada = new QuestaoFechada(); // Cria uma nova instância para a próxima questão fechada
+       questoesFechadas.add(questaoFechada);
+         questaoFechada = new QuestaoFechada(); // Cria uma nova instância para a próxima questão fechada
+        
+        
+       
     }
     
     public void cancelar(){

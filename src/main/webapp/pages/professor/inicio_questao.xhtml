@@ -70,9 +70,9 @@
 
                         <p:panel rendered="#{beanQuestao.questao.tipoQuestao eq 'true'}"
                                  header="Questão Fechada:" style="margin-top: 10px">
+                            
+                            
                             <!-- Formulário para questão Fechada salva no banco como 1 em tipo_questao -->
-
-
                             <p:commandButton value="Nova Alternativa" style="margin-left: 10px; margin-right: 5px; margin-top: 10px"
                                              styleClass="ui-button-secondary" onclick="PF('questaoFechadaDialog').show();" 
                                              process="@this questaoFechadaDialog" />

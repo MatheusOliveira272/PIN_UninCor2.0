@@ -50,7 +50,7 @@
 
                     </p:panelGrid>
                     <p:commandButton value="Salvar" style="margin-left: 80%; margin-right: 5px; margin-top: 10px"
-                                     styleClass="ui-button-secondary" actionListener="#{beanQuestao.salvar()}"
+                                     styleClass="ui-button-secondary" actionListener="#{beanQuestaoFechada.salvaTudo(beanQuestao.questao)}"
                                      update="@form tabela painel" partialSubmit="true"/>
 
                     <p:commandButton value="Cancelar" actionListener="#{beanQuestao.cancelar()}" styleClass="ui-button-secondary"

@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
@@ -24,6 +25,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class BeanQuestaoFechada {
+    @ManagedProperty(value = "#{beanQuestao}")
+    private BeanQuestao beanQuestao;
+            
     private List<QuestaoFechada> questoesFechadas = new ArrayList<>();
     private QuestaoFechada questaoFechada;
     private List<QuestaoFechada> recuperaQuestoesFechadas = new ArrayList<>();
@@ -45,6 +49,13 @@ public class BeanQuestaoFechada {
             }
         }
     }
+    
+    public void salvaTudo(Questao questao){
+        beanQuestao.salvar();
+        salvar(questao);
+    }
+    
+    
     
     //Aqui para baixo estou adicionando as alternativas da questão fechada à questão 
     public void adicionarQuestaoFechada() {

@@ -5,6 +5,7 @@ import br.com.unincor.webSite.model.dao.ProfessorDao;
 import br.com.unincor.webSite.model.dao.QuestaoDao;
 import br.com.unincor.webSite.model.dao.QuestaoFechadaDao;
 import br.com.unincor.webSite.model.domain.Atividade;
+import br.com.unincor.webSite.model.domain.Disciplina;
 import br.com.unincor.webSite.model.domain.Questao;
 import br.com.unincor.webSite.model.domain.QuestaoFechada;
 import br.com.unincor.webSite.model.domain.TipoQuestão;
@@ -25,128 +26,64 @@ import lombok.Setter;
 @Getter
 @Setter
 public class BeanQuestao implements Serializable {
-
-    private List<Questao> questoes = new ArrayList<>();
+    //CRUD com questão / salvar questão fechada / salvar questão atividade
     private Questao questao;
-    private Atividade atividade;
-//    private Questao questao = new Questao(); // Inicialize a questão corretamente
-
-    private String tipoQuestao;
-    private List<String> tiposQuestao;
-
-    private QuestaoFechada questaoFechada;
-    private List<QuestaoFechada> questoesFechadas;
-
+    private Atividade atividadeSelecionada;
+    private List<Questao> questoes = new ArrayList<>();
+    private List<Atividade> atividades = new ArrayList<>();
+    
     @PostConstruct
     public void init() {
-        questaoFechada = new QuestaoFechada();
-        questoesFechadas = new ArrayList<>();
         buscar();
-    }
-
-    public void salvar() {
-        
-        questao.getAtividades().add(atividade);        
-        var questaoSalva = new QuestaoDao().save(questao);
-        if(!questoesFechadas.isEmpty()) {
-            questoesFechadas.forEach(q -> q.setQuestao(questaoSalva));
-        }
-        new QuestaoFechadaDao().salvaAlernativasQuestoaFechada(questoesFechadas);
-        //atividade.getQuestoes().add(questao);
-        
-        //new AtividadeDao().save(atividade);
-
-        /*if (atividade != null) {
-            questao.getAtividades().clear();
-            questao.getAtividades().add(atividade);
-        }*/
-
-        //new QuestaoFechadaDao().salvaAlernativasQuestoaFechada(questoesFechadas);
-        //new QuestaoDao().save(questao);
-        
-        
-        /* Primeiro vincular a questão na atividade e salvar a atividade */
-        
-        /* Se não salvar as questões fechadas vcs vão precisar fazer um for na lista de questao,
-        fechadas e salvar vinculando a questão que está sendo criada,  */
-        
-//        new QuestaoFechadaDao().setaIdQuestao(questao, questoesFechadas); -> Tentativa de associar questão a questão fechada
-        //Não estamos conseguindo associar as alternativas  à questão fechada
-        /*
-        Pensamos em colocar aqui um método que acesse as lista de questõesFechadas
-        (lista de alternativas de uma questão de tipo fechada)  e adicione o ID da 
-        questão na questão fechada
-         */
-        cancelar();
-        buscar();
-    }
-
-    public void limparTabela() {
-        questoes.clear();
-    }
-
-    public void editar(Questao questao) {
-        this.questao = questao;
-    }
-
-    public void novo() {
-        this.questao = new Questao();
-
-    }
-
-    public void cancelar() {
-        this.questao = null;
     }
     
-    public void cancelarAlternativa() {
+    public void salvar(){
+        if (atividadeSelecionada != null) {
+            questao.getAtividades().clear(); // Remove todas as disciplinas associadas
+            questao.getAtividades().add(atividadeSelecionada); // Adiciona a nova disciplina selecionada
+        }
+        
+        new QuestaoDao().save(questao);
+        
         
     }
-
-    public void remover(Questao questao) {
-
-        new QuestaoDao().delete(questao.getId());
-        buscar();
-
-    }
-
-    public void buscar() {
-
+    
+    public void buscar(){
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
         var professorLogado = new ProfessorDao().findById((Long) session.getAttribute("professorId"));
         this.questoes = new QuestaoDao().buscarQuestaosProfessorPorLogin(professorLogado);
     }
-
-    public List<TipoQuestão> getTipoQuestao() {
-        return Arrays.asList(TipoQuestão.values());
+    
+    public void cancelar() {
+        this.questao = null;
     }
+    
+    public void limparTabela(){
+        this.questoes = null;
+    }
+    
+    public void editar(Questao questao){
+        this.questao = questao;
+        this.atividadeSelecionada = questao.getAtividades().get(0);
+    }
+    
+    public void novo(){
+        this.questao = new Questao();
+    }
+    
+    public void remover(Questao questao) {
+        System.out.println(questao.getEnunciado());
+        new AtividadeDao().delete(questao.getId());
 
-    // lista de atividade 
-    private List<Atividade> atividades = new ArrayList<>();
-
-    public List<Atividade> getAtividades() {
+        buscar();
+    }
+    
+    public List<Atividade> getAtividades(){
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
         var professorLogado = new ProfessorDao().findById((Long) session.getAttribute("professorId"));
         return this.atividades = new AtividadeDao().buscarAtividadesProfessorPorLoginComQuestoes(professorLogado);
-
     }
 
-    //Aqui para baixo estou adicionando as alternativas da questão fechada à questão 
-    public void adicionarQuestaoFechada() {
-        questoesFechadas.add(questaoFechada);
-        questaoFechada = new QuestaoFechada(); // Cria uma nova instância para a próxima questão fechada
-    }
-
-//    public void salvarQuestoesFechadas() {
-//        // Salva as questões fechadas no banco de dados
-//        for (QuestaoFechada qf : questoesFechadas) {
-//            questao.setTipoQuestao(true); // Define o tipo de questão como fechada
-//            qf.setDescricao(questao.getEnunciado());
-//           
-//            new QuestaoFechadaDao().save(qf);
-//        }
-//
-//        cancelar();
-//    }
 }

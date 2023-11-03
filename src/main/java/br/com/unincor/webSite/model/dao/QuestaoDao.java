@@ -8,14 +8,12 @@ import java.util.List;
 
 public class QuestaoDao extends GenericDao<Questao, Long> {
 
-    public List<Questao> buscarQuestaosProfessorPorLogin(Professor prof) {
-        System.out.println(prof.getNome());
-    String sql = "SELECT q FROM Questao q JOIN q.atividades a JOIN a.disciplinas d where d.professor = :professor";
+    public List<Questao> buscarQuestaosProfessorPorLogin(Professor professor) {
+    String sql = "SELECT q FROM Questao q JOIN q.atividades a JOIN a.disciplinas d WHERE d.professor = :professor";
 
     Query query = getEntityManager().createQuery(sql, Questao.class)
-            .setParameter("professor", prof);
-    var resultado = query.getResultList();
-        return resultado;
+            .setParameter("professor", professor);
+        return query.getResultList();
 
 
 }

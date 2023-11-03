@@ -1,3 +1,4 @@
+br\com\unincor\webSite\controller\BeanQuestaoFechada.class
 br\com\unincor\webSite\model\dao\DisciplinaDao.class
 br\com\unincor\webSite\controller\BeanDisciplina.class
 br\com\unincor\webSite\model\dao\QuestaoDao.class
@@ -7,6 +8,7 @@ br\com\unincor\webSite\model\dao\AnexoDao.class
 br\com\unincor\webSite\model\domain\Atividade.class
 br\com\unincor\webSite\view\utils\Mensagens.class
 br\com\unincor\webSite\model\domain\Disciplina.class
+br\com\unincor\webSite\controller\BeanQuestao2.class
 br\com\unincor\webSite\model\dao\ProfessorDao.class
 br\com\unincor\webSite\model\dao\GenericDao.class
 br\com\unincor\webSite\model\dao\AlunoAtividadeDao.class

@@ -19,28 +19,28 @@
     <ui:define name="conteudo" >
         <p:panel id="painel" header="Cadastro Questão">
 
-            <p:outputPanel rendered="#{beanQuestao.questao != null}">
+            <p:outputPanel rendered="#{beanQuestao2.questao != null}">
                 <h:form id="form-cadastro"> 
                     <p:growl /> 
 
                     <p:panelGrid columns="2" columnClasses="ui-g-4, ui-g-8">
 
                         <p:outputLabel value="Enunciado:" style="margin-left: 50%"/>
-                        <p:inputText value="#{beanQuestao.questao.enunciado}" style="width: 80%"
+                        <p:inputText value="#{beanQuestao2.questao.enunciado}" style="width: 80%"
                                      required="true" requiredMessage="Informe o enunciado!"/>
                         
                          <p:outputLabel value="Atividade: " style="margin-left: 50%"/>
 
-                         <p:selectOneMenu value="#{beanQuestao.atividade}" converter="atividadeConverter">
+                         <p:selectOneMenu value="#{beanQuestao2.atividade}" converter="atividadeConverter">
                             <f:selectItem itemLabel="(Selecione)" noSelectionOption="true" />
-                            <f:selectItems value="#{beanQuestao.atividades}" var="atividade"
+                            <f:selectItems value="#{beanQuestao2.atividades}" var="atividade"
                                            itemLabel="#{atividade.nome}" itemValue="#{atividade}"
                                            />
                         </p:selectOneMenu>
 
 
                         <p:outputLabel value="Tipo de questão: " style="margin-left: 50%"/>
-                        <p:selectOneMenu value="#{beanQuestao.questao.tipoQuestao}">
+                        <p:selectOneMenu value="#{beanQuestao2.questao.tipoQuestao}">
                             <f:selectItem itemLabel="(Selecione)" noSelectionOption="true"/>
                             <f:selectItem itemValue="true" itemLabel="Fechada" />
                             <f:selectItem itemValue="false" itemLabel="Aberta" />
@@ -50,10 +50,10 @@
 
                     </p:panelGrid>
                     <p:commandButton value="Salvar" style="margin-left: 80%; margin-right: 5px; margin-top: 10px"
-                                     styleClass="ui-button-secondary" actionListener="#{beanQuestao.salvar()}"
+                                     styleClass="ui-button-secondary" actionListener="#{beanQuestao2.salvar()}"
                                      update="@form tabela painel" partialSubmit="true"/>
 
-                    <p:commandButton value="Cancelar" actionListener="#{beanQuestao.cancelar()}" styleClass="ui-button-secondary"
+                    <p:commandButton value="Cancelar" actionListener="#{beanQuestao2.cancelar()}" styleClass="ui-button-secondary"
                                      update="painel" immediate="true"/>
                 </h:form>
 
@@ -61,7 +61,7 @@
 
                 <!-- essa parte abre de acordo com o que o usuário escolher Questão Aberta ou fechada  -->
                 <h:panelGroup id="painelFormulario">
-                    <p:panel rendered="#{beanQuestao.questao.tipoQuestao eq 'false'}" 
+                    <p:panel rendered="#{beanQuestao2.questao.tipoQuestao eq 'false'}" 
                              header="Questão Aberta:" style="margin-top: 10px">
                         <!-- Formulário para questão Aberta salva no banco como 0 em tipo_questao -->
                         <h:form>
@@ -71,7 +71,7 @@
                     </p:panel>
 
 
-                    <p:panel rendered="#{beanQuestao.questao.tipoQuestao eq 'true'}"
+                    <p:panel rendered="#{beanQuestao2.questao.tipoQuestao eq 'true'}"
                              header="Questão Fechada:" style="margin-top: 10px">
                         <!-- Formulário para questão Fechada salva no banco como 1 em tipo_questao -->
 
@@ -80,7 +80,7 @@
                                          styleClass="ui-button-secondary" onclick="PF('questaoFechadaDialog').show();" 
                                          process="@this" />
 
-                        <p:dataTable id="tabelaQuestao" value="#{beanQuestao.questoesFechadas}" style="margin-top: 15px" var="ques"
+                        <p:dataTable id="tabelaQuestao" value="#{beanQuestao2.questoesFechadas}" style="margin-top: 15px" var="ques"
                                      reflow="true" scrollable="true" scrollHeight="280">
 
                             <p:column headerText="Ordem: "  >
@@ -96,11 +96,11 @@
 
                                 <p:tooltip position="top" for="@next" value="Editar"/>
                                 <p:commandButton icon="pi pi-file-edit" style="margin-right: 15px; width: 40px"   styleClass="ui-button-secondary" 
-                                                 actionListener="#{beanQuestao.editar(ques)}"
+                                                 actionListener="#{beanQuestao2.editar(ques)}"
                                                  update="form-cadastro painel"/>
                                 <p:tooltip position="top" for="@next" value="Excluir"/>
                                 <p:commandButton icon="pi pi-trash" style="width: 40px" styleClass="ui-button-secondary"  
-                                                 actionListener="#{beanQuestao.remover(ques)}"
+                                                 actionListener="#{beanQuestao2.remover(ques)}"
                                                  update="form-cadastro painel">
 
                                     <p:confirm header="Confirmação" message="Deseja remover a questao: #{ques.descricao}?" icon="pi pi-info-circle"/>
@@ -121,20 +121,20 @@
                             <h:form>
                                 <p:panelGrid style="width: 700px" columns="2" columnClasses="ui-g-4, ui-g-8">
                                     <p:outputLabel value="Enunciado:" style="margin-left: 50%"/>
-                                    <p:inputText value="#{beanQuestao.questaoFechada.descricao}" style="width: 80%"
+                                    <p:inputText value="#{beanQuestao2.questaoFechada.descricao}" style="width: 80%"
                                                  required="true" requiredMessage="Informe a descrição!"/>
                                     <p:outputLabel value="Ordem:" style="margin-left: 50%"/>
-                                    <p:inputText value="#{beanQuestao.questaoFechada.ordem}" style="width: 80%"
+                                    <p:inputText value="#{beanQuestao2.questaoFechada.ordem}" style="width: 80%"
                                                  required="true" requiredMessage="Informe a ordem!"/>
                                     <p:outputLabel value="Correto:" style="margin-left: 50%"/>
-                                    <p:selectBooleanCheckbox value="#{beanQuestao.questaoFechada.correto}" />
+                                    <p:selectBooleanCheckbox value="#{beanQuestao2.questaoFechada.correto}" />
 
-                                    <p:commandButton value="Adicionar" action="#{beanQuestao.adicionarQuestaoFechada()}" 
+                                    <p:commandButton value="Adicionar" action="#{beanQuestao2.adicionarQuestaoFechada()}" 
                                                      styleClass="ui-button-secondary" update="@form tabelaQuestao"
                                                      style="margin-left:  250px"
                                                      oncomplete="PF('questaoFechadaDialog').hide();"/>
 
-                                    <p:commandButton value="Cancelar" action="#{beanQuestao.cancelar()}" styleClass="ui-button-secondary"
+                                    <p:commandButton value="Cancelar" action="#{beanQuestao2.cancelar()}" styleClass="ui-button-secondary"
                                                      style="margin-left:  150px" update="painel" immediate="true"/>
                                 </p:panelGrid>
 
@@ -152,12 +152,12 @@
 
 
             </p:outputPanel>
-            <p:outputPanel rendered="#{beanQuestao.questao == null}">
+            <p:outputPanel rendered="#{beanQuestao2.questao == null}">
                 <h:form id="tabela">
-                    <p:commandButton value="Novo" actionListener="#{beanQuestao.novo()}" 
+                    <p:commandButton value="Novo" actionListener="#{beanQuestao2.novo()}" 
                                      styleClass="ui-button-secondary"
                                      update="painel"/>
-                    <p:dataTable  value="#{beanQuestao.questoes}" style="margin-top: 15px" var="que"
+                    <p:dataTable  value="#{beanQuestao2.questoes}" style="margin-top: 15px" var="que"
                                   reflow="true" scrollable="true" scrollHeight="280">
 
                         <p:column headerText="Nome:"  sortBy="#{que.enunciado}" >
@@ -168,10 +168,10 @@
                         <p:column headerText="Opções">
 
                             <p:tooltip position="top" for="@next" value="Editar"/>
-                            <p:commandButton icon="pi pi-file-edit" style="margin-right: 15px; width: 40px"   styleClass="ui-button-secondary" actionListener="#{beanQuestao.editar(que)}"
+                            <p:commandButton icon="pi pi-file-edit" style="margin-right: 15px; width: 40px"   styleClass="ui-button-secondary" actionListener="#{beanQuestao2.editar(que)}"
                                              update="form-cadastro painel"/>
                             <p:tooltip position="top" for="@next" value="Excluir"/>
-                            <p:commandButton icon="pi pi-trash" style="width: 40px" styleClass="ui-button-secondary"  actionListener="#{beanQuestao.remover(que)}"
+                            <p:commandButton icon="pi pi-trash" style="width: 40px" styleClass="ui-button-secondary"  actionListener="#{beanQuestao2.remover(que)}"
                                              update="form-cadastro painel">
 
                                 <p:confirm header="Confirmação" message="Deseja remover a questao: #{que.enunciado}?" icon="pi pi-info-circle"/>

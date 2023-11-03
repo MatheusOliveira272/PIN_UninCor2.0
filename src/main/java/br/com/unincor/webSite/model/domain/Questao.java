@@ -7,7 +7,9 @@ package br.com.unincor.webSite.model.domain;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import lombok.AllArgsConstructor;
@@ -32,26 +34,27 @@ public class Questao implements Serializable{
     private Boolean tipoQuestao;
     private String tipo;
 
-    @ManyToMany(mappedBy = "questoes")
-    /*@JoinTable(
+    @ManyToMany
+    @JoinTable(
             name = "questoes_atividades",
             joinColumns = @JoinColumn(name = "questao_id"),
             inverseJoinColumns = @JoinColumn(name = "atividade_id")
-    )*/
-    private Set<Atividade> atividades = new HashSet<>();
+    )
+    private List<Atividade> atividades = new ArrayList<>();
+    
 
     @ManyToMany
     @JoinTable
             (
                     name = "questoes_classificacoes",
-                    joinColumns = @JoinColumn(name = "questoes_id"),
+                    joinColumns = @JoinColumn(name = "questao_id"),
                     inverseJoinColumns = @JoinColumn(name = "classificacoes_questoes_id")
             )
     private Set<ClassificaQuestao> classificaQuestoes = new HashSet<>();
 
     
     @OneToMany(mappedBy = "questao")
-    private Set<QuestaoFechada> questaoFechadas = new HashSet<>();
+    private List<QuestaoFechada> questaoFechadas = new ArrayList<>();
 
     @OneToMany(mappedBy = "questao")
     private Set<RespostaAluno> respostasAlunos = new HashSet<>();

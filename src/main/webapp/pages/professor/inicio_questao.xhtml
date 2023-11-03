@@ -31,7 +31,7 @@
 
                         <p:outputLabel value="Atividade: " style="margin-left: 50%"/>
 
-                        <p:selectOneMenu value="#{beanQuestao.atividade}" converter="atividadeConverter">
+                        <p:selectOneMenu value="#{beanQuestao.atividadeSelecionada}" converter="atividadeConverter">
                             <f:selectItem itemLabel="(Selecione)" noSelectionOption="true" />
                             <f:selectItems value="#{beanQuestao.atividades}" var="atividade"
                                            itemLabel="#{atividade.nome}" itemValue="#{atividade}"
@@ -77,7 +77,7 @@
                                              styleClass="ui-button-secondary" onclick="PF('questaoFechadaDialog').show();" 
                                              process="@this questaoFechadaDialog" />
 
-                            <p:dataTable id="tabelaQuestao" value="#{beanQuestao.questoesFechadas}" style="margin-top: 15px" var="ques"
+                            <p:dataTable id="tabelaQuestao" value="#{beanQuestaoFechada.questoesFechadas}" style="margin-top: 15px" var="ques"
                                          reflow="true" scrollable="true" scrollHeight="280">
 
                                 <p:column headerText="Ordem: "  >
@@ -93,11 +93,11 @@
 
                                     <p:tooltip position="top" for="@next" value="Editar"/>
                                     <p:commandButton icon="pi pi-file-edit" style="margin-right: 15px; width: 40px"   styleClass="ui-button-secondary" 
-                                                     actionListener="#{beanQuestao.editar(ques)}"
+                                                     actionListener="#{beanQuestaoFechada.editar(ques)}"
                                                      update="form-cadastro painel"/>
                                     <p:tooltip position="top" for="@next" value="Excluir"/>
                                     <p:commandButton icon="pi pi-trash" style="width: 40px" styleClass="ui-button-secondary"  
-                                                     actionListener="#{beanQuestao.remover(ques)}"
+                                                     actionListener="#{beanQuestaoFechada.remover(ques)}"
                                                      update="form-cadastro painel">
 
                                         <p:confirm header="Confirmação" message="Deseja remover a questao: #{ques.descricao}?" icon="pi pi-info-circle"/>
@@ -118,20 +118,20 @@
                                 <h:form id="form-dialog">
                                     <p:panelGrid style="width: 700px" columns="2" columnClasses="ui-g-4, ui-g-8">
                                         <p:outputLabel value="Enunciado:" style="margin-left: 50%"/>
-                                        <p:inputText value="#{beanQuestao.questaoFechada.descricao}" style="width: 80%"
+                                        <p:inputText value="#{beanQuestaoFechada.questaoFechada.descricao}" style="width: 80%"
                                                      required="true" requiredMessage="Informe a descrição!"/>
                                         <p:outputLabel value="Ordem:" style="margin-left: 50%"/>
-                                        <p:inputText value="#{beanQuestao.questaoFechada.ordem}" style="width: 80%"
+                                        <p:inputText value="#{beanQuestaoFechada.questaoFechada.ordem}" style="width: 80%"
                                                      required="true" requiredMessage="Informe a ordem!"/>
                                         <p:outputLabel value="Correto:" style="margin-left: 50%"/>
-                                        <p:selectBooleanCheckbox value="#{beanQuestao.questaoFechada.correto}" />
+                                        <p:selectBooleanCheckbox value="#{beanQuestaoFechada.questaoFechada.correto}" />
 
-                                        <p:commandButton value="Adicionar" action="#{beanQuestao.adicionarQuestaoFechada()}" 
+                                        <p:commandButton value="Adicionar" action="#{beanQuestaoFechada.adicionarQuestaoFechada()}" 
                                                          styleClass="ui-button-secondary" update="@form form-cadastro:tabelaQuestao"
                                                          style="margin-left:  250px" process="form-dialog" partialSubmit="true"
                                                          oncomplete="PF('questaoFechadaDialog').hide();"/>
 
-                                        <p:commandButton value="Cancelar" action="#{beanQuestao.cancelar()}" styleClass="ui-button-secondary"
+                                        <p:commandButton value="Cancelar" action="#{beanQuestaoFechada.cancelar()}" styleClass="ui-button-secondary"
                                                          style="margin-left:  150px" update="painel" immediate="true"/>
                                     </p:panelGrid>
 

@@ -36,12 +36,12 @@ public class Atividade implements Serializable {
     )
     private List<Disciplina> disciplinas = new ArrayList<>();
 
-    @ManyToMany
-    @JoinTable(
-            name = "questoes_atividades",
-            joinColumns = @JoinColumn(name = "atividade_id"),
-            inverseJoinColumns = @JoinColumn(name = "questoes_id")
-    )
+    @ManyToMany(mappedBy = "atividades")
+//    @JoinTable(
+//            name = "questoes_atividades",
+//            joinColumns = @JoinColumn(name = "atividade_id"),
+//            inverseJoinColumns = @JoinColumn(name = "questoes_id")
+//    )
     private Set<Questao> questoes = new HashSet<>();
 
     @OneToMany(mappedBy = "atividade")
@@ -50,10 +50,5 @@ public class Atividade implements Serializable {
     @OneToMany(mappedBy = "atividade")
     private Set<RespostaAluno> respostasAlunos;
     
-    public Set<Questao> getQuestoes() {
-        if(questoes == null) {
-            questoes = new HashSet<>();
-        }
-        return questoes;
-    }
+   
 }

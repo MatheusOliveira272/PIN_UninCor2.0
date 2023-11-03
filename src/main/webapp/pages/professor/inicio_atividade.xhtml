@@ -104,20 +104,15 @@
                                              var="aluno" reflow="true" scrollable="true" scrollHeight="280">
 
                                     <p:column headerText="Nome">
+                                        
                                         <p:outputLabel value="#{aluno.nome}"/>
                                     </p:column>
                                     <p:column headerText="Email">
                                         <p:outputLabel value="#{aluno.email}"/>
                                     </p:column>
-                                    <p:column headerText="Nota">
+                                    <p:column >
                                         <p:outputLabel value="#{beanAlunoAtividade.buscaNotaAlunoAtividadePorAluno(aluno, ati)}"/>
                                     </p:column>
-                                    <!--                                    <p:column headerText="Nota">
-                                                                            <p:outputLabel value="}"/>
-                                                                        </p:column>-->
-                                    <!--                                    <p:column headerText="Nota">
-                                                                            <p:commandButton type="button" value="Nota" styleClass="ui-button-flat" />
-                                                                      </p:column>-->
 <!--                                    <p:column headerText="Opções">
                                     <p:tooltip position="top" for="@next" value="Configurações"/>
                                     <p:splitButton icon="pi pi-paperclip" update="" style="margin-left: 15px" styleClass="ui-button-secondary">

@@ -5,23 +5,31 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
 
     <ui:define name="titulo"> - Aluno</ui:define> 
 
     <ui:define name="conteudo" >
-        <p:panel header="EducaAtiv" style="text-align: center">
-            <h:form id="form">
-                <p:wizard id="wizard">
-                    <p:messages id="messages"/>
-                    <ui:repeat value="#{beanRespostaAluno.questoes}" var="question">
-                        <p:inputText value="#{questoes.currentAnswer}"/>
-                    </ui:repeat>
-                    <p:commandButton value="Avançar" action="#{beanRespostaAluno.next}"/>
-                    <p:commandButton value="Concluir" action="#{beanRespostaAluno.submit}"/>
-                </p:wizard>
-            </h:form>
-        </p:panel>
+        <div class="card">
+          <h:form>
+            <p:growl id="growl" sticky="true" showDetail="true"/>
+            <p:wizard>
+                <c:forEach items="#{beanRespostaAluno.questoes}" var="questao" varStatus="status">
+                    <p:tab title="Questão #{status.index + 1}">
+                        <p:panel header="#{questao.enunciado}">
+                            <p:messages/>
+                            <h:panelGrid columns="2" columnClasses="label, value">
+                                <!-- Adicione os componentes de resposta aqui -->
+                            </h:panelGrid>
+                        </p:panel>
+                    </p:tab>
+                </c:forEach>
+            </p:wizard>
+        </h:form>
+        </div>
     </ui:define>
-
+    
+    
 </ui:composition>

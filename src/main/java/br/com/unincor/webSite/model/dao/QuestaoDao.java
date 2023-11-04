@@ -21,13 +21,20 @@ public class QuestaoDao extends GenericDao<Questao, Long> {
     public List<Questao> buscarQuestoesPorCodigoAtividade(String codigo) {
         EntityManager em = getEntityManager();
         try {
-            String jpql = "SELECT * FROM questoes q JOIN  q.atividade a  where a.codigo = :codigo";
+            String jpql = "FROM Questao q JOIN  q.atividades a  where a.codigo = :codigo";
             TypedQuery<Questao> query = em.createQuery(jpql, Questao.class);
             query.setParameter("codigo", codigo);
             return query.getResultList();
         } finally {
             em.close();
         }
+    }
+    
+    public static void main(String[] args) {
+        
+        List<Questao> questao = new QuestaoDao().buscarQuestoesPorCodigoAtividade("39af7");
+        System.out.println(questao.get(3).getEnunciado());
+        
     }
 
 }

@@ -2,6 +2,7 @@ package br.com.unincor.webSite.controller;
 
 import br.com.unincor.webSite.model.dao.QuestaoDao;
 import br.com.unincor.webSite.model.domain.Questao;
+import br.com.unincor.webSite.model.domain.QuestaoFechada;
 import br.com.unincor.webSite.model.domain.RespostaAluno;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -19,35 +20,35 @@ import org.primefaces.event.FlowEvent;
 @Setter
 public class BeanRespostaAluno implements Serializable {
 
-    private String codigo ="3c82c";
+    private String codigo = "243cc";
     List<Questao> questoes = new ArrayList<>();
     List<RespostaAluno> respostasAlunos = new ArrayList<>();
     private Boolean skip;
     public int currentStep = 0;
+    private String respQuestaoAberta;
+    private QuestaoFechada respQuestaoFechada; 
 //            new QuestaoDao().buscarQuestoesPorCodigoAtividade(codigo);
 
-    
     @PostConstruct
     public void init() {
         questoes = new ArrayList<>();
         respostasAlunos = new ArrayList<>();
     }
-    
-    
+
     //private List<Questao> questoes = new ArrayList<>();
     private List<String> respostas = new ArrayList<>(); // Lista para armazenar as respostas (você pode alterar o tipo conforme necessário)
-    
+
     public List<Questao> listaQuestoes() {
         // Carregue aqui as questões para o aluno responder
         // Por exemplo:
         System.out.println("1");
-        
+
         questoes = new QuestaoDao().buscarQuestoesPorCodigoAtividade(codigo); // Substitua pelo método apropriado para obter as questões
         System.out.println("Lista questoes" + questoes);
         return questoes;
-        
+
     }
-    
+
     public void next() {
         if (currentStep < questoes.size() - 1) {
             currentStep++;
@@ -59,14 +60,14 @@ public class BeanRespostaAluno implements Serializable {
             currentStep--;
         }
     }
-    
+
     // Adicione getters e setters conforme necessário
     public List<String> getRespostas() {
         return respostas;
     }
-    
-    public Questao getCurrentQuestion() {
-        return questoes.get(currentStep);
+
+    public String getCurrentQuestion() {
+        return questoes.get(currentStep).getEnunciado();
     }
 
     public RespostaAluno getCurrentAnswer() {
@@ -74,34 +75,37 @@ public class BeanRespostaAluno implements Serializable {
     }
 
     public void setCurrentAnswer(RespostaAluno rp) {
-        var questao = new QuestaoDao().buscarQuestoesPorCodigoAtividade(codigo); 
-        if (questao.get(currentStep).getTipoQuestao() != true){
-           if (respostasAlunos.size() > currentStep) {
-            rp.setRespQuestaoAberta(respostasAlunos.);
+        var questao = new QuestaoDao().buscarQuestoesPorCodigoAtividade(codigo);
+        if (questao.get(currentStep).getTipoQuestao() != true) {
+            if (respostasAlunos.size() > currentStep) {
+                rp.setRespQuestaoAberta(respQuestaoAberta);
+            } else {
+                respostasAlunos.add(rp);
+            }
         } else {
-            respostasAlunos.add(rp);
-        } 
+           if (respostasAlunos.size() > currentStep) {
+               rp.setRespQuestaoFechada(respQuestaoFechada);
+           }else {
+                respostasAlunos.add(rp);
+            }
         }
-        
-        
-        
+
     }
 
 //    public void setRespostas(List<String> respostas) {
 //        this.respostas = respostas;
 //    }
-    
     public String onFlowProcess(FlowEvent event) {
         List<Questao> listaQuestoes = listaQuestoes();
         System.out.println("aqui");
+        System.out.println(listaQuestoes);
         if (skip) {
             skip = false; //reset in case user goes back
             return "confirm";
-        }
-        else {
+        } else {
             return event.getNewStep();
-            
+
         }
     }
-    
+
 }

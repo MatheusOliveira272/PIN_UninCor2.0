@@ -11,16 +11,14 @@
 
     <ui:define name="conteudo" >
         <p:panel header="EducaAtiv" style="text-align: center">
-            <h:form id="atividade">
-                <p:wizard widgetVar="wizardWidget" flowListener="#{beanRespostaAluno.listaQuestoes()}">
-                    <ui:repeat value="#{beanRespostaAluno.listaQuestoes()}" var="questao">
-                        <p:tab title="#{questao.enunciado}">
-                            <!-- Conteúdo da questão -->
-                            <h:outputText value="Pergunta: #{questao.enunciado}" /><br/>
-                            <!-- Adicione os componentes de resposta aqui, por exemplo: -->
-                            <!--<p:inputText value="#{beanRespostaAluno.respostas[questao.id]}" />--> 
-                        </p:tab>
+            <h:form id="form">
+                <p:wizard id="wizard">
+                    <p:messages id="messages"/>
+                    <ui:repeat value="#{beanRespostaAluno.questoes}" var="question">
+                        <p:inputText value="#{questoes.currentAnswer}"/>
                     </ui:repeat>
+                    <p:commandButton value="Avançar" action="#{beanRespostaAluno.next}"/>
+                    <p:commandButton value="Concluir" action="#{beanRespostaAluno.submit}"/>
                 </p:wizard>
             </h:form>
         </p:panel>

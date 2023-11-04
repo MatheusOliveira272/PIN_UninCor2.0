@@ -22,7 +22,7 @@ public class RespostaAluno implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Integer respQuestaoFechada;
+    private QuestaoFechada respQuestaoFechada;
     private String respQuestaoAberta;
 
 //    @ManyToOne

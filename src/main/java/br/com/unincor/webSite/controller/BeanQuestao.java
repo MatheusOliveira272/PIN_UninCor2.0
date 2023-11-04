@@ -43,7 +43,7 @@ public class BeanQuestao implements Serializable {
             questao.getAtividades().add(atividadeSelecionada); // Adiciona a nova disciplina selecionada
         }
         
-        new QuestaoDao().save(questao);
+//        new QuestaoDao().save(questao);
         
         
     }

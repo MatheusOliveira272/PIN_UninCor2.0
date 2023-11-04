@@ -6,6 +6,7 @@ package br.com.unincor.webSite.controller;
 
 import br.com.unincor.webSite.model.dao.AtividadeDao;
 import br.com.unincor.webSite.model.dao.ProfessorDao;
+import br.com.unincor.webSite.model.dao.QuestaoDao;
 import br.com.unincor.webSite.model.dao.QuestaoFechadaDao;
 import br.com.unincor.webSite.model.domain.Questao;
 import br.com.unincor.webSite.model.domain.QuestaoFechada;
@@ -40,14 +41,18 @@ public class BeanQuestaoFechada {
     }
     
     public void salvar(Questao questao){
-        
-        new QuestaoFechadaDao().salvaAlernativasQuestoaFechada(questoesFechadas);
-        if(questao != null){
-            questao.getQuestaoFechadas().clear();
-            if(!questoesFechadas.isEmpty()) {
-                    questoesFechadas.forEach(q -> q.setQuestao(questao));
-            }
+        for (QuestaoFechada questoesFechada : questoesFechadas) {
+            new QuestaoFechadaDao().save(questaoFechada);
         }
+        new QuestaoFechadaDao().salvaAlernativasQuestoaFechada(questoesFechadas, questao);
+//        if(questao != null){
+//            questao.getQuestaoFechadas().clear();
+//            if(!questoesFechadas.isEmpty()) {
+//                    questoesFechadas.forEach(q -> q.setQuestao(questao));
+//            }
+//        }
+
+//        new QuestaoDao().save(questao);
     }
     
     public void salvaTudo(Questao questao){

@@ -51,7 +51,7 @@ public class BeanQuestao2 implements Serializable {
             questoesFechadas.forEach(q -> q.setQuestao(questaoSalva));
         }
 //        new QuestaoDao().save(questao);
-        new QuestaoFechadaDao().salvaAlernativasQuestoaFechada(questoesFechadas);
+//        new QuestaoFechadaDao().salvaAlernativasQuestoaFechada(questoesFechadas);
         
         
        

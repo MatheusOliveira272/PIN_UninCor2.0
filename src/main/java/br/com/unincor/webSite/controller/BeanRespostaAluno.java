@@ -2,6 +2,7 @@ package br.com.unincor.webSite.controller;
 
 import br.com.unincor.webSite.model.dao.QuestaoDao;
 import br.com.unincor.webSite.model.domain.Questao;
+import br.com.unincor.webSite.model.domain.RespostaAluno;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,13 +19,18 @@ import org.primefaces.event.FlowEvent;
 @Setter
 public class BeanRespostaAluno implements Serializable {
 
-    private String codigo ="39af7";
-    List<Questao> questoes = new QuestaoDao().buscarQuestoesPorCodigoAtividade(codigo);
+    private String codigo ="3c82c";
+    List<Questao> questoes = new ArrayList<>();
+    List<RespostaAluno> respostasAlunos = new ArrayList<>();
+    private Boolean skip;
+    public int currentStep = 0;
+//            new QuestaoDao().buscarQuestoesPorCodigoAtividade(codigo);
 
     
     @PostConstruct
     public void init() {
         questoes = new ArrayList<>();
+        respostasAlunos = new ArrayList<>();
     }
     
     
@@ -42,19 +48,60 @@ public class BeanRespostaAluno implements Serializable {
         
     }
     
-    public String onFlowProcess(FlowEvent event) {
-        // Este método será chamado ao navegar entre as etapas do wizard
-        // Aqui você pode adicionar lógica adicional, se necessário
-        return event.getNewStep();
+    public void next() {
+        if (currentStep < questoes.size() - 1) {
+            currentStep++;
+        }
     }
 
+    public void previous() {
+        if (currentStep > 0) {
+            currentStep--;
+        }
+    }
+    
     // Adicione getters e setters conforme necessário
     public List<String> getRespostas() {
         return respostas;
     }
+    
+    public Questao getCurrentQuestion() {
+        return questoes.get(currentStep);
+    }
 
-    public void setRespostas(List<String> respostas) {
-        this.respostas = respostas;
+    public RespostaAluno getCurrentAnswer() {
+        return respostasAlunos.size() > currentStep ? respostasAlunos.get(currentStep) : null;
+    }
+
+    public void setCurrentAnswer(RespostaAluno rp) {
+        var questao = new QuestaoDao().buscarQuestoesPorCodigoAtividade(codigo); 
+        if (questao.get(currentStep).getTipoQuestao() != true){
+           if (respostasAlunos.size() > currentStep) {
+            rp.setRespQuestaoAberta(respostasAlunos.);
+        } else {
+            respostasAlunos.add(rp);
+        } 
+        }
+        
+        
+        
+    }
+
+//    public void setRespostas(List<String> respostas) {
+//        this.respostas = respostas;
+//    }
+    
+    public String onFlowProcess(FlowEvent event) {
+        List<Questao> listaQuestoes = listaQuestoes();
+        System.out.println("aqui");
+        if (skip) {
+            skip = false; //reset in case user goes back
+            return "confirm";
+        }
+        else {
+            return event.getNewStep();
+            
+        }
     }
     
 }

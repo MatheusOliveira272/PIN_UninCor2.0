@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<ui:composition template="../../template_aluno.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:define name="titulo"> - Aluno</ui:define> 
+
+     <ui:define name="conteudo" >
+        <p:panel header="EducaAtiv" style="text-align: center">
+            <h:form id="atividade">
+                <p:wizard widgetVar="wizardWidget" flowListener="#{beanRespostaAluno.onFlowProcess}">
+                    <ui:repeat value="#{beanRespostaAluno.listaQuestoes()}" var="questao">
+                        <p:tab title="#{questao.enunciado}">
+                            <!-- Conteúdo da questão -->
+                            <h:outputText value="Pergunta: #{questao.enunciado}" /><br/>
+                            <!-- Adicione os componentes de resposta aqui, por exemplo: -->
+                            <p:inputText value="#{beanRespostaAluno.resposta[questao.id]}" /> 
+                        </p:tab>
+                    </ui:repeat>
+                </p:wizard>
+            </h:form>
+        </p:panel>
+    </ui:define>
+
+</ui:composition>

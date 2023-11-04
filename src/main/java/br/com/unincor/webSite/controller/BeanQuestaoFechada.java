@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package br.com.unincor.webSite.controller;
 
 import br.com.unincor.webSite.model.dao.AtividadeDao;
@@ -10,6 +6,7 @@ import br.com.unincor.webSite.model.dao.QuestaoDao;
 import br.com.unincor.webSite.model.dao.QuestaoFechadaDao;
 import br.com.unincor.webSite.model.domain.Questao;
 import br.com.unincor.webSite.model.domain.QuestaoFechada;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -25,7 +22,7 @@ import lombok.Setter;
 @ViewScoped
 @Getter
 @Setter
-public class BeanQuestaoFechada {
+public class BeanQuestaoFechada implements Serializable{
     @ManagedProperty(value = "#{beanQuestao}")
     private BeanQuestao beanQuestao;
             
@@ -41,9 +38,9 @@ public class BeanQuestaoFechada {
     }
     
     public void salvar(Questao questao){
-        for (QuestaoFechada questoesFechada : questoesFechadas) {
-            new QuestaoFechadaDao().save(questaoFechada);
-        }
+//        for (QuestaoFechada questoesFechada : questoesFechadas) {
+//            new QuestaoFechadaDao().save(questaoFechada);
+//        }
         new QuestaoFechadaDao().salvaAlernativasQuestoaFechada(questoesFechadas, questao);
 //        if(questao != null){
 //            questao.getQuestaoFechadas().clear();

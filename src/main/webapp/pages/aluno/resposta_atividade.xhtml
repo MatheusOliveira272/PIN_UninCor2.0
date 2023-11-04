@@ -12,7 +12,7 @@
      <ui:define name="conteudo" >
         <p:panel header="EducaAtiv" style="text-align: center">
             <h:form id="atividade">
-                <p:wizard widgetVar="wizardWidget" flowListener="#{beanRespostaAluno.onFlowProcess}">
+                <p:wizard widgetVar="wizardWidget">
                     <ui:repeat value="#{beanRespostaAluno.listaQuestoes()}" var="questao">
                         <p:tab title="#{questao.enunciado}">
                             <!-- Conteúdo da questão -->

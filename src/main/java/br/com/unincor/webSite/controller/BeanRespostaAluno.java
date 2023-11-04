@@ -35,6 +35,7 @@ public class BeanRespostaAluno implements Serializable {
         // Carregue aqui as questões para o aluno responder
         // Por exemplo:
         System.out.println("1");
+        
         questoes = new QuestaoDao().buscarQuestoesPorCodigoAtividade(codigo); // Substitua pelo método apropriado para obter as questões
         System.out.println("Lista questoes" + questoes);
         return questoes;

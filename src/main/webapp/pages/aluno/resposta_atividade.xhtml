@@ -13,23 +13,54 @@
 
     <ui:define name="conteudo" >
         <div class="card">
-          <h:form>
-            <p:growl id="growl" sticky="true" showDetail="true"/>
-            <p:wizard>
-                <c:forEach items="#{beanRespostaAluno.questoes}" var="questao" varStatus="status">
-                    <p:tab title="Questão #{status.index + 1}">
-                        <p:panel header="#{questao.enunciado}">
-                            <p:messages/>
-                            <h:panelGrid columns="2" columnClasses="label, value">
-                                <!-- Adicione os componentes de resposta aqui -->
-                            </h:panelGrid>
+            <h:form>
+                <p:growl id="growl" sticky="true" showDetail="true"/>
+                <p:wizard>
+                    <c:forEach items="#{beanRespostaAluno.questoes}" var="questao" varStatus="status">
+                        <p:tab title="Questão #{status.index + 1}">
+                            <p:panel header="#{questao.enunciado}">
+                                <p:messages/>
+                                <h:panelGrid columns="2" columnClasses="label, value">
+
+                                    <!-- Adicione os componentes de resposta aqui -->
+                                    <!--aqui-->
+                                    <c:choose>
+                                        <c:when test="#{questao.tipoQuestao}">
+                                            <!--                                            <p:outputLabel value="Sou uma questão fechada"/>-->
+
+                                            <p:selectOneRadio id="respostaFechada" value="#{beanRespostaAluno.respQuestaoFechada}" >
+                                                <c:forEach items="#{beanRespostaAluno.getAlternativasQuestãoFechada(questao)}" var="alternativa">
+                                                    <f:selectItem itemValue="#{alternativa.descricao}" itemLabel="#{alternativa.ordem}) #{alternativa.descricao}" />
+                                                </c:forEach>
+                                            </p:selectOneRadio>
+
+                                        </c:when>
+                                        <c:otherwise>
+                                            <!--                                            <p:outputLabel value="Sou uma questão aberta"/>-->
+                                            <p:inputText/>
+                                        </c:otherwise>
+
+                                    </c:choose>
+
+
+                                    <!--aqui-->
+
+                                </h:panelGrid>
+                            </p:panel>
+                        </p:tab>
+                    </c:forEach>
+                    <p:tab id="confirm" title="Confirmation">
+                        <p:panel header="Confirmation">
+                            <h:outputText value="Ddeseja enviar suas respostas?"/>
+                            <p:commandButton value="Enviar" action="#{beanRespostaAluno.salvaRespostasAluno()}" update="growl" process="@this"/>
                         </p:panel>
+
+
                     </p:tab>
-                </c:forEach>
-            </p:wizard>
-        </h:form>
+                </p:wizard>
+            </h:form>
         </div>
     </ui:define>
-    
-    
+
+
 </ui:composition>

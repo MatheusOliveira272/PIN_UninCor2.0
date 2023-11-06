@@ -15,35 +15,36 @@
         <div class="card">
             <h:form>
                 <p:growl id="growl" sticky="true" showDetail="true"/>
-                <p:wizard>
-                    <c:forEach items="#{beanRespostaAluno.questoes}" var="questao" varStatus="status">
+                <p:wizard widgetVar="wiz" >
+
+                    <c:forEach items="#{beanRespostaAluno.questoes}" var="questao" varStatus="status" >
                         <p:tab title="Questão #{status.index + 1}">
                             <p:panel header="#{questao.enunciado}">
                                 <p:messages/>
-                                <h:panelGrid columns="2" columnClasses="label, value">
+                                <h:panelGrid columns="1" columnClasses="label, value">
 
-                                    <!-- Adicione os componentes de resposta aqui -->
-                                    <!--aqui-->
                                     <c:choose>
                                         <c:when test="#{questao.tipoQuestao}">
-                                            <!--                                            <p:outputLabel value="Sou uma questão fechada"/>-->
+                                            <!-- <p:outputLabel value="Sou uma questão fechada"/>-->
+                                            <c:forEach items="#{beanRespostaAluno.getAlternativasQuestãoFechada(questao)}" var="alternativa">
 
-                                            <p:selectOneRadio id="respostaFechada" value="#{beanRespostaAluno.respQuestaoFechada}" >
-                                                <c:forEach items="#{beanRespostaAluno.getAlternativasQuestãoFechada(questao)}" var="alternativa">
-                                                    <f:selectItem itemValue="#{alternativa.descricao}" itemLabel="#{alternativa.ordem}) #{alternativa.descricao}" />
-                                                </c:forEach>
-                                            </p:selectOneRadio>
+
+                                                <h:selectOneRadio id="respostaFechada" value="#{beanRespostaAluno.respQuestaoFechada}" layout="lineDirection" converter="respostaFechadaConverter">
+                                                    <p:ajax event="change" listener="#{beanRespostaAluno.adicionaAlunoResposta(alternativa)}" />
+                                                    <f:selectItem itemValue="#{alternativa}" itemLabel="#{alternativa.ordem}) #{alternativa.descricao}" />
+                                                </h:selectOneRadio>
+
+
+                                            </c:forEach>
 
                                         </c:when>
                                         <c:otherwise>
-                                            <!--                                            <p:outputLabel value="Sou uma questão aberta"/>-->
-                                            <p:inputText/>
+                                            <!--<p:outputLabel value="Sou uma questão aberta"/>-->
+                                            <p:inputTextarea  />
+
                                         </c:otherwise>
 
-                                    </c:choose>
-
-
-                                    <!--aqui-->
+                                    </c:choose >
 
                                 </h:panelGrid>
                             </p:panel>
@@ -52,12 +53,15 @@
                     <p:tab id="confirm" title="Confirmation">
                         <p:panel header="Confirmation">
                             <h:outputText value="Ddeseja enviar suas respostas?"/>
-                            <p:commandButton value="Enviar" action="#{beanRespostaAluno.salvaRespostasAluno()}" update="growl" process="@this"/>
+                        <br/>
+                        <p:commandButton value="Enviar" action="#{beanRespostaAluno.salvaRespostasAluno()}" update="growl" process="@this"  styleClass="ui-button-secondary" />
                         </p:panel>
 
 
                     </p:tab>
                 </p:wizard>
+
+
             </h:form>
         </div>
     </ui:define>

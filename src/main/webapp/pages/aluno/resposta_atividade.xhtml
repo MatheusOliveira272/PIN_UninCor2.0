@@ -15,17 +15,17 @@
         <div class="card">
             <h:form>
                 <p:growl id="growl" sticky="true" showDetail="true"/>
-                <p:wizard widgetVar="wiz" >
+                <p:wizard widgetVar="wiz"  >
 
                     <c:forEach items="#{beanRespostaAluno.questoes}" var="questao" varStatus="status" >
                         <p:tab title="Questão #{status.index + 1}">
                             <p:panel header="#{questao.enunciado}">
                                 <p:messages/>
-                                <h:panelGrid columns="1" columnClasses="label, value">
+                                <h:panelGrid style="width: 100%" columns="1" columnClasses="label">
 
                                     <c:choose>
                                         <c:when test="#{questao.tipoQuestao}">
-                                            <!-- <p:outputLabel value="Sou uma questão fechada"/>-->
+
                                             <c:forEach items="#{beanRespostaAluno.getAlternativasQuestãoFechada(questao)}" var="alternativa">
 
 
@@ -39,9 +39,13 @@
 
                                         </c:when>
                                         <c:otherwise>
-                                            <!--<p:outputLabel value="Sou uma questão aberta"/>-->
-                                            <p:inputTextarea  />
 
+                                            <p:inputTextarea id="respAberta" style="width: 90%; margin-left: 50px;" placeholder="Digite sua resposta aqui..." 
+                                                             value="#{beanRespostaAluno.respQuestaoAberta}" 
+                                                             onkeyup="#{beanRespostaAluno.respQuestaoAberta}" />
+                                            <p:ajax event="keyup" listener="#{beanRespostaAluno.respQuestaoAberta}" update="growl" process="@this" />
+                                            <p:commandButton value="Salvar" action="#{beanRespostaAluno.adicionaAlunoRespostaAberta(questao)}" update="growl" process="@this"  
+                                                             style="margin-left: 88%" styleClass="ui-button-secondary" />
                                         </c:otherwise>
 
                                     </c:choose >
@@ -53,8 +57,8 @@
                     <p:tab id="confirm" title="Confirmation">
                         <p:panel header="Confirmation">
                             <h:outputText value="Ddeseja enviar suas respostas?"/>
-                        <br/>
-                        <p:commandButton value="Enviar" action="#{beanRespostaAluno.salvaRespostasAluno()}" update="growl" process="@this"  styleClass="ui-button-secondary" />
+                            <br/>
+                            <p:commandButton value="Enviar" actionListener="#{beanRespostaAluno.salvaRespostasAluno()}" update="growl" process="@this"  styleClass="ui-button-secondary" />
                         </p:panel>
 
 

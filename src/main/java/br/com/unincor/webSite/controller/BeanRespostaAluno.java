@@ -29,7 +29,7 @@ public class BeanRespostaAluno implements Serializable {
     //private Questao questaoAtual;
     private Integer indexListQuestoes;
     private QuestaoFechada respQuestaoFechada;
-    private String respQuestaoAberta = "";
+    private String respQuestaoAberta;
     private List<RespostaAluno> respostaAlunosProvisoria;
     //private String page;
 
@@ -39,6 +39,7 @@ public class BeanRespostaAluno implements Serializable {
         questoes = new QuestaoDao().buscarQuestoesPorCodigoAtividade(codigo);
         indexListQuestoes = 0;
         respostaAlunosProvisoria = new ArrayList<>();
+        respQuestaoAberta = "";
     }
 
     public Questao getQuestaoAtual() {
@@ -71,13 +72,17 @@ public class BeanRespostaAluno implements Serializable {
     }
     
     public void adicionaAlunoRespostaAberta(Questao ques){
+               
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
         var alunoLogado = new AlunoDao().findById((Integer) session.getAttribute("alunoId"));
         var atividade = ques.getAtividades();
         
         var respostaAluno = new RespostaAluno(null, respQuestaoAberta, null, alunoLogado, null, ques);
+      
+        System.out.println("----------------");
         System.out.println("resposta questão aberta " + respQuestaoAberta);
+          System.out.println("----------------");
            respostaAlunosProvisoria.add(respostaAluno);
     }
     

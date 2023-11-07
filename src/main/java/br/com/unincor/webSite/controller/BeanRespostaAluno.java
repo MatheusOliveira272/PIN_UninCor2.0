@@ -24,7 +24,7 @@ import lombok.Setter;
 @Setter
 public class BeanRespostaAluno implements Serializable {
 
-    private String codigo = "617ab";
+    private String codigo;
     private List<Questao> questoes;
     //private Questao questaoAtual;
     private Integer indexListQuestoes;
@@ -35,24 +35,27 @@ public class BeanRespostaAluno implements Serializable {
 
     @PostConstruct
     public void init() {
+        // Recupera o valor de 'codigo' da sessão
+        codigo = (String) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("codigo");
+        System.out.println("codResp " + codigo);
         questoes = new ArrayList<>();
         questoes = new QuestaoDao().buscarQuestoesPorCodigoAtividade(codigo);
         indexListQuestoes = 0;
         respostaAlunosProvisoria = new ArrayList<>();
         respQuestaoAberta = "";
+
     }
 
     public Questao getQuestaoAtual() {
         return questoes.get(indexListQuestoes);
     }
-   
-    
-    public void adicionaAlunoResposta(QuestaoFechada qf){
+
+    public void adicionaAlunoResposta(QuestaoFechada qf) {
         System.out.println("--------------");
         System.out.println(qf.getDescricao());
         System.out.println("--------------");
-        
-         FacesContext facesContext = FacesContext.getCurrentInstance();
+
+        FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
         var alunoLogado = new AlunoDao().findById((Integer) session.getAttribute("alunoId"));
         var atividade = qf.getQuestao().getAtividades();
@@ -70,23 +73,22 @@ public class BeanRespostaAluno implements Serializable {
 //            respostaAlunosProvisoria.add(respostaAluno);
 //        }
     }
-    
-    public void adicionaAlunoRespostaAberta(Questao ques){
-               
+
+    public void adicionaAlunoRespostaAberta(Questao ques) {
+
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
         var alunoLogado = new AlunoDao().findById((Integer) session.getAttribute("alunoId"));
         var atividade = ques.getAtividades();
-        
+
         var respostaAluno = new RespostaAluno(null, respQuestaoAberta, null, alunoLogado, null, ques);
-      
+
         System.out.println("----------------");
         System.out.println("resposta questão aberta " + respQuestaoAberta);
-          System.out.println("----------------");
-           respostaAlunosProvisoria.add(respostaAluno);
+        System.out.println("----------------");
+        respostaAlunosProvisoria.add(respostaAluno);
     }
-    
- 
+
     public List<QuestaoFechada> getAlternativasQuestãoFechada(Questao questao) {
         return new RespostaAlunoDao().recuperaDescricaoQuestaoFechada(questao);
     }
@@ -94,7 +96,7 @@ public class BeanRespostaAluno implements Serializable {
     public void salvaRespostasAluno() {
         System.out.println("cai no salva, lista: " + respostaAlunosProvisoria);
         for (int i = 0; i < respostaAlunosProvisoria.size(); i++) {
-         
+
             new RespostaAlunoDao().save(respostaAlunosProvisoria.get(i));
         }
     }

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<ui:composition template="../../template_aluno.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <ui:define name="titulo"> - Cadastro Disciplina</ui:define> 
+
+    <ui:define name="conteudo" >
+        <p:panel id="painel" header="Notas Atividade">
+
+            <p:outputPanel rendered="{beanDisciplina.disciplina == null}">
+                <h:form id="tabela">
+                   
+                    <p:dataTable  value="{beanDisciplina.disciplinas}" style="margin-top: 15px" var="dis"
+                                  reflow="true" scrollable="true" scrollHeight="280">
+
+                        <p:column headerText="Nome:"  sortBy="{dis.nome}" >
+                            <p:outputLabel value="{dis.nome}"/>
+                        </p:column>
+
+
+                    </p:dataTable>
+                </h:form>
+            </p:outputPanel>
+        </p:panel>
+    </ui:define>
+</ui:composition>

@@ -10,25 +10,31 @@
     <ui:define name="titulo"> - Aluno</ui:define> 
 
     <ui:define name="conteudo" >
-        
+
         <div style="margin:  auto; background-color: lightslategrey; width:45%; margin-top: 10%">
-           
-                <p:panel header="EducaAtiv" style="text-align: center">
-                    <h:form id="codigo">
 
-                        <p:outputLabel value="Código: " style="font-weight:bold;"/>
-                        <p:inputText style=" width:250px" value="#{beanAlunoAtividade.codigo}"
-                                     required="true" requiredMessage="Informe o Código da atividade!"/>
-                        <p:messages  />
-                        <p:commandButton value="Entrar" style="margin-left: 15px; margin-top: 15px; " 
-                                         actionListener="#{beanAlunoAtividade.adicionaAlunoAtividade()}" update="@form codigo"
-                                         styleClass="ui-button-secondary"/> 
+            <p:panel header="EducaAtiv" style="text-align: center">
+                <h:form id="codigo">
 
-                    </h:form>
+                    <p:outputLabel value="Código: " style="font-weight:bold;"/>
+                    <p:inputText style=" width:250px" value="#{beanAlunoAtividade.codigo}"
+                                 required="true" requiredMessage="Informe o Código da atividade!"/>
+                    <p:messages  />
+                    <!--                        <p:commandButton value="Entrar" style="margin-left: 15px; margin-top: 15px; " 
+                                                             action="{beanAlunoAtividade.adicionaAlunoAtividade()}" update="@form codigo"
+                                                             styleClass="ui-button-secondary"/> 
+                    -->
+                 <p:commandButton value="Entrar" style="margin-left: 15px; margin-top: 15px;" 
+                                  action="#{beanAlunoAtividade.adicionarAlunoEAtualizarCodigo()}" 
+                 update="@form codigo" styleClass="ui-button-secondary"/>
 
-                </p:panel>
 
-          </div>
+
+                </h:form>
+
+            </p:panel>
+
+        </div>
     </ui:define>
-   
+
 </ui:composition>

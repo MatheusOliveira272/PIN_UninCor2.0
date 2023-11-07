@@ -99,10 +99,10 @@
                             </p:splitButton>
 
                             <p:dialog id="alunosDialog" header="Lista de Alunos" widgetVar="alunosDialogVar" modal="true"
-                                      resizable="false" dynamic="true">
+                                      resizable="false" dynamic="true" width="70%">
                                 <p:dataTable style="width: 800px" value="#{beanAlunoAtividade.alunos}"
                                              var="aluno" reflow="true" scrollable="true" scrollHeight="280">
-
+                                 
                                     <p:column headerText="Nome">
                                         
                                         <p:outputLabel value="#{aluno.nome}"/>
@@ -110,9 +110,20 @@
                                     <p:column headerText="Email">
                                         <p:outputLabel value="#{aluno.email}"/>
                                     </p:column>
-                                    <p:column >
+                                    <p:column>
                                         <p:outputLabel value="#{beanAlunoAtividade.buscaNotaAlunoAtividadePorAluno(aluno, ati)}"/>
                                     </p:column>
+                                    <p:column>
+<!--                                       
+                                    <p:commandButton  styleClass="ui-button-secondary" value="Resposta" style="width: 40px"
+                                              process="@this" actionListener="{beanAtividade.}" 
+                                            oncomplete="PF('respostaAlunoVar').show();"
+                                                                                           
+                                             />
+                                  -->
+                                        
+                                    </p:column>
+                                       
 <!--                                    <p:column headerText="Opções">
                                     <p:tooltip position="top" for="@next" value="Configurações"/>
                                     <p:splitButton icon="pi pi-paperclip" update="" style="margin-left: 15px" styleClass="ui-button-secondary">
@@ -129,7 +140,18 @@
                                 </p:dataTable>
                             </p:dialog>
 
-
+                            <p:dialog  id="respostaAluno" header="Resposta do aluno" widgetVar="respostaAlunoVar" modal="true"
+                                      resizable="false" dynamic="true " width="70%" >
+                                
+                                <p:dataTable>
+                                    
+                                    
+                                </p:dataTable>
+                                
+                                
+                                
+                                
+                            </p:dialog>
 
 
                         </p:column>

@@ -49,5 +49,14 @@ public class QuestaoFechadaDao extends GenericDao<QuestaoFechada, Long> {
                 .setParameter("professor", professorLogado);
         return query.getResultList();
     }
+    
+    public List<QuestaoFechada> buscaQuestoesFechadasPorQuestao(Questao questao) {
+        String sql = "FROM QuestaoFechada qf where qf.questao = :questao";
+
+        Query query = getEntityManager().createQuery(sql, QuestaoFechada.class)
+                .setParameter("questao", questao);
+        return query.getResultList();
+ 
+    }
 
 }

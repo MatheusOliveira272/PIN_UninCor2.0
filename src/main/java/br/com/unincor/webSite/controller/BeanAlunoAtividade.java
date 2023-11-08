@@ -60,10 +60,12 @@ public class BeanAlunoAtividade implements Serializable {
      
 //    2304
     public void setaNotaAluno(Atividade atividade, Aluno aluno){
-       var alunoatividade = new AlunoAtividade();
-       alunoatividade.setNota(nota);
+        System.out.println(atividade.getId());
+        System.out.println(aluno.getId());
+       var alunoAtividade = new AlunoAtividadeDao().buscaAlunoAtividadeNota(aluno, atividade);
+       alunoAtividade.setNota(nota);
         AlunoAtividadeDao alunoAtividadeDao = new AlunoAtividadeDao();
-        alunoAtividadeDao.save(alunoatividade);
+        alunoAtividadeDao.save(alunoAtividade);
     }
     
     public void buscarAlunoAtividade(String codigo) {
@@ -74,4 +76,5 @@ public class BeanAlunoAtividade implements Serializable {
         var alunoAtividade = new AlunoAtividadeDao().buscaAlunoAtividadeNota(aluno, atividade);
         return alunoAtividade.getNota();
     }
+    
 }

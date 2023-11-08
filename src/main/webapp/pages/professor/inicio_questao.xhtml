@@ -61,7 +61,7 @@
                                              styleClass="ui-button-secondary" onclick="PF('questaoFechadaDialog').show();" 
                                              process="@this questaoFechadaDialog" />
 
-                            <p:dataTable id="tabelaQuestao" value="#{beanQuestaoFechada.questoesFechadas}" style="margin-top: 15px" var="ques"
+                            <p:dataTable id="tabelaQuestao" value="#{beanQuestaoFechada.recuperaQuestoesAtividade(beanQuestao.questao)}" style="margin-top: 15px" var="ques"
                                          reflow="true" scrollable="true" scrollHeight="280">
 
                                 <p:column headerText="Ordem: "  >

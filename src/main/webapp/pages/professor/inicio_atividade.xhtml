@@ -116,7 +116,7 @@
                                     <p:column styleClass="TexAlRight" headerText="Email">
                                         <h:outputText value="#{aluno.email}"/>
                                     </p:column>
-                                    <p:column>
+                                    <p:column headerText="Nota:">
                                         <h:outputText value="#{beanAlunoAtividade.buscaNotaAlunoAtividadePorAluno(aluno, ati)}"/>
                                     </p:column>
                                     <p:column>
@@ -143,14 +143,14 @@
                                         <p:outputLabel value="#{ra.questao.enunciado}" />
                                     </p:column>
                                     <p:column headerText="Resposta">
-                                        <p:outputLabel value="#{ra.respQuestaoAberta} #{ra.questaoFechada}" />
+                                        <p:outputLabel value="#{ra.respQuestaoAberta} #{ra.questaoFechada.descricao}" />
                                     </p:column>
                                 </p:dataTable>
                                 <p:outputLabel value="Nota do aluno:" style="margin-left: 5%"/>
                                 <p:inputText value="#{beanAlunoAtividade.nota}" style="margin-left: 3%; width: 15%"
                                             />
                                    <p:commandButton  styleClass="ui-button-secondary" value="Devolver" style="margin-left: 3%; width: 100px"
-                                                     process="@this" actionListener="#{beanAlunoAtividade.setaNotaAluno(ati, aluno)}" 
+                                                     process="@this" actionListener="#{beanAlunoAtividade.setaNotaAluno(ati,aluno)}" 
                                                                                                                   />
                                    <!--2304-->
                                

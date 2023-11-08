@@ -91,4 +91,9 @@ public class BeanQuestaoFechada implements Serializable{
         var professorLogado = new ProfessorDao().findById((Long) session.getAttribute("professorId"));
         this.recuperaQuestoesFechadas = new QuestaoFechadaDao().buscaQuestaoFechadaPorProfessor(professorLogado);
     }
+    
+    public List<QuestaoFechada> recuperaQuestoesAtividade(Questao questao){
+        var questoesFechadas = new QuestaoFechadaDao().buscaQuestoesFechadasPorQuestao(questao);
+        return questoesFechadas;
+    }
 }

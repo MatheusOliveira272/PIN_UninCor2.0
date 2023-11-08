@@ -55,6 +55,7 @@ public class BeanQuestaoFechada implements Serializable{
     public void salvaTudo(Questao questao){
         beanQuestao.salvar();
         salvar(questao);
+      
     }
     
     

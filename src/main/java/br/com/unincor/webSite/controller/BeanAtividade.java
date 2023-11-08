@@ -123,9 +123,9 @@ public class BeanAtividade implements Serializable {
    private List<RespostaAluno> respostasAlunoSelecionado;
 
    public List<RespostaAluno> recuperaRespostasAluno(Atividade atividade, Aluno aluno){
-       System.out.println("cai aqui");
+    //   System.out.println("cai aqui");
     respostasAlunoSelecionado = new RespostaAlunoDao().recuperaAtividadeAluno(atividade, aluno);
-       System.out.println("lista" + respostasAlunoSelecionado);
+    //   System.out.println("lista" + respostasAlunoSelecionado);
     return respostasAlunoSelecionado;  
 }
 

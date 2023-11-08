@@ -26,60 +26,62 @@ import lombok.Setter;
 @Getter
 @Setter
 public class BeanQuestao implements Serializable {
+
     //CRUD com questão / salvar questão fechada / salvar questão atividade
     private Questao questao;
     private Atividade atividadeSelecionada;
     private List<Questao> questoes = new ArrayList<>();
     private List<Atividade> atividades = new ArrayList<>();
-    
+
     @PostConstruct
     public void init() {
         buscar();
     }
-    
-    public void salvar(){
+
+    public void salvar() {
         if (atividadeSelecionada != null) {
             questao.getAtividades().clear(); // Remove todas as disciplinas associadas
             questao.getAtividades().add(atividadeSelecionada); // Adiciona a nova disciplina selecionada
         }
-        
+
 //        new QuestaoDao().save(questao);
-        
-        
+        cancelar();
+        buscar();
+
     }
-    
-    public void buscar(){
+
+    public void buscar() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
         var professorLogado = new ProfessorDao().findById((Long) session.getAttribute("professorId"));
         this.questoes = new QuestaoDao().buscarQuestaosProfessorPorLogin(professorLogado);
     }
-    
+
     public void cancelar() {
         this.questao = null;
     }
-    
-    public void limparTabela(){
+
+    public void limparTabela() {
         this.questoes = null;
     }
-    
-    public void editar(Questao questao){
+
+    public void editar(Questao questao) {
         this.questao = questao;
         this.atividadeSelecionada = questao.getAtividades().get(0);
     }
-    
-    public void novo(){
+
+    public void novo() {
         this.questao = new Questao();
     }
-    
+
     public void remover(Questao questao) {
         System.out.println(questao.getEnunciado());
-        new AtividadeDao().delete(questao.getId());
+        new QuestaoDao().delete(questao.getId());
 
         buscar();
     }
-    
-    public List<Atividade> getAtividades(){
+
+    public List<Atividade> getAtividades() {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
         var professorLogado = new ProfessorDao().findById((Long) session.getAttribute("professorId"));

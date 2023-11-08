@@ -29,7 +29,7 @@ public class BeanAlunoAtividade implements Serializable {
     private String codigo = "";
     private List<Aluno> alunos;
     private Aluno aluno;
-    private Double nota;
+    private Double nota = 0.0;
     private BeanRespostaAluno beanRespostaAluno;
     
     public List<Aluno> getAlunos() {
@@ -56,6 +56,14 @@ public class BeanAlunoAtividade implements Serializable {
         alunoAtividadeDao.save(alunoAtividade);
 
 //      
+    }
+     
+//    2304
+    public void setaNotaAluno(Atividade atividade, Aluno aluno){
+       var alunoatividade = new AlunoAtividade();
+       alunoatividade.setNota(nota);
+        AlunoAtividadeDao alunoAtividadeDao = new AlunoAtividadeDao();
+        alunoAtividadeDao.save(alunoatividade);
     }
     
     public void buscarAlunoAtividade(String codigo) {

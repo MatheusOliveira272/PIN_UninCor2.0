@@ -150,8 +150,9 @@
                                 <p:inputText value="#{beanAlunoAtividade.nota}" style="margin-left: 3%; width: 15%"
                                             />
                                    <p:commandButton  styleClass="ui-button-secondary" value="Devolver" style="margin-left: 3%; width: 100px"
-                                                          process="@this" actionListener="{beanAtividade}" 
+                                                     process="@this" actionListener="#{beanAlunoAtividade.setaNotaAluno(ati, aluno)}" 
                                                                                                                   />
+                                   <!--2304-->
                                
                             </p:dialog>
 

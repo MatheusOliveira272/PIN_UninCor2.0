@@ -99,7 +99,7 @@
                             </p:splitButton>
 
                             <p:dialog id="alunosDialog" header="Lista de Alunos" widgetVar="alunosDialogVar" modal="true"
-                                      resizable="false" dynamic="true" width="70%">
+                                      resizable="false" dynamic="true" >
                                 <p:dataTable style="width: 800px" value="#{beanAlunoAtividade.alunos}"
                                              var="aluno" reflow="true" scrollable="true" scrollHeight="280">
                                  
@@ -114,13 +114,13 @@
                                         <p:outputLabel value="#{beanAlunoAtividade.buscaNotaAlunoAtividadePorAluno(aluno, ati)}"/>
                                     </p:column>
                                     <p:column>
-<!--                                       
+                                       
                                     <p:commandButton  styleClass="ui-button-secondary" value="Resposta" style="width: 40px"
                                               process="@this" actionListener="{beanAtividade.}" 
                                             oncomplete="PF('respostaAlunoVar').show();"
                                                                                            
                                              />
-                                  -->
+                                  
                                         
                                     </p:column>
                                        

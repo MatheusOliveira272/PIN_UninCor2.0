@@ -35,11 +35,11 @@ public class RespostaAluno implements Serializable{
     
     
     @ManyToOne
-    @JoinColumn(name = "id_resposta_aluno")
+    @JoinColumn(name = "id_aluno")
     private Aluno aluno;
     
     @ManyToOne
-    @JoinColumn(name = "id_resposta_alunos")
+    @JoinColumn(name = "id_atividade")
     private Atividade atividade;
     
     @ManyToOne

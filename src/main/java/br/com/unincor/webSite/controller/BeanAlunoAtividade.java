@@ -29,6 +29,7 @@ public class BeanAlunoAtividade implements Serializable {
     private String codigo = "";
     private List<Aluno> alunos;
     private Aluno aluno;
+    private Double nota;
     private BeanRespostaAluno beanRespostaAluno;
     
     public List<Aluno> getAlunos() {

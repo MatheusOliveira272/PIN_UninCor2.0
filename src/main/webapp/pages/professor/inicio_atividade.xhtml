@@ -101,52 +101,58 @@
 
                             <p:dialog id="alunosDialog" header="Lista de Alunos" widgetVar="alunosDialogVar" modal="true"
                                       resizable="false" dynamic="true"  >
-                               
-                              
-                                    <p:dataTable style="width: 900px;" value="#{beanAlunoAtividade.alunos}"  
-                                                 var="aluno" reflow="true" scrollable="true" scrollHeight="280">
-
-                                     
-                                   
-                                        <p:column headerText ="Nome"  >
-
-                                            <h:outputText value="#{aluno.nome}"/>
-                                        </p:column>
-                                           
-                                        <p:column styleClass="TexAlRight" headerText="Email">
-                                            <h:outputText value="#{aluno.email}"/>
-                                        </p:column>
-                                        <p:column>
-                                            <h:outputText value="#{beanAlunoAtividade.buscaNotaAlunoAtividadePorAluno(aluno, ati)}"/>
-                                        </p:column>
-                                        <p:column>
-
-                                            <p:commandButton  styleClass="ui-button-secondary" value="Resposta" style="width: 100px"
-                                                              process="@this" actionListener="#{beanAtividade.recuperaRespostasAluno(ati, aluno )}" 
-                                                              oncomplete="PF('respostaAlunoVar').show();"  
-
-                                                              />
 
 
-                                        </p:column>
-                                           
-                                    </p:dataTable>
+                                <p:dataTable style="width: 900px;" value="#{beanAlunoAtividade.alunos}"  
+                                             var="aluno" reflow="true" scrollable="true" scrollHeight="280">
 
-                                    
+
+
+                                    <p:column headerText ="Nome"  >
+
+                                        <h:outputText value="#{aluno.nome}"/>
+                                    </p:column>
+
+                                    <p:column styleClass="TexAlRight" headerText="Email">
+                                        <h:outputText value="#{aluno.email}"/>
+                                    </p:column>
+                                    <p:column>
+                                        <h:outputText value="#{beanAlunoAtividade.buscaNotaAlunoAtividadePorAluno(aluno, ati)}"/>
+                                    </p:column>
+                                    <p:column>
+
+                                        <p:commandButton  styleClass="ui-button-secondary" value="Resposta" style="width: 100px"
+                                                          process="@this" actionListener="#{beanAtividade.recuperaRespostasAluno(ati, aluno )}" 
+                                                          oncomplete="PF('respostaAlunoVar').show();"  
+
+                                                          />
+
+
+                                    </p:column>
+
+                                </p:dataTable>
+
+
                             </p:dialog>
                             <p:dialog id="respostaAlunoDialog" header="Respostas do Aluno" widgetVar="respostaAlunoVar" modal="true"
                                       resizable="false" dynamic="true" width="70%">
+
+                                <p:dataTable value="#{beanAtividade.respostasAlunoSelecionado}" var="ra"
+                                             reflow="true" scrollable="true" scrollHeight="280">
+                                    <p:column headerText="Enunciado">
+                                        <p:outputLabel value="#{ra.questao.enunciado}" />
+                                    </p:column>
+                                    <p:column headerText="Resposta">
+                                        <p:outputLabel value="#{ra.respQuestaoAberta} #{ra.questaoFechada}" />
+                                    </p:column>
+                                </p:dataTable>
+                                <p:outputLabel value="Nota do aluno:" style="margin-left: 5%"/>
+                                <p:inputText value="#{beanAlunoAtividade.nota}" style="margin-left: 3%; width: 15%"
+                                            />
+                                   <p:commandButton  styleClass="ui-button-secondary" value="Devolver" style="margin-left: 3%; width: 100px"
+                                                          process="@this" actionListener="{beanAtividade}" 
+                                                                                                                  />
                                
-                                    <p:dataTable value="#{beanAtividade.respostasAlunoSelecionado}" var="ra"
-                                                 reflow="true" scrollable="true" scrollHeight="280">
-                                           <p:column headerText="Enunciado">
-                                               <p:outputLabel value="#{ra.questao.enunciado}" />
-                                        </p:column>
-                                        <p:column headerText="Resposta">
-                                            <p:outputLabel value="#{ra.respQuestaoAberta} #{ra.questaoFechada}" />
-                                        </p:column>
-                                    </p:dataTable>
-                              
                             </p:dialog>
 
 

@@ -5,7 +5,8 @@
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+                xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <ui:define name="titulo"> - Cadastro Atividade</ui:define> 
 
@@ -102,9 +103,9 @@
                                       resizable="false" dynamic="true" >
                                 <p:dataTable style="width: 800px" value="#{beanAlunoAtividade.alunos}"
                                              var="aluno" reflow="true" scrollable="true" scrollHeight="280">
-                                 
+
                                     <p:column headerText="Nome">
-                                        
+
                                         <p:outputLabel value="#{aluno.nome}"/>
                                     </p:column>
                                     <p:column headerText="Email">
@@ -114,43 +115,78 @@
                                         <p:outputLabel value="#{beanAlunoAtividade.buscaNotaAlunoAtividadePorAluno(aluno, ati)}"/>
                                     </p:column>
                                     <p:column>
-                                       
-                                    <p:commandButton  styleClass="ui-button-secondary" value="Resposta" style="width: 40px"
-                                              process="@this" actionListener="{beanAtividade.}" 
-                                            oncomplete="PF('respostaAlunoVar').show();"
-                                                                                           
-                                             />
-                                  
-                                        
+
+                                        <p:commandButton  styleClass="ui-button-secondary" value="Resposta" style="width: 40px"
+                                                          process="@this" actionListener="{beanAtividade.}" 
+                                                          oncomplete="PF('respostaAlunoVar').show();"
+
+                                                          />
+
+
                                     </p:column>
-                                       
-<!--                                    <p:column headerText="Opções">
-                                    <p:tooltip position="top" for="@next" value="Configurações"/>
-                                    <p:splitButton icon="pi pi-paperclip" update="" style="margin-left: 15px" styleClass="ui-button-secondary">
-                                        <p:menuitem value="Atividade"  update="" icon="pi pi-file"/>
-                                        <p:menuitem value="Habilitar" icon="pi pi-lock-open" 
-                                                    actionListener="//Aqui vai o código para habilitar o acesso do aluno a atividade" update="alunosDialog"
-                                                     />
-                                        <p:menuitem value="Bloquear" icon="pi pi-lock" 
-                                                    actionListener="//Aqui vai o código para bloquear o acesso do aluno a atividade" update="alunosDialog"
-                                                     />
-                                    </p:splitButton>
-                                    </p:column>-->
+
 
                                 </p:dataTable>
                             </p:dialog>
 
                             <p:dialog  id="respostaAluno" header="Resposta do aluno" widgetVar="respostaAlunoVar" modal="true"
-                                      resizable="false" dynamic="true " width="70%" >
-                                
-                                <p:dataTable>
-                                    
-                                    
+                                       resizable="false" dynamic="true " width="70%" >
+
+                                <p:dataTable style="width: 800px" value="#{beanAtividade.recuperaRespostasAluno(ati, aluno)}" var="ra"
+                                             var="aluno" reflow="true" scrollable="true" scrollHeight="280">
+
+                                    <p:column headerText="Nome">
+
+                                        <p:outputLabel value="#{ra.aluno.nome}"/>
+                                    </p:column>
+                                    <p:column headerText="Questão">
+                                        <p:outputLabel value="#{ra.questao.enunciado}"/>
+                                    </p:column>
+                                    <p:column headerText="Resposta">
+                                        <c:choose>
+<!--                                            <c:when test="#{ra.questao.tipoQuestao}">
+
+                                                <c:forEach items="#{beanRespostaAluno.getAlternativasQuestãoFechada(questao)}" var="alternativa">
+
+
+                                                    <h:selectOneRadio id="respostaFechada" value="#{beanRespostaAluno.respQuestaoFechada}" layout="lineDirection" converter="respostaFechadaConverter">
+                                                        <p:ajax event="change" listener="#{beanRespostaAluno.adicionaAlunoResposta(alternativa)}" />
+                                                        <f:selectItem itemValue="#{alternativa}" itemLabel="#{alternativa.ordem}) #{alternativa.descricao}" />
+                                                    </h:selectOneRadio>
+
+
+                                                </c:forEach>
+
+                                            </c:when>
+                                            <c:otherwise>
+
+                                                <p:inputTextarea id="respAberta" style="width: 90%; margin-left: 50px;" placeholder="Digite sua resposta aqui..." 
+                                                                 value="#{beanRespostaAluno.respQuestaoAberta}" 
+                                                                 onkeyup="#{beanRespostaAluno.respQuestaoAberta}" />
+                                                <p:ajax event="keyup" listener="#{beanRespostaAluno.respQuestaoAberta}" update="growl" process="@this" />
+                                                <p:commandButton value="Salvar" action="#{beanRespostaAluno.adicionaAlunoRespostaAberta(questao)}" update="growl" process="@this"  
+                                                                 style="margin-left: 88%" styleClass="ui-button-secondary" />
+                                            </c:otherwise> A ideia aqui é fazer um choose para verificar o tipo da questão se for aberta vai ser um output com o value ra.respostaQuestaoAberta se for fechada ra.questaoFechada-->
+
+                                        </c:choose >
+                                    </p:column>
+                                    <p:column>
+
+                                        <p:commandButton  styleClass="ui-button-secondary" value="Resposta" style="width: 40px"
+                                                          process="@this" actionListener="{beanAtividade.}" 
+                                                          oncomplete="PF('respostaAlunoVar').show();"
+
+                                                          />
+
+
+                                    </p:column>
+
+
                                 </p:dataTable>
-                                
-                                
-                                
-                                
+
+
+
+
                             </p:dialog>
 
 

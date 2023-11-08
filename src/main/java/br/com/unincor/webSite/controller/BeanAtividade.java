@@ -4,10 +4,12 @@ import br.com.unincor.webSite.model.dao.AlunoAtividadeDao;
 import br.com.unincor.webSite.model.dao.AtividadeDao;
 import br.com.unincor.webSite.model.dao.DisciplinaDao;
 import br.com.unincor.webSite.model.dao.ProfessorDao;
+import br.com.unincor.webSite.model.dao.RespostaAlunoDao;
 import br.com.unincor.webSite.model.domain.Aluno;
 import br.com.unincor.webSite.model.domain.AlunoAtividade;
 import br.com.unincor.webSite.model.domain.Atividade;
 import br.com.unincor.webSite.model.domain.Disciplina;
+import br.com.unincor.webSite.model.domain.RespostaAluno;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -116,5 +118,10 @@ public class BeanAtividade implements Serializable {
             return (List<AlunoAtividade>) alunos;
         }
         return null;
+    }
+    
+    public List<RespostaAluno> recuperaRespostasAluno(Atividade atividade, Aluno aluno){
+        var respostas = new RespostaAlunoDao().recuperaAtividadeAluno(atividade, aluno);
+        return respostas;  
     }
 }

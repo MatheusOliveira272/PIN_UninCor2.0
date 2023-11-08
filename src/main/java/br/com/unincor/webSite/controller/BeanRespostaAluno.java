@@ -98,7 +98,14 @@ public class BeanRespostaAluno implements Serializable {
         for (int i = 0; i < respostaAlunosProvisoria.size(); i++) {
 
             new RespostaAlunoDao().save(respostaAlunosProvisoria.get(i));
+
         }
+                   // voltaInicio();
+       
     }
+    
+//    public String voltaInicio(){
+//        return "/inicio_aluno.jsf?faces-redirect=true";
+//    }
 
 }

@@ -120,8 +120,13 @@ public class BeanAtividade implements Serializable {
         return null;
     }
     
-    public List<RespostaAluno> recuperaRespostasAluno(Atividade atividade, Aluno aluno){
-        var respostas = new RespostaAlunoDao().recuperaAtividadeAluno(atividade, aluno);
-        return respostas;  
-    }
+   private List<RespostaAluno> respostasAlunoSelecionado;
+
+   public List<RespostaAluno> recuperaRespostasAluno(Atividade atividade, Aluno aluno){
+       System.out.println("cai aqui");
+    respostasAlunoSelecionado = new RespostaAlunoDao().recuperaAtividadeAluno(atividade, aluno);
+       System.out.println("lista" + respostasAlunoSelecionado);
+    return respostasAlunoSelecionado;  
+}
+
 }

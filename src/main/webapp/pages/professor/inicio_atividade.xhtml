@@ -100,94 +100,55 @@
                             </p:splitButton>
 
                             <p:dialog id="alunosDialog" header="Lista de Alunos" widgetVar="alunosDialogVar" modal="true"
-                                      resizable="false" dynamic="true" >
-                                <p:dataTable style="width: 800px" value="#{beanAlunoAtividade.alunos}"
-                                             var="aluno" reflow="true" scrollable="true" scrollHeight="280">
+                                      resizable="false" dynamic="true"  >
+                               
+                              
+                                    <p:dataTable style="width: 900px;" value="#{beanAlunoAtividade.alunos}"  
+                                                 var="aluno" reflow="true" scrollable="true" scrollHeight="280">
 
-                                    <p:column headerText="Nome">
+                                     
+                                   
+                                        <p:column headerText ="Nome"  >
 
-                                        <p:outputLabel value="#{aluno.nome}"/>
-                                    </p:column>
-                                    <p:column headerText="Email">
-                                        <p:outputLabel value="#{aluno.email}"/>
-                                    </p:column>
-                                    <p:column>
-                                        <p:outputLabel value="#{beanAlunoAtividade.buscaNotaAlunoAtividadePorAluno(aluno, ati)}"/>
-                                    </p:column>
-                                    <p:column>
+                                            <h:outputText value="#{aluno.nome}"/>
+                                        </p:column>
+                                           
+                                        <p:column styleClass="TexAlRight" headerText="Email">
+                                            <h:outputText value="#{aluno.email}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <h:outputText value="#{beanAlunoAtividade.buscaNotaAlunoAtividadePorAluno(aluno, ati)}"/>
+                                        </p:column>
+                                        <p:column>
 
-                                        <p:commandButton  styleClass="ui-button-secondary" value="Resposta" style="width: 40px"
-                                                          process="@this" actionListener="{beanAtividade.}" 
-                                                          oncomplete="PF('respostaAlunoVar').show();"
+                                            <p:commandButton  styleClass="ui-button-secondary" value="Resposta" style="width: 100px"
+                                                              process="@this" actionListener="#{beanAtividade.recuperaRespostasAluno(ati, aluno )}" 
+                                                              oncomplete="PF('respostaAlunoVar').show();"  
 
-                                                          />
-
-
-                                    </p:column>
+                                                              />
 
 
-                                </p:dataTable>
+                                        </p:column>
+                                           
+                                    </p:dataTable>
+
+                                    
+                            </p:dialog>
+                            <p:dialog id="respostaAlunoDialog" header="Respostas do Aluno" widgetVar="respostaAlunoVar" modal="true"
+                                      resizable="false" dynamic="true" width="70%">
+                               
+                                    <p:dataTable value="#{beanAtividade.respostasAlunoSelecionado}" var="ra"
+                                                 reflow="true" scrollable="true" scrollHeight="280">
+                                           <p:column headerText="Enunciado">
+                                               <p:outputLabel value="#{ra.questao.enunciado}" />
+                                        </p:column>
+                                        <p:column headerText="Resposta">
+                                            <p:outputLabel value="#{ra.respQuestaoAberta} #{ra.questaoFechada}" />
+                                        </p:column>
+                                    </p:dataTable>
+                              
                             </p:dialog>
 
-                            <p:dialog  id="respostaAluno" header="Resposta do aluno" widgetVar="respostaAlunoVar" modal="true"
-                                       resizable="false" dynamic="true " width="70%" >
-
-                                <p:dataTable style="width: 800px" value="#{beanAtividade.recuperaRespostasAluno(ati, aluno)}" var="ra"
-                                             var="aluno" reflow="true" scrollable="true" scrollHeight="280">
-
-                                    <p:column headerText="Nome">
-
-                                        <p:outputLabel value="#{ra.aluno.nome}"/>
-                                    </p:column>
-                                    <p:column headerText="Questão">
-                                        <p:outputLabel value="#{ra.questao.enunciado}"/>
-                                    </p:column>
-                                    <p:column headerText="Resposta">
-                                        <c:choose>
-<!--                                            <c:when test="#{ra.questao.tipoQuestao}">
-
-                                                <c:forEach items="#{beanRespostaAluno.getAlternativasQuestãoFechada(questao)}" var="alternativa">
-
-
-                                                    <h:selectOneRadio id="respostaFechada" value="#{beanRespostaAluno.respQuestaoFechada}" layout="lineDirection" converter="respostaFechadaConverter">
-                                                        <p:ajax event="change" listener="#{beanRespostaAluno.adicionaAlunoResposta(alternativa)}" />
-                                                        <f:selectItem itemValue="#{alternativa}" itemLabel="#{alternativa.ordem}) #{alternativa.descricao}" />
-                                                    </h:selectOneRadio>
-
-
-                                                </c:forEach>
-
-                                            </c:when>
-                                            <c:otherwise>
-
-                                                <p:inputTextarea id="respAberta" style="width: 90%; margin-left: 50px;" placeholder="Digite sua resposta aqui..." 
-                                                                 value="#{beanRespostaAluno.respQuestaoAberta}" 
-                                                                 onkeyup="#{beanRespostaAluno.respQuestaoAberta}" />
-                                                <p:ajax event="keyup" listener="#{beanRespostaAluno.respQuestaoAberta}" update="growl" process="@this" />
-                                                <p:commandButton value="Salvar" action="#{beanRespostaAluno.adicionaAlunoRespostaAberta(questao)}" update="growl" process="@this"  
-                                                                 style="margin-left: 88%" styleClass="ui-button-secondary" />
-                                            </c:otherwise> A ideia aqui é fazer um choose para verificar o tipo da questão se for aberta vai ser um output com o value ra.respostaQuestaoAberta se for fechada ra.questaoFechada-->
-
-                                        </c:choose >
-                                    </p:column>
-                                    <p:column>
-
-                                        <p:commandButton  styleClass="ui-button-secondary" value="Resposta" style="width: 40px"
-                                                          process="@this" actionListener="{beanAtividade.}" 
-                                                          oncomplete="PF('respostaAlunoVar').show();"
-
-                                                          />
-
-
-                                    </p:column>
-
-
-                                </p:dataTable>
-
-
-
-
-                            </p:dialog>
 
 
                         </p:column>

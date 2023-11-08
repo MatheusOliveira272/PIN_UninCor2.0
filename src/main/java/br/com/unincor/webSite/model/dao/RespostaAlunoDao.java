@@ -20,7 +20,7 @@ public class RespostaAlunoDao extends GenericDao<RespostaAluno, Long> {
     }
       
       public List<RespostaAluno> recuperaAtividadeAluno(Atividade atividade, Aluno aluno) {
-        String sql = "From RespostaAluno ra join ra.questao q join q.atividade a where a = :atividade AND ra.aluno = :aluno";
+        String sql = "From RespostaAluno ra join ra.questao q join q.atividades a where a = :atividade AND ra.aluno = :aluno";
         
         Query query = getEntityManager().createQuery(sql, QuestaoFechada.class)
                 .setParameter("atividade", atividade)

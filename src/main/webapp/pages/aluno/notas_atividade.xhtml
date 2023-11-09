@@ -12,14 +12,18 @@
     <ui:define name="conteudo" >
         <p:panel id="painel" header="Notas Atividade">
 
-            <p:outputPanel rendered="#{beanAlunoAtividade.}">
+            <p:outputPanel rendered="#{beanAlunoAtividade.aluno == null}" >
                 <h:form id="tabela">
                    
-                    <p:dataTable  value="{beanDisciplina.disciplinas}" style="margin-top: 15px" var="dis"
+                    <p:dataTable  value="#{beanAlunoAtividade.buscarAlunoAtividadePorAlunoLogado()}" style="margin-top: 15px" var="alat"
                                   reflow="true" scrollable="true" scrollHeight="280">
 
-                        <p:column headerText="Nome:"  sortBy="{dis.nome}" >
-                            <p:outputLabel value="{dis.nome}"/>
+                        <p:column headerText="Atividade:"   >
+                            <p:outputLabel value="#{alat.atividade.nome}"/>
+                        </p:column>
+                        
+                        <p:column headerText="Nota:"   >
+                            <p:outputLabel value="#{alat.nota}"/>
                         </p:column>
 
 

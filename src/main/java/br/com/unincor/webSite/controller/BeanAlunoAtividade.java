@@ -77,4 +77,11 @@ public class BeanAlunoAtividade implements Serializable {
         return alunoAtividade.getNota();
     }
     
+    public void buscarAlunoAtividadePorAlunoLogado() {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
+        var alunoLogado = new AlunoDao().findById((Integer) session.getAttribute("alunoId"));
+        this.alunos = new AtividadeDao().buscarAlunoAtividadePorAlunoLogado(alunoLogado);
+    }
+    
 }

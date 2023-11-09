@@ -25,17 +25,22 @@
 
                                     <c:choose>
                                         <c:when test="#{questao.tipoQuestao}">
+                                            <p:selectOneRadio value="#{beanRespostaAluno.respQuestaoFechada}" converter="respostaFechadaConverter"
+                                                              unselectable="true" >
+                                                <f:selectItems value="#{beanRespostaAluno.getAlternativasQuestãoFechada(questao)}"
+                                                               var="alternativa" itemLabel="#{alternativa.ordem}) #{alternativa.descricao}" />
+                                            </p:selectOneRadio>
 
-                                            <c:forEach items="#{beanRespostaAluno.getAlternativasQuestãoFechada(questao)}" var="alternativa">
+                                            <!--<c:forEach items="{beanRespostaAluno.getAlternativasQuestãoFechada(questao)}" var="alternativa">
 
 
-                                                <h:selectOneRadio id="respostaFechada" value="#{beanRespostaAluno.respQuestaoFechada}" layout="lineDirection" converter="respostaFechadaConverter">
-                                                    <p:ajax event="change" listener="#{beanRespostaAluno.adicionaAlunoResposta(alternativa)}" />
-                                                    <f:selectItem itemValue="#{alternativa}" itemLabel="#{alternativa.ordem}) #{alternativa.descricao}" />
+                                                <h:selectOneRadio id="respostaFechada" value="{beanRespostaAluno.respQuestaoFechada}" layout="lineDirection" converter="respostaFechadaConverter">
+                                                    <p:ajax event="change" listener="{beanRespostaAluno.adicionaAlunoResposta(alternativa)}" />
+                                                    <f:selectItem itemValue="{alternativa}" itemLabel="{alternativa.ordem}) {alternativa.descricao}" />
                                                 </h:selectOneRadio>
 
 
-                                            </c:forEach>
+                                            </c:forEach>-->
 
                                         </c:when>
                                         <c:otherwise>

@@ -53,7 +53,7 @@
                                      styleClass="ui-button-secondary"
                                      update="painel"/>
                     <p:dataTable  value="#{beanAtividade.atividades}" style="margin-top: 15px" var="ati"
-                                  reflow="true" scrollable="true" scrollHeight="280">
+                                  scrollable="true" scrollHeight="280">
 
                         <p:column headerText="Nome:  " sortBy="#{ati.nome}" filterBy="#{ati.nome}" style="width: 200px" >
                             <p:outputLabel value="#{ati.nome}"  />
@@ -106,10 +106,7 @@
                                 <p:dataTable style="width: 900px;" value="#{beanAlunoAtividade.alunos}"  
                                              var="aluno" reflow="true" scrollable="true" scrollHeight="280">
 
-
-
                                     <p:column headerText ="Nome"  >
-
                                         <h:outputText value="#{aluno.nome}"/>
                                     </p:column>
 

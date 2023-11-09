@@ -7,16 +7,19 @@ import br.com.unincor.webSite.model.domain.Atividade;
 import br.com.unincor.webSite.model.domain.Questao;
 import br.com.unincor.webSite.model.domain.QuestaoFechada;
 import br.com.unincor.webSite.model.domain.RespostaAluno;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 import lombok.Getter;
 import lombok.Setter;
+import org.primefaces.event.FlowEvent;
 
 @ManagedBean
 @ViewScoped
@@ -31,7 +34,9 @@ public class BeanRespostaAluno implements Serializable {
     private QuestaoFechada respQuestaoFechada;
     private String respQuestaoAberta;
     private List<RespostaAluno> respostaAlunosProvisoria;
+    private RespostaAluno resp;
     //private String page;
+     private boolean skip;
 
     @PostConstruct
     public void init() {
@@ -100,12 +105,35 @@ public class BeanRespostaAluno implements Serializable {
             new RespostaAlunoDao().save(respostaAlunosProvisoria.get(i));
 
         }
-                   // voltaInicio();
+                 FacesContext facesContext = FacesContext.getCurrentInstance();
+    ExternalContext externalContext = facesContext.getExternalContext();
+    try {
+        externalContext.redirect(externalContext.getRequestContextPath() + "/pages/aluno/inicio_aluno.jsf");
+    } catch (IOException e) {
+        e.printStackTrace(); // Trate o erro conforme necessário
+    }
        
     }
+// 
+       public String retorna(){
+             System.out.println("Redirecionando para a página inicial.");
+        return "/aluno/inicio_aluno.jsf?faces-redirect=true";
+    }
     
-//    public String voltaInicio(){
-//        return "/inicio_aluno.jsf?faces-redirect=true";
-//    }
+     public String onFlowProcess(FlowEvent event) {
+       
+        if (skip) {
+            skip = false; //reset in case user goes back
+             System.out.println("oi1");
+            return "confirm";
+           
+        }
+        else {
+         //   adicionaAlunoRespostaAberta(ques);
+            return event.getNewStep();
+        }
+    }
+    
+
 
 }

@@ -15,7 +15,7 @@
         <div class="card">
             <h:form>
                 <p:growl id="growl" sticky="true" showDetail="true"/>
-                <p:wizard widgetVar="wiz"  >
+                <p:wizard widgetVar="wiz" nextLabel="Próximo" backLabel="Anterior"  flowListener="#{beanRespostaAluno.onFlowProcess}">
 
                     <c:forEach items="#{beanRespostaAluno.questoes}" var="questao" varStatus="status" >
                         <p:tab title="Questão #{status.index + 1}">
@@ -25,22 +25,22 @@
 
                                     <c:choose>
                                         <c:when test="#{questao.tipoQuestao}">
-                                            <p:selectOneRadio value="#{beanRespostaAluno.respQuestaoFechada}" converter="respostaFechadaConverter"
+<!--                                            <p:selectOneRadio value="#{beanRespostaAluno.resp.questaoFechada}" converter="respostaFechadaConverter"
                                                               unselectable="true" >
                                                 <f:selectItems value="#{beanRespostaAluno.getAlternativasQuestãoFechada(questao)}"
                                                                var="alternativa" itemLabel="#{alternativa.ordem}) #{alternativa.descricao}" />
-                                            </p:selectOneRadio>
+                                            </p:selectOneRadio>-->
 
-                                            <!--<c:forEach items="{beanRespostaAluno.getAlternativasQuestãoFechada(questao)}" var="alternativa">
+                                         <c:forEach items="#{beanRespostaAluno.getAlternativasQuestãoFechada(questao)}" var="alternativa">
 
 
-                                                <h:selectOneRadio id="respostaFechada" value="{beanRespostaAluno.respQuestaoFechada}" layout="lineDirection" converter="respostaFechadaConverter">
-                                                    <p:ajax event="change" listener="{beanRespostaAluno.adicionaAlunoResposta(alternativa)}" />
-                                                    <f:selectItem itemValue="{alternativa}" itemLabel="{alternativa.ordem}) {alternativa.descricao}" />
+                                                <h:selectOneRadio id="respostaFechada" value="#{beanRespostaAluno.respQuestaoFechada}" layout="lineDirection" converter="respostaFechadaConverter">
+                                                    <p:ajax event="change" listener="#{beanRespostaAluno.adicionaAlunoResposta(alternativa)}" />
+                                                    <f:selectItem itemValue="#{alternativa}" itemLabel="#{alternativa.ordem}) #{alternativa.descricao}" />
                                                 </h:selectOneRadio>
 
 
-                                            </c:forEach>-->
+                                            </c:forEach>
 
                                         </c:when>
                                         <c:otherwise>
@@ -61,7 +61,8 @@
                     </c:forEach>
                     <p:tab id="confirm" title="Confirmation">
                         <p:panel header="Confirmation">
-                            <h:outputText value="Ddeseja enviar suas respostas?"/>
+                            <h:outputText value="Ddeseja enviar suas respostas? "/>
+                            <br/>
                             <br/>
                             <p:commandButton value="Enviar" actionListener="#{beanRespostaAluno.salvaRespostasAluno()}" update="growl" process="@this"  styleClass="ui-button-secondary" />
                         </p:panel>

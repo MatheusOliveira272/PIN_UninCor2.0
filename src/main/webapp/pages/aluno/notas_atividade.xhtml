@@ -16,7 +16,7 @@
                 <h:form id="tabela">
                    
                     <p:dataTable  value="#{beanAlunoAtividade.buscarAlunoAtividadePorAlunoLogado()}" style="margin-top: 15px" var="alat"
-                                  reflow="true" scrollable="true" scrollHeight="280">
+                                  reflow="true"  scrollHeight="280">
 
                         <p:column headerText="Atividade:"   >
                             <p:outputLabel value="#{alat.atividade.nome}"/>

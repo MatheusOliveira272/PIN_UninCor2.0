@@ -9,7 +9,14 @@
 
     <ui:define name="titulo"> - Cadastro Questão</ui:define> 
 
-      <ui:define name="conteudo" >
+    <!-- Todo o formulário deverá estar dentro de um só form 
+        Verificar sobre o partial submit caso necessário
+        Todos os componentes do formulário devem estar devidamente envolvidos em um form
+   
+        
+    -->
+
+    <ui:define name="conteudo" >
         <p:panel id="painel" header="Cadastro Questão">
 
             <p:outputPanel rendered="#{beanQuestao.questao != null}">
@@ -43,12 +50,16 @@
 
                     </p:panelGrid>
                    
+
+
+
+
                     <!-- essa parte abre de acordo com o que o usuário escolher Questão Aberta ou fechada  -->
                     <h:panelGroup id="painelFormulario">
                         <p:panel rendered="#{beanQuestao.questao.tipoQuestao eq 'false'}" 
                                  header="Questão Aberta:" style="margin-top: 10px">
                             <!-- Formulário para questão Aberta salva no banco como 0 em tipo_questao -->
-<!--                            <p:inputTextarea style="margin-top: 30px; margin-left: 10px" rows="6" cols="155" />-->
+                            <p:inputTextarea style="margin-top: 30px; margin-left: 10px" rows="6" cols="155" />
                         </p:panel>
 
 
@@ -61,7 +72,7 @@
                                              styleClass="ui-button-secondary" onclick="PF('questaoFechadaDialog').show();" 
                                              process="@this questaoFechadaDialog" />
 
-                            <p:dataTable id="tabelaQuestao" value="#{beanQuestaoFechada.recuperaQuestoesAtividade(beanQuestao.questao)}" style="margin-top: 15px" var="ques"
+                            <p:dataTable id="tabelaQuestao" value="#{beanQuestaoFechada.questoesFechadas}" style="margin-top: 15px" var="ques"
                                          reflow="true" scrollable="true" scrollHeight="280">
 
                                 <p:column headerText="Ordem: "  >
@@ -127,12 +138,13 @@
 
                     </h:panelGroup>
                     
-                     <p:commandButton value="Salvar" style="margin-left: 80%; margin-right: 5px; margin-top: 10px"
+                   <p:commandButton value="Salvar" style="margin-left: 80%; margin-right: 5px; margin-top: 10px"
                                      styleClass="ui-button-secondary" actionListener="#{beanQuestaoFechada.salvaTudo(beanQuestao.questao)}"
-                                     update="@form tabela painel" partialSubmit="true" />
+                                     update="@form tabela painel" partialSubmit="true"  />
 
                     <p:commandButton value="Cancelar" actionListener="#{beanQuestao.cancelar()}" styleClass="ui-button-secondary"
                                      update="painel" immediate="true"/>
+
 
                 </h:form>
 
@@ -147,7 +159,7 @@
                                      styleClass="ui-button-secondary"
                                      update="painel"/>
                     <p:dataTable  value="#{beanQuestao.questoes}" style="margin-top: 15px" var="que"
-                                  reflow="true" scrollable="true" scrollHeight="280">
+                                   reflow="true" scrollable="true" scrollHeight="280">
 
                         <p:column headerText="Nome:"  sortBy="#{que.enunciado}" >
                             <p:outputLabel value="#{que.enunciado}"/>
@@ -174,7 +186,7 @@
                     </p:dataTable>
                     
                     
-                    
+                   
                 </h:form>
             </p:outputPanel>
         </p:panel>

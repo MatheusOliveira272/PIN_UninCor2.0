@@ -50,12 +50,17 @@ public class BeanQuestaoFechada implements Serializable{
 //        }
 
 //        new QuestaoDao().save(questao);
+        cancelar();
+        buscar();
+        
+        
     }
     
     public void salvaTudo(Questao questao){
         beanQuestao.salvar();
         salvar(questao);
-      
+        
+        buscar();
     }
     
     
@@ -64,6 +69,7 @@ public class BeanQuestaoFechada implements Serializable{
     public void adicionarQuestaoFechada() {
        questoesFechadas.add(questaoFechada);
          questaoFechada = new QuestaoFechada(); // Cria uma nova instância para a próxima questão fechada
+         
         
         
        

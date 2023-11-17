@@ -10,7 +10,7 @@ import java.util.List;
 public class QuestaoDao extends GenericDao<Questao, Long> {
 
     public List<Questao> buscarQuestaosProfessorPorLogin(Professor professor) {
-        String sql = "SELECT q FROM Questao q JOIN q.atividades a JOIN a.disciplinas d WHERE d.professor = :professor";
+        String sql = "SELECT q FROM Questao q JOIN q.atividades a JOIN a.disciplinas d WHERE d.professor = :professor AND q.enable = true";
 
         Query query = getEntityManager().createQuery(sql, Questao.class)
                 .setParameter("professor", professor);
@@ -21,7 +21,7 @@ public class QuestaoDao extends GenericDao<Questao, Long> {
     public List<Questao> buscarQuestoesPorCodigoAtividade(String codigo) {
         EntityManager em = getEntityManager();
         try {
-            String jpql = "FROM Questao q JOIN  q.atividades a  where a.codigo = :codigo";
+            String jpql = "FROM Questao q JOIN  q.atividades a  where a.codigo = :codigo AND q.enable = true";
             TypedQuery<Questao> query = em.createQuery(jpql, Questao.class);
             query.setParameter("codigo", codigo);
             return query.getResultList();

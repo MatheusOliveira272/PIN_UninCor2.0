@@ -40,6 +40,7 @@ public class BeanQuestao implements Serializable {
 
     public void salvar() {
         if (atividadeSelecionada != null) {
+            questao.setEnable(Boolean.TRUE);
             questao.getAtividades().clear(); // Remove todas as disciplinas associadas
             questao.getAtividades().add(atividadeSelecionada); // Adiciona a nova disciplina selecionada
         }
@@ -75,9 +76,8 @@ public class BeanQuestao implements Serializable {
     }
 
     public void remover(Questao questao) {
-        System.out.println(questao.getEnunciado());
-        new QuestaoDao().delete(questao.getId());
-
+        questao.setEnable(Boolean.FALSE);
+        new QuestaoDao().save(questao);
         buscar();
     }
 

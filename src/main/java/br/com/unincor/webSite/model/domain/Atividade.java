@@ -27,6 +27,7 @@ public class Atividade implements Serializable {
     private String nome;
     private Double valor;
     private String codigo;
+    private Boolean enable;
 
     @ManyToMany
     @JoinTable(

@@ -46,6 +46,7 @@ public class BeanAtividade implements Serializable {
         }
 
         atividade.setCodigo(gerarCodigoAleatorio(5));
+        atividade.setEnable(Boolean.TRUE);
 
         new AtividadeDao().save(atividade);
         cancelar();
@@ -72,8 +73,8 @@ public class BeanAtividade implements Serializable {
     }
 
     public void remover(Atividade atividade) {
-        System.out.println(atividade.getNome());
-        new AtividadeDao().delete(atividade.getId());
+        atividade.setEnable(Boolean.FALSE);
+        new AtividadeDao().save(atividade);
 
         buscar();
 

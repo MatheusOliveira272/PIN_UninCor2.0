@@ -15,10 +15,10 @@
         <div class="card">
             <h:form>
                 <p:growl id="growl" sticky="true" showDetail="true"/>
-                <p:wizard widgetVar="wiz" nextLabel="Próximo" backLabel="Anterior"  flowListener="#{beanRespostaAluno.onFlowProcess}">
+                <p:wizard widgetVar="wiz" nextLabel="PrÃ³ximo" backLabel="Anterior"  flowListener="#{beanRespostaAluno.onFlowProcess}">
 
                     <c:forEach items="#{beanRespostaAluno.questoes}" var="questao" varStatus="status" >
-                        <p:tab title="Questão #{status.index + 1}">
+                        <p:tab title="QuestÃ£o #{status.index + 1}">
                             <p:panel header="#{questao.enunciado}">
                                 <p:messages/>
                                 <h:panelGrid style="width: 100%" columns="1" columnClasses="label">
@@ -27,11 +27,11 @@
                                         <c:when test="#{questao.tipoQuestao}">
 <!--                                            <p:selectOneRadio value="#{beanRespostaAluno.resp.questaoFechada}" converter="respostaFechadaConverter"
                                                               unselectable="true" >
-                                                <f:selectItems value="#{beanRespostaAluno.getAlternativasQuestãoFechada(questao)}"
+                                                <f:selectItems value="#{beanRespostaAluno.getAlternativasQuestÃ£oFechada(questao)}"
                                                                var="alternativa" itemLabel="#{alternativa.ordem}) #{alternativa.descricao}" />
                                             </p:selectOneRadio>-->
 
-                                         <c:forEach items="#{beanRespostaAluno.getAlternativasQuestãoFechada(questao)}" var="alternativa">
+                                         <c:forEach items="#{beanRespostaAluno.getAlternativasQuestÃ£oFechada(questao)}" var="alternativa">
 
 
                                                 <h:selectOneRadio id="respostaFechada" value="#{beanRespostaAluno.respQuestaoFechada}" layout="lineDirection" converter="respostaFechadaConverter">
@@ -74,7 +74,7 @@
 
             </h:form>
         </div>
-    </ui:define>
+    </ui:define> 
 
 
 </ui:composition>

@@ -33,6 +33,7 @@ public class Disciplina implements Serializable{
 
     private Long id;
     private String nome;
+    private Boolean enable;
 
     @ManyToMany(mappedBy = "disciplinas")
     private Set<Aluno> alunos = new HashSet<>();

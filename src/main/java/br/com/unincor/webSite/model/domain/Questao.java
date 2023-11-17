@@ -33,6 +33,7 @@ public class Questao implements Serializable{
     @Column (name = "tipo_questao")
     private Boolean tipoQuestao;
     private String tipo;
+    private Boolean enable;
 
     @ManyToMany
     @JoinTable(

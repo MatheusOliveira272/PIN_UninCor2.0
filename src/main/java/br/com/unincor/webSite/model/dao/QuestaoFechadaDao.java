@@ -21,6 +21,7 @@ public class QuestaoFechadaDao extends GenericDao<QuestaoFechada, Long> {
 
             // Antes de persistir a questao, associe as respostas à questao
             for (QuestaoFechada questaoFechada : questoesFechadas) {
+                questaoFechada.setEnable(Boolean.TRUE);
                 questaoFechada.setQuestao(questao);
             }
 
@@ -43,7 +44,7 @@ public class QuestaoFechadaDao extends GenericDao<QuestaoFechada, Long> {
     }
 
     public List<QuestaoFechada> buscaQuestaoFechadaPorProfessor(Professor professorLogado) {
-        String sql = "FROM QuestaoFechada qf join qf.questao q join q.atividades a join a.disciplinas d where d.professor = :professor";
+        String sql = "FROM QuestaoFechada qf join qf.questao q join q.atividades a join a.disciplinas d where d.professor = :professor AND qf.enable = true";
 
         Query query = getEntityManager().createQuery(sql, QuestaoFechada.class)
                 .setParameter("professor", professorLogado);
@@ -51,7 +52,7 @@ public class QuestaoFechadaDao extends GenericDao<QuestaoFechada, Long> {
     }
     
     public List<QuestaoFechada> buscaQuestoesFechadasPorQuestao(Questao questao) {
-        String sql = "FROM QuestaoFechada qf where qf.questao = :questao";
+        String sql = "FROM QuestaoFechada qf where qf.questao = :questao AND qf.enable = true";
 
         Query query = getEntityManager().createQuery(sql, QuestaoFechada.class)
                 .setParameter("questao", questao);

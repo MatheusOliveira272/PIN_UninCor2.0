@@ -8,7 +8,7 @@ import java.util.List;
 public class DisciplinaDao extends GenericDao<Disciplina, Long>{
 
     public List<Disciplina> buscarDisciplinasProfessorPorLogin(Professor prof) {
-        String sql = "from Disciplina d where d.professor = :professor";
+        String sql = "from Disciplina d where d.professor = :professor AND d.enable = true";
         
         Query query = getEntityManager().createQuery(sql, Disciplina.class)
                 .setParameter("professor", prof);

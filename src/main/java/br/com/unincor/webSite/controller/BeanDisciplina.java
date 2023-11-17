@@ -35,6 +35,7 @@ public class BeanDisciplina extends BeanProfessor implements Serializable {
         var professorLogado = new ProfessorDao().findById((Long) session.getAttribute("professorId"));
 
         disciplina.setProfessor(professorLogado);
+        disciplina.setEnable(Boolean.TRUE);
         new DisciplinaDao().save(disciplina);
         cancelar();
         buscar();
@@ -58,8 +59,8 @@ public class BeanDisciplina extends BeanProfessor implements Serializable {
     }
 
     public void remover(Disciplina disciplina) {
-
-        new DisciplinaDao().delete(disciplina.getId());
+        disciplina.setEnable(Boolean.FALSE);
+        new DisciplinaDao().save(disciplina);
         buscar();
 
     }

@@ -20,17 +20,17 @@ import java.util.logging.Logger;
  */
 public class main {
     public static void main(String[] args) {
-        DisciplinaDao disciplinaDao = new DisciplinaDao();
-        Professor professor = new Professor(null, "Jorge", "teste", "123", null,null);
-        ProfessorDao dao = new ProfessorDao();
-        dao.save(professor);
-        
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        Disciplina mat = new Disciplina(null, "Matemática", null, null, professor);
-        disciplinaDao.save(mat);
+//        DisciplinaDao disciplinaDao = new DisciplinaDao();
+//        Professor professor = new Professor(null, "Jorge", "teste", "123", null,null);
+//        ProfessorDao dao = new ProfessorDao();
+//        dao.save(professor);
+//        
+//        try {
+//            Thread.sleep(100);
+//        } catch (InterruptedException ex) {
+//            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        Disciplina mat = new Disciplina(null, "Matemática", null, null, professor);
+//        disciplinaDao.save(mat);
     }
 }

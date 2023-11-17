@@ -84,8 +84,8 @@ public class BeanQuestaoFechada implements Serializable{
     }
     
     public void remover(QuestaoFechada questaoFechada) {
-        System.out.println(questaoFechada.getDescricao());
-        new QuestaoFechadaDao().delete(questaoFechada.getId());
+        questaoFechada.setEnable(Boolean.FALSE);
+        new QuestaoFechadaDao().save(questaoFechada);
 
         buscar();
 

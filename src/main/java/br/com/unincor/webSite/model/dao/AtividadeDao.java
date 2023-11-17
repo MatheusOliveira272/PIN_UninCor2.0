@@ -9,7 +9,7 @@ import java.util.List;
 public class AtividadeDao extends GenericDao<Atividade, Long> {
 
     public List<Atividade> buscarAtividadesProfessorPorLogin(Professor prof) {
-        String sql = "SELECT a FROM Atividade a JOIN a.disciplinas d WHERE d.professor = :professor";
+        String sql = "SELECT a FROM Atividade a JOIN a.disciplinas d WHERE d.professor = :professor AND a.enable = true";
 
         Query query = getEntityManager().createQuery(sql, Atividade.class)
                 .setParameter("professor", prof);
@@ -17,7 +17,7 @@ public class AtividadeDao extends GenericDao<Atividade, Long> {
         return resultado;
     }
     public List<Atividade> buscarAtividadesProfessorPorLoginComQuestoes(Professor prof) {
-        String sql = "SELECT a FROM Atividade a JOIN a.disciplinas d  left join fetch a.questoes WHERE d.professor = :professor";
+        String sql = "SELECT a FROM Atividade a JOIN a.disciplinas d  left join fetch a.questoes WHERE d.professor = :professor AND a.enable = true";
 
         Query query = getEntityManager().createQuery(sql, Atividade.class)
                 .setParameter("professor", prof);
@@ -26,7 +26,7 @@ public class AtividadeDao extends GenericDao<Atividade, Long> {
     }
 
     public Atividade buscarAtividadeCodigo(String codigo) {
-        String sql = "from Atividade a where a.codigo = :codigo";
+        String sql = "from Atividade a where a.codigo = :codigo AND a.enable = true";
 
         Query query = getEntityManager().createQuery(sql, Atividade.class)
                 .setParameter("codigo", codigo);
@@ -36,7 +36,7 @@ public class AtividadeDao extends GenericDao<Atividade, Long> {
 
     public List<Aluno> buscarAlunoPorAtividade(String codigo) {
 //        var atividade = buscarAtividadeCodigo(codigo);
-        String sql = "select aa.aluno from AlunoAtividade aa where aa.atividade.codigo = :codigo";
+        String sql = "select aa.aluno from AlunoAtividade aa where aa.atividade.codigo = :codigo ";
 
         Query query = getEntityManager().createQuery(sql, Aluno.class)
                 .setParameter("codigo", codigo);

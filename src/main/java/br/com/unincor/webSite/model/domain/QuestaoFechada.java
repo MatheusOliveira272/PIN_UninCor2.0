@@ -29,6 +29,7 @@ public class QuestaoFechada implements Serializable{
     private String descricao;
     private String ordem;
     private Boolean correto;
+    private Boolean enable;
 
     @ManyToOne
     @JoinColumn(name = "id_questoes")

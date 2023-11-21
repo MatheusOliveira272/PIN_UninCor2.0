@@ -27,11 +27,11 @@
                                         <c:when test="#{questao.tipoQuestao}">
 <!--                                            <p:selectOneRadio value="#{beanRespostaAluno.resp.questaoFechada}" converter="respostaFechadaConverter"
                                                               unselectable="true" >
-                                                <f:selectItems value="#{beanRespostaAluno.getAlternativasQuestÃ£oFechada(questao)}"
+        <f:selectItems value="#{beanRespostaAluno.getAlternativasQuestãoFechada(questao)}"
                                                                var="alternativa" itemLabel="#{alternativa.ordem}) #{alternativa.descricao}" />
                                             </p:selectOneRadio>-->
 
-                                         <c:forEach items="#{beanRespostaAluno.getAlternativasQuestÃ£oFechada(questao)}" var="alternativa">
+                                            <c:forEach items="#{beanRespostaAluno.getAlternativasQuestãoFechada(questao)}" var="alternativa">
 
 
                                                 <h:selectOneRadio id="respostaFechada" value="#{beanRespostaAluno.respQuestaoFechada}" layout="lineDirection" converter="respostaFechadaConverter">

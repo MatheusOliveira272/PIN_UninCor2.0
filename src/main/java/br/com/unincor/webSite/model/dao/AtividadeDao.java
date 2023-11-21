@@ -1,6 +1,7 @@
 package br.com.unincor.webSite.model.dao;
 
 import br.com.unincor.webSite.model.domain.Aluno;
+import br.com.unincor.webSite.model.domain.AlunoAtividade;
 import br.com.unincor.webSite.model.domain.Atividade;
 import br.com.unincor.webSite.model.domain.Professor;
 import jakarta.persistence.Query;
@@ -43,7 +44,7 @@ public class AtividadeDao extends GenericDao<Atividade, Long> {
         return query.getResultList();
     }
     
-    public List<Aluno> buscarAlunoAtividadePorAlunoLogado(Aluno aluno) {
+    public List<AlunoAtividade> buscarAlunoAtividadePorAlunoLogado(Aluno aluno) {
 //        var atividade = buscarAtividadeCodigo(codigo);
         String sql = "from AlunoAtividade aa where aa.aluno = :aluno";
 

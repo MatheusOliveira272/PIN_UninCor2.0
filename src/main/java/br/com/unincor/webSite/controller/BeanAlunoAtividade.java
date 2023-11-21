@@ -76,6 +76,7 @@ public class BeanAlunoAtividade implements Serializable {
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
         var alunoLogado = new AlunoDao().findById((Integer) session.getAttribute("alunoId"));
+        System.out.println(new AtividadeDao().buscarAlunoAtividadePorAlunoLogado(alunoLogado).get(0));
         return new AtividadeDao().buscarAlunoAtividadePorAlunoLogado(alunoLogado); 
     }
     

@@ -32,6 +32,8 @@ public class BeanAtividade implements Serializable {
     private Atividade atividade;
     Random rand = new Random();
     private Disciplina disciplinaSelecionada;
+    private Double nota;
+    private Aluno aluno;
 
     @PostConstruct
     public void init() {
@@ -121,9 +123,17 @@ public class BeanAtividade implements Serializable {
         return null;
     }
     
+    public void setaNotaAluno(){
+        System.out.println(aluno.getNome());
+        var alunoAtividade = new AlunoAtividadeDao().retornaAlunoAtividadePorAluno(aluno);
+        alunoAtividade.setNota(nota);
+        new AlunoAtividadeDao().save(alunoAtividade);
+    }
+    
    private List<RespostaAluno> respostasAlunoSelecionado;
 
    public List<RespostaAluno> recuperaRespostasAluno(Atividade atividade, Aluno aluno){
+       this.aluno = aluno;
     //   System.out.println("cai aqui");
     respostasAlunoSelecionado = new RespostaAlunoDao().recuperaAtividadeAluno(atividade, aluno);
     //   System.out.println("lista" + respostasAlunoSelecionado);

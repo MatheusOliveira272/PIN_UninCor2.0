@@ -143,13 +143,10 @@
                                         <p:outputLabel value="#{ra.respQuestaoAberta} #{ra.questaoFechada.descricao}" />
                                     </p:column>
                                 </p:dataTable>
-                                <p:outputLabel value="Nota do aluno:" style="margin-left: 5%"/>
-                                <p:inputText value="#{beanAlunoAtividade.nota}" style="margin-left: 3%; width: 15%"
-                                            />
-                                   <p:commandButton  styleClass="ui-button-secondary" value="Devolver" style="margin-left: 3%; width: 100px"
-                                                     process="@this" actionListener="#{beanAlunoAtividade.setaNotaAluno(ati, ra)}" 
-                                                                                                                  />
-                                   <!--2304-->
+                                <p:outputLabel value="Nota:" style="margin-left: 15px"/>
+                                <p:inputNumber value="#{beanAtividade.nota}" />
+                                <p:commandButton value="Salvar" actionListener="#{beanAtividade.setaNotaAluno()}"/>
+
                                
                             </p:dialog>
 

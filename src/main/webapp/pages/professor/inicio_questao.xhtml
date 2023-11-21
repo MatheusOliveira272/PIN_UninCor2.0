@@ -63,7 +63,7 @@
                         </p:panel>
 
 
-                        <p:panel rendered="#{beanQuestao.questao.tipoQuestao eq 'true'}"
+                        <p:panel rendered="#{beanQuestao.questao.tipoQuestao eq 'true' and beanQuestao.questao.tipoQuestao != null}"
                                  header="Questão Fechada:" style="margin-top: 10px">
                             
                             
@@ -72,7 +72,7 @@
                                              styleClass="ui-button-secondary" onclick="PF('questaoFechadaDialog').show();" 
                                              process="@this questaoFechadaDialog" />
 
-                            <p:dataTable id="tabelaQuestao" value="#{beanQuestaoFechada.questoesFechadas}" style="margin-top: 15px" var="ques"
+                            <p:dataTable id="tabelaQuestao" value="#{beanQuestaoFechada.recuperaQFs}" style="margin-top: 15px" var="ques"
                                          reflow="true" scrollable="true" scrollHeight="280">
 
                                 <p:column headerText="Ordem: "  >
@@ -111,6 +111,7 @@
                                       resizable="false" modal="true"  dynamic="true">
 
                                 <h:form id="form-dialog">
+                                    
                                     <p:panelGrid style="width: 700px" columns="2" columnClasses="ui-g-4, ui-g-8">
                                         <p:outputLabel value="Enunciado:" style="margin-left: 50%"/>
                                         <p:inputText value="#{beanQuestaoFechada.questaoFechada.descricao}" style="width: 80%"

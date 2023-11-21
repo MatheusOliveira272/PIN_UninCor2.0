@@ -29,6 +29,7 @@ public class BeanQuestaoFechada implements Serializable{
     private List<QuestaoFechada> questoesFechadas = new ArrayList<>();
     private QuestaoFechada questaoFechada;
     private List<QuestaoFechada> recuperaQuestoesFechadas = new ArrayList<>();
+    private List<QuestaoFechada> recuperaQFs = new ArrayList<>();
     
     @PostConstruct
     public void init(){
@@ -79,8 +80,10 @@ public class BeanQuestaoFechada implements Serializable{
         this.questoesFechadas = null;
     }
     
-    public void editar(QuestaoFechada questaoFechada){
-        this.questaoFechada = questaoFechada;
+    public void editar(Questao questao){
+        System.out.println(recuperaQFs.get(0).getDescricao());
+        this.recuperaQFs = questao.getQuestaoFechadas();
+        
     }
     
     public void remover(QuestaoFechada questaoFechada) {

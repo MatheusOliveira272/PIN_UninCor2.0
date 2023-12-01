@@ -15,10 +15,10 @@
         <div class="card">
             <h:form>
                 <p:growl id="growl" sticky="true" showDetail="true"/>
-                <p:wizard widgetVar="wiz" nextLabel="PrÃ³ximo" backLabel="Anterior"  flowListener="#{beanRespostaAluno.onFlowProcess}">
+                <p:wizard widgetVar="wiz" nextLabel="Próximo" backLabel="Anterior"  flowListener="#{beanRespostaAluno.onFlowProcess}">
 
                     <c:forEach items="#{beanRespostaAluno.questoes}" var="questao" varStatus="status" >
-                        <p:tab title="QuestÃ£o #{status.index + 1}">
+                        <p:tab title="Questão #{status.index + 1}">
                             <p:panel header="#{questao.enunciado}">
                                 <p:messages/>
                                 <h:panelGrid style="width: 100%" columns="1" columnClasses="label">
@@ -61,7 +61,7 @@
                     </c:forEach>
                     <p:tab id="confirm" title="Confirmation">
                         <p:panel header="Confirmation">
-                            <h:outputText value="Ddeseja enviar suas respostas? "/>
+                            <h:outputText value="Deseja enviar suas respostas? "/>
                             <br/>
                             <br/>
                             <p:commandButton value="Enviar" actionListener="#{beanRespostaAluno.salvaRespostasAluno()}" update="growl" process="@this"  styleClass="ui-button-secondary" />
